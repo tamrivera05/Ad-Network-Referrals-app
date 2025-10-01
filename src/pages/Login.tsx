@@ -20,24 +20,33 @@ const Login = () => {
     <div className="min-h-screen flex flex-col bg-white">
       <div className="flex flex-1">
         {/* Left side with custom vector */}
-        <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-12">
-          <div className="relative w-full max-w-lg">
-            {/* Custom vector design with lined-up shapes */}
-            <div className="grid grid-cols-3 gap-8">
-              {/* Row 1 */}
-              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
-              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
-              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
-              
-              {/* Row 2 */}
-              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
-              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
-              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
-              
-              {/* Row 3 */}
-              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
-              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
-              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+        <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-8">
+          <div className="relative w-full h-full max-w-none">
+            {/* Custom vector design with grid of shapes filling the section */}
+            <div className="grid grid-cols-6 gap-6 w-full h-full">
+              {Array.from({ length: 48 }).map((_, index) => {
+                // Determine shape type based on index
+                const shapeType = index % 3;
+                // Determine color based on index
+                const colorClass = index % 3 === 0 
+                  ? "bg-[#FF7B00]" 
+                  : index % 3 === 1 
+                    ? "bg-[#FF8d21]" 
+                    : "bg-white";
+                
+                return (
+                  <div 
+                    key={index} 
+                    className={`w-full h-full ${
+                      shapeType === 0 
+                        ? `${colorClass} rounded-3xl transform rotate-12` 
+                        : shapeType === 1 
+                          ? `${colorClass} rounded-full` 
+                          : `${colorClass} rounded-2xl transform rotate-45`
+                    }`}
+                  ></div>
+                );
+              })}
             </div>
           </div>
         </div>
