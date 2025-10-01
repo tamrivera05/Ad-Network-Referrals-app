@@ -119,8 +119,8 @@ const Login = () => {
                   </Button>
                 </div>
               </CardContent>
-              <CardFooter className="flex flex-col">
-                <p className="text-center text-sm text-gray-600">
+              <CardFooter className="flex flex-col items-start mt-8">
+                <p className="text-left text-sm text-gray-600">
                   Don't have an account?{" "}
                   <Link to="/signup" className="text-[#FF7B00] hover:underline font-medium">
                     Sign up
