@@ -20,41 +20,24 @@ const Login = () => {
     <div className="min-h-screen flex flex-col bg-white">
       <div className="flex flex-1">
         {/* Left side with custom vector */}
-        <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-8">
-          <div className="w-full h-full max-w-none">
+        <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-12">
+          <div className="relative w-full max-w-lg">
             {/* Custom vector design with lined-up shapes */}
-            <div className="grid grid-cols-6 gap-8 w-full">
-              {Array.from({ length: 36 }).map((_, index) => {
-                // Determine shape type based on index
-                const shapeType = index % 3;
-                // Determine color based on index
-                const colorType = Math.floor(index / 6) % 3;
-                
-                let shapeClass = "";
-                if (shapeType === 0) {
-                  shapeClass = "rounded-3xl transform rotate-12";
-                } else if (shapeType === 1) {
-                  shapeClass = "rounded-full";
-                } else {
-                  shapeClass = "rounded-2xl transform rotate-45";
-                }
-                
-                let colorClass = "";
-                if (colorType === 0) {
-                  colorClass = "bg-[#FF7B00]";
-                } else if (colorType === 1) {
-                  colorClass = "bg-[#FF8d21]";
-                } else {
-                  colorClass = "bg-white";
-                }
-                
-                return (
-                  <div 
-                    key={index} 
-                    className={`w-32 h-32 ${colorClass} ${shapeClass} mx-auto`}
-                  ></div>
-                );
-              })}
+            <div className="grid grid-cols-3 gap-8">
+              {/* Row 1 */}
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
+              
+              {/* Row 2 */}
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
+              
+              {/* Row 3 */}
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
             </div>
           </div>
         </div>
