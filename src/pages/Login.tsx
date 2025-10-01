@@ -22,25 +22,22 @@ const Login = () => {
         {/* Left side with custom vector */}
         <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-12">
           <div className="relative w-full max-w-lg">
-            {/* Custom vector design */}
-            <div className="relative">
-              {/* Main geometric shapes */}
-              <div className="absolute -top-10 -left-10 w-64 h-64 bg-[#FF7B00] rounded-3xl transform rotate-12 opacity-90"></div>
-              <div className="absolute top-10 left-20 w-48 h-48 bg-[#FF8d21] rounded-full"></div>
+            {/* Custom vector design with lined-up shapes */}
+            <div className="grid grid-cols-3 gap-8">
+              {/* Row 1 */}
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
               
-              {/* Floating elements */}
-              <div className="absolute top-0 right-10 w-24 h-24 bg-white rounded-2xl transform rotate-45 opacity-80"></div>
-              <div className="absolute bottom-10 right-0 w-16 h-16 bg-[#FFA652] rounded-full"></div>
-              <div className="absolute bottom-20 left-10 w-12 h-12 bg-[#FF7B00] rounded-lg transform rotate-45"></div>
+              {/* Row 2 */}
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
               
-              {/* Decorative shapes */}
-              <div className="absolute top-20 left-0 w-32 h-3 bg-[#FF8d21] rounded-full transform rotate-45"></div>
-              <div className="absolute bottom-10 right-0 w-24 h-3 bg-[#FF7B00] rounded-full transform -rotate-12"></div>
-            </div>
-            
-            <div className="mt-20 text-center">
-              <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
-              <p className="text-white mt-2 opacity-90">Sign in to continue your journey</p>
+              {/* Row 3 */}
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
             </div>
           </div>
         </div>
