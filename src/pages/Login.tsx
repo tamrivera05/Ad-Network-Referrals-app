@@ -54,9 +54,9 @@ const Login = () => {
         <div className="flex flex-1 items-center justify-center p-6 bg-white">
           <div className="w-full max-w-md">
             <Card className="border-0 shadow-none bg-transparent">
-              <CardHeader className="space-y-1">
-                <CardTitle className="text-3xl font-bold text-center text-[#FF7B00]">Sign In</CardTitle>
-                <CardDescription className="text-center text-gray-500">
+              <CardHeader className="space-y-1 text-left">
+                <CardTitle className="text-3xl font-bold text-left text-[#FF7B00]">Hello, Welcome back</CardTitle>
+                <CardDescription className="text-left text-gray-500">
                   Enter your credentials to access your account
                 </CardDescription>
               </CardHeader>
