@@ -55,7 +55,7 @@ const Login = () => {
           <div className="w-full max-w-md">
             <Card className="border-0 shadow-none bg-transparent">
               <CardHeader className="space-y-1 text-left">
-                <CardTitle className="text-6xl font-bold text-left text-[#FF7B00] leading-tight">
+                <CardTitle className="text-4xl font-bold text-left text-[#FF7B00] leading-tight">
                   Hello, Welcome back
                 </CardTitle>
                 <CardDescription className="text-left text-gray-500">
