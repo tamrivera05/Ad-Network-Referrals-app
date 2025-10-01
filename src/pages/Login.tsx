@@ -20,7 +20,7 @@ const Login = () => {
     <div className="min-h-screen flex flex-col bg-white">
       <div className="flex flex-1">
         {/* Left side with custom vector */}
-        <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-12">
+        <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-12 rounded-r-[50px]">
           <div className="relative w-full max-w-lg">
             {/* Custom vector design with lined-up shapes */}
             <div className="grid grid-cols-3 gap-8">
