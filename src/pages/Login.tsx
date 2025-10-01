@@ -20,38 +20,24 @@ const Login = () => {
     <div className="min-h-screen flex flex-col bg-white">
       <div className="flex flex-1">
         {/* Left side with custom vector */}
-        <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-8">
-          <div className="grid grid-cols-4 gap-8 w-full h-full">
-            {/* First column */}
-            <div className="flex flex-col gap-8">
+        <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-12">
+          <div className="relative w-full max-w-lg">
+            {/* Custom vector design with lined-up shapes */}
+            <div className="grid grid-cols-3 gap-8">
+              {/* Row 1 */}
               <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
               <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
               <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
-              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform -rotate-12"></div>
-            </div>
-            
-            {/* Second column */}
-            <div className="flex flex-col gap-8">
+              
+              {/* Row 2 */}
               <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
               <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
               <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
-              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
-            </div>
-            
-            {/* Third column */}
-            <div className="flex flex-col gap-8">
+              
+              {/* Row 3 */}
               <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
-              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform -rotate-12"></div>
-              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
-              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
-            </div>
-            
-            {/* Fourth column */}
-            <div className="flex flex-col gap-8">
               <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
               <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
-              <div className="w-32 h-32 bg-white rounded-2xl transform -rotate-45"></div>
-              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
             </div>
           </div>
         </div>
