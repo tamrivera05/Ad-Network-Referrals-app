@@ -24,20 +24,28 @@ const Login = () => {
           <div className="relative w-full max-w-lg">
             {/* Custom vector design with lined-up shapes */}
             <div className="grid grid-cols-3 gap-8">
-              {/* Row 1 */}
-              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
-              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
-              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
-              
-              {/* Row 2 */}
+              {/* New top row */}
               <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
               <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
               <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
               
-              {/* Row 3 */}
+              {/* Existing rows */}
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
+              
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
+              
               <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
               <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
               <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+              
+              {/* New bottom row */}
+              <div className="w-32 h-32 bg-[#FF7B00] rounded-3xl transform rotate-12"></div>
+              <div className="w-32 h-32 bg-[#FF8d21] rounded-full"></div>
+              <div className="w-32 h-32 bg-white rounded-2xl transform rotate-45"></div>
             </div>
           </div>
         </div>
