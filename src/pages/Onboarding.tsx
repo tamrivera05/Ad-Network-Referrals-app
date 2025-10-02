@@ -179,26 +179,26 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with instructions - full height */}
+      {/* Right side with instructions - full height, no margins except top */}
       <div className="hidden md:flex flex-1 mt-8">
         <div className="bg-[#FF8D21] rounded-tl-[50px] rounded-tr-[50px] p-12 w-full h-full">
           <div className="text-left">
             {step === 1 && (
               <>
-                <h2 className="text-3xl font-bold text-white mb-4">Select CPA Network</h2>
-                <p className="text-xl text-white/90">Select the CPA network you want to work with</p>
+                <h2 className="text-[40px] md:text-[50px] font-extrabold text-white mb-4">Select CPA Network</h2>
+                <p className="text-xl font-semibold text-white/90">Select the CPA network you want to work with</p>
               </>
             )}
             {step === 2 && (
               <>
-                <h2 className="text-3xl font-bold text-white mb-4">How to Use Your Referral Link</h2>
-                <p className="text-xl text-white/90">Learn how to effectively use your OGads referral link</p>
+                <h2 className="text-[40px] md:text-[50px] font-extrabold text-white mb-4">How to Use Your Referral Link</h2>
+                <p className="text-xl font-semibold text-white/90">Learn how to effectively use your OGads referral link</p>
               </>
             )}
             {step === 3 && (
               <>
-                <h2 className="text-3xl font-bold text-white mb-4">Account Information</h2>
-                <p className="text-xl text-white/90">Provide your OGads username to get started</p>
+                <h2 className="text-[40px] md:text-[50px] font-extrabold text-white mb-4">Account Information</h2>
+                <p className="text-xl font-semibold text-white/90">Provide your OGads username to get started</p>
               </>
             )}
           </div>
