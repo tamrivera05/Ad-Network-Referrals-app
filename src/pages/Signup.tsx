@@ -19,7 +19,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-white">
+    <div className="min-h-screen flex bg-white p-8">
       {/* Left side with signup form */}
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-md">
@@ -102,8 +102,11 @@ const Signup = () => {
         </div>
       </div>
       
-      {/* Right side with #FF7B00 background */}
-      <div className="hidden md:flex flex-1 items-end justify-start bg-[#FF7B00] p-12 rounded-l-[50px]">
+      {/* Right side with #FF7B00 background and inverted top right corner */}
+      <div className="hidden md:flex flex-1 items-end justify-start bg-[#FF7B00] p-12 m-8 rounded-l-[50px] relative">
+        {/* Inverted top right corner using pseudo-element approach */}
+        <div className="absolute top-0 right-0 w-[50px] h-[50px] bg-white rounded-bl-full"></div>
+        
         {/* Text content */}
         <div className="max-w-lg">
           <p className="text-6xl font-extrabold text-white text-left leading-relaxed">
