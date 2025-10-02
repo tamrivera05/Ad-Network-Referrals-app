@@ -77,7 +77,7 @@ const ForgotPassword = () => {
           <CardFooter className="flex flex-col">
             <p className="text-center text-sm text-gray-600">
               Remember your password?{" "}
-              <Link to="/login" className="text-[#FF7B00] hover:underline font-medium">
+              <Link to="/" className="text-[#FF7B00] hover:underline font-medium">
                 Sign in
               </Link>
             </p>
