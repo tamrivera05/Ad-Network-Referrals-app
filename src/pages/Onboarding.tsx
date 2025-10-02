@@ -201,8 +201,8 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with neutral gray background and rounded bottom right corner */}
-      <div className="hidden md:flex flex-1 bg-gray-100 rounded-br-[50px] relative overflow-hidden">
+      {/* Right side with neutral gray background and rounded corners */}
+      <div className="hidden md:flex flex-1 bg-gray-100 rounded-tl-[50px] rounded-br-[50px] relative overflow-hidden">
         {/* Decorative shapes in bottom right corner */}
         <div className="absolute bottom-0 right-0 flex items-end">
           {/* Large circle */}
