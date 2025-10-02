@@ -26,7 +26,7 @@ const Onboarding = () => {
   const progressPercentage = (step / 3) * 100;
 
   return (
-    <div className="min-h-screen flex bg-white p-4 max-w-[1024px] mx-auto relative">
+    <div className="min-h-screen flex bg-white p-4 max-w-[1350px] mx-auto relative">
       {/* Left side with content/inputs */}
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-md">
