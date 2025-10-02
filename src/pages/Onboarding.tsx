@@ -201,20 +201,8 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with neutral gray background and rounded corners */}
-      <div className="hidden md:flex flex-1 bg-gray-100 rounded-tl-[50px] rounded-br-[50px] relative overflow-hidden">
-        {/* Decorative shapes in bottom right corner */}
-        <div className="absolute bottom-0 right-0 flex items-end">
-          {/* Large circle */}
-          <div className="w-32 h-32 bg-[#FF7B00] rounded-full mb-8 mr-8"></div>
-          {/* Medium square rotated */}
-          <div className="w-24 h-24 bg-[#FFA652] rounded-2xl transform rotate-45 mb-12 mr-12"></div>
-          {/* Small circle */}
-          <div className="w-16 h-16 bg-[#FF8D21] rounded-full mb-16 mr-16"></div>
-          {/* Large square */}
-          <div className="w-28 h-28 bg-[#FF7B00] rounded-3xl transform rotate-12 mb-20 mr-20"></div>
-        </div>
-      </div>
+      {/* Right side with #FF8D21 background and rounded corners with margin */}
+      <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4"></div>
     </div>
   );
 };
