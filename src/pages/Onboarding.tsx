@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 
 const Onboarding = () => {
   const [step, setStep] = useState(1);
@@ -22,43 +23,25 @@ const Onboarding = () => {
     alert("Onboarding completed! Redirecting to dashboard...");
   };
 
+  const progressPercentage = (step / 3) * 100;
+
   return (
     <div className="min-h-screen flex bg-white p-4">
       {/* Left side with content/inputs */}
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-md">
-          <Card className="border-0 shadow-lg">
-            <CardHeader className="space-y-1 text-center">
-              <CardTitle className="text-3xl font-bold text-[#FF7B00]">
-                {step === 1 && "Select CPA Network"}
-                {step === 2 && "How to Use Your Referral Link"}
-                {step === 3 && "Account Information"}
-              </CardTitle>
-              <CardDescription className="text-gray-500">
-                {step === 1 && "Select the CPA network you want to work with"}
-                {step === 2 && "Learn how to effectively use your OGads referral link"}
-                {step === 3 && "Provide your OGads username to get started"}
-              </CardDescription>
-              
-              {/* Progress indicator */}
-              <div className="flex justify-center mt-4">
-                <div className="flex items-center">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-[#FF7B00] text-white' : 'bg-gray-200 text-gray-500'}`}>
-                    1
-                  </div>
-                  <div className={`w-16 h-1 ${step >= 2 ? 'bg-[#FF7B00]' : 'bg-gray-200'}`}></div>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-[#FF7B00] text-white' : 'bg-gray-200 text-gray-500'}`}>
-                    2
-                  </div>
-                  <div className={`w-16 h-1 ${step >= 3 ? 'bg-[#FF7B00]' : 'bg-gray-200'}`}></div>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-[#FF7B00] text-white' : 'bg-gray-200 text-gray-500'}`}>
-                    3
-                  </div>
+          <Card className="border-0 shadow-none bg-transparent">
+            <CardContent className="space-y-6">
+              {/* Progress bar with step indicator */}
+              <div className="space-y-2">
+                <div className="flex justify-between text-sm font-medium">
+                  <span className={`text-[#FF7B00] ${step === 1 ? 'font-bold' : ''}`}>Step 1</span>
+                  <span className={`text-[#FF7B00] ${step === 2 ? 'font-bold' : ''}`}>Step 2</span>
+                  <span className={`text-[#FF7B00] ${step === 3 ? 'font-bold' : ''}`}>Step 3</span>
                 </div>
+                <Progress value={progressPercentage} className="h-2 bg-gray-200" />
               </div>
-            </CardHeader>
-            
-            <CardContent>
+              
               {step === 1 && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4">
@@ -196,24 +179,27 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with instructions */}
-      <div className="hidden md:flex flex-1 items-start justify-end mt-8">
-        <div className="bg-[#FF8D21] rounded-tl-[50px] rounded-tr-[50px] p-12 max-w-lg">
-          <div className="text-right">
+      {/* Right side with instructions - full height */}
+      <div className="hidden md:flex flex-1 mt-8">
+        <div className="bg-[#FF8D21] rounded-tl-[50px] rounded-tr-[50px] p-12 w-full h-full">
+          <div className="text-left">
             {step === 1 && (
-              <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
-                Select your CPA network to get started
-              </p>
+              <>
+                <h2 className="text-3xl font-bold text-white mb-4">Select CPA Network</h2>
+                <p className="text-xl text-white/90">Select the CPA network you want to work with</p>
+              </>
             )}
             {step === 2 && (
-              <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
-                Learn how to use your referral link effectively
-              </p>
+              <>
+                <h2 className="text-3xl font-bold text-white mb-4">How to Use Your Referral Link</h2>
+                <p className="text-xl text-white/90">Learn how to effectively use your OGads referral link</p>
+              </>
             )}
             {step === 3 && (
-              <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
-                Provide your OGads username to complete setup
-              </p>
+              <>
+                <h2 className="text-3xl font-bold text-white mb-4">Account Information</h2>
+                <p className="text-xl text-white/90">Provide your OGads username to get started</p>
+              </>
             )}
           </div>
         </div>
