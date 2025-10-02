@@ -103,14 +103,14 @@ const Signup = () => {
       </div>
       
       {/* Right side with #FF7B00 background and inverted top right corner */}
-      <div className="hidden md:flex flex-1 items-end justify-start bg-[#FF7B00] p-12 m-4 rounded-l-[50px] relative">
+      <div className="hidden md:flex flex-1 items-end justify-start bg-[#FF7B00] p-12 m-4 rounded-l-[50px] rounded-br-[50px] relative">
         {/* Inverted top right corner using pseudo-element approach */}
         <div className="absolute top-0 right-0 w-[50px] h-[50px] bg-white rounded-bl-full"></div>
         
         {/* Text content */}
         <div className="max-w-lg">
-          <p className="text-3xl font-extrabold text-white text-left leading-relaxed">
-            Why start from scratch when templates are ready for you?
+          <p className="text-6xl font-extrabold text-white text-left leading-relaxed">
+            Why start<br />from scratch when templates are ready for you?
           </p>
         </div>
       </div>
