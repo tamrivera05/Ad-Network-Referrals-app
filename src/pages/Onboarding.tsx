@@ -201,8 +201,35 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with #FF8D21 background and rounded corners with margin */}
-      <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4"></div>
+      {/* Right side with individual shapes in #FF8D21 color */}
+      <div className="hidden md:flex flex-1 relative p-4">
+        {/* Grid of shapes replacing the solid background */}
+        <div className="grid grid-cols-4 gap-4 w-full h-full">
+          {/* Row 1 */}
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+          
+          {/* Row 2 */}
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+          
+          {/* Row 3 */}
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
+          
+          {/* Row 4 */}
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
+          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+        </div>
+      </div>
     </div>
   );
 };
