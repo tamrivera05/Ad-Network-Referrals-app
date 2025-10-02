@@ -201,8 +201,32 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with #FF8D21 background and rounded corners with margin */}
-      <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4"></div>
+      {/* Right side with #FF8D21 background, rounded corners, and bottom-right shape cluster */}
+      <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4 relative overflow-hidden">
+        {/* Bottom-right corner cluster with overlapping shapes */}
+        <div className="absolute bottom-0 right-0">
+          {/* Large white circle - back layer */}
+          <div className="absolute bottom-4 right-4 w-32 h-32 bg-white rounded-full opacity-90"></div>
+          
+          {/* Medium dark orange square - middle layer */}
+          <div className="absolute bottom-8 right-12 w-24 h-24 bg-[#FF7B00] rounded-2xl transform rotate-45 opacity-80"></div>
+          
+          {/* Small light orange circle - front layer */}
+          <div className="absolute bottom-16 right-8 w-16 h-16 bg-[#FFA652] rounded-full opacity-90"></div>
+          
+          {/* Large white rounded rectangle - overlapping */}
+          <div className="absolute bottom-12 right-20 w-28 h-20 bg-white rounded-3xl transform rotate-12 opacity-85"></div>
+          
+          {/* Medium white circle - accent */}
+          <div className="absolute bottom-20 right-28 w-20 h-20 bg-white rounded-2xl opacity-75"></div>
+          
+          {/* Small dark orange square - detail */}
+          <div className="absolute bottom-24 right-16 w-12 h-12 bg-[#FF7B00] rounded-xl transform rotate-45 opacity-70"></div>
+          
+          {/* Extra large light orange circle - background accent */}
+          <div className="absolute bottom-0 right-32 w-40 h-40 bg-[#FFA652] rounded-full opacity-30"></div>
+        </div>
+      </div>
     </div>
   );
 };
