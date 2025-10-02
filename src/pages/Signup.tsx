@@ -19,84 +19,106 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white p-4">
-      <div className="w-full max-w-md">
-        <Card className="border-0">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-3xl font-bold text-center text-[#FF7B00]">Create Account</CardTitle>
-            <CardDescription className="text-center text-gray-500">
-              Enter your information to get started
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <form onSubmit={handleSubmit}>
-              <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="name" className="text-gray-700">Full Name</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="John Doe"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
-                    required
-                  />
+    <div className="min-h-screen flex bg-white">
+      {/* Left side with signup form */}
+      <div className="flex flex-1 items-center justify-center p-6">
+        <div className="w-full max-w-md">
+          <Card className="border-0 shadow-none bg-transparent">
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-3xl font-bold text-center text-[#FF7B00]">Create Account</CardTitle>
+              <CardDescription className="text-center text-gray-500">
+                Enter your information to get started
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <form onSubmit={handleSubmit}>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name" className="text-gray-700">Nickname</Label>
+                    <Input
+                      id="name"
+                      type="text"
+                      placeholder="John Doe"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-gray-700">Email</Label>
+                    <Input
+                      id="email"
+                      type="email"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="password" className="text-gray-700">Password</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="••••••••"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword" className="text-gray-700">Confirm Password</Label>
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="••••••••"
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
+                      required
+                    />
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white py-6 rounded-xl transition-all duration-300"
+                  >
+                    Sign Up
+                  </Button>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-gray-700">Email</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="your@email.com"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="password" className="text-gray-700">Password</Label>
-                  <Input
-                    id="password"
-                    type="password"
-                    placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
-                    required
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="confirmPassword" className="text-gray-700">Confirm Password</Label>
-                  <Input
-                    id="confirmPassword"
-                    type="password"
-                    placeholder="••••••••"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
-                    required
-                  />
-                </div>
-                <Button 
-                  type="submit" 
-                  className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white py-6 rounded-xl transition-all duration-300"
-                >
-                  Sign Up
-                </Button>
-              </div>
-            </form>
-          </CardContent>
-          <CardFooter className="flex flex-col">
-            <p className="text-center text-sm text-gray-600">
-              Already have an account?{" "}
-              <Link to="/" className="text-[#FF7B00] hover:underline font-medium">
-                Sign in
-              </Link>
-            </p>
-          </CardFooter>
-        </Card>
+              </form>
+            </CardContent>
+            <CardFooter className="flex flex-col">
+              <p className="text-center text-sm text-gray-600">
+                Already have an account?{" "}
+                <Link to="/" className="text-[#FF7B00] hover:underline font-medium">
+                  Sign in
+                </Link>
+              </p>
+            </CardFooter>
+          </Card>
+        </div>
+      </div>
+      
+      {/* Right side with #FF7B00 background and shapes */}
+      <div className="hidden md:flex flex-1 items-center justify-center bg-[#FF7B00] p-12 rounded-l-[50px] relative overflow-hidden">
+        {/* Top left shape */}
+        <div className="absolute top-8 left-8 w-24 h-24 bg-[#FF8d21] rounded-full opacity-80"></div>
+        
+        {/* Bottom left shape */}
+        <div className="absolute bottom-8 left-8 w-32 h-32 bg-white rounded-2xl transform rotate-45 opacity-70"></div>
+        
+        {/* Bottom right shape */}
+        <div className="absolute bottom-8 right-8 w-28 h-28 bg-[#FFA652] rounded-3xl transform rotate-12 opacity-80"></div>
+        
+        {/* Text content */}
+        <div className="relative z-10 max-w-lg">
+          <p className="text-3xl text-white text-left leading-relaxed">
+            Why build from scratch when ready-made templates are waiting for you?
+          </p>
+        </div>
       </div>
     </div>
   );
