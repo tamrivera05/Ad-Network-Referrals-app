@@ -201,33 +201,35 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with individual shapes in #FF8D21 color */}
-      <div className="hidden md:flex flex-1 relative p-4">
-        {/* Grid of shapes replacing the solid background */}
-        <div className="grid grid-cols-4 gap-4 w-full h-full">
-          {/* Row 1 */}
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
-          
-          {/* Row 2 */}
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
-          
-          {/* Row 3 */}
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
-          
-          {/* Row 4 */}
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
-          <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+      {/* Right side with shapes positioned at bottom */}
+      <div className="hidden md:flex flex-1 relative">
+        {/* Shapes positioned at bottom with varied colors */}
+        <div className="absolute bottom-0 left-0 right-0 flex justify-center items-end pb-8">
+          <div className="grid grid-cols-4 gap-4">
+            {/* Row 1 */}
+            <div className="w-24 h-24 bg-[#FF7B00] rounded-lg"></div>
+            <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+            <div className="w-24 h-24 bg-[#FFA652] rounded-lg transform rotate-45"></div>
+            <div className="w-24 h-24 bg-[#FFB76B] rounded-full"></div>
+            
+            {/* Row 2 */}
+            <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+            <div className="w-24 h-24 bg-[#FFA652] rounded-lg transform rotate-45"></div>
+            <div className="w-24 h-24 bg-[#FF7B00] rounded-lg"></div>
+            <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+            
+            {/* Row 3 */}
+            <div className="w-24 h-24 bg-[#FFA652] rounded-lg transform rotate-45"></div>
+            <div className="w-24 h-24 bg-[#FFB76B] rounded-lg"></div>
+            <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
+            <div className="w-24 h-24 bg-[#FF7B00] rounded-lg transform rotate-45"></div>
+            
+            {/* Row 4 */}
+            <div className="w-24 h-24 bg-[#FFB76B] rounded-full"></div>
+            <div className="w-24 h-24 bg-[#FF7B00] rounded-lg"></div>
+            <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
+            <div className="w-24 h-24 bg-[#FFA652] rounded-full"></div>
+          </div>
         </div>
       </div>
     </div>
