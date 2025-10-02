@@ -20,7 +20,7 @@ const ForgotPassword = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white p-4">
       <div className="w-full max-w-md">
-        <Card className="border-0 shadow-lg">
+        <Card className="border-2 border-[#FF7B00] shadow-none">
           <CardHeader className="space-y-1">
             <CardTitle className="text-3xl font-bold text-center text-[#FF7B00]">
               {isSubmitted ? "Check Your Email" : "Forgot Password?"}
