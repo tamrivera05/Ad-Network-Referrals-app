@@ -19,7 +19,7 @@ const Signup = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-white p-4">
+    <div className="min-h-screen flex bg-white p-4 max-w-[1350px] mx-auto">
       {/* Left side with signup form */}
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-md">
