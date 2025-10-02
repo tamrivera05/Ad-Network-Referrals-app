@@ -201,36 +201,31 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with #FF8D21 background, rounded corners, and scattered shapes */}
+      {/* Right side with #FF8D21 background, rounded corners, and bottom-right shape cluster */}
       <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4 relative overflow-hidden">
-        {/* Scattered shapes across the background */}
-        
-        {/* White circles */}
-        <div className="absolute top-20 right-24 w-24 h-24 bg-white rounded-full opacity-80"></div>
-        <div className="absolute top-40 right-16 w-16 h-16 bg-white rounded-full opacity-70"></div>
-        <div className="absolute top-60 right-32 w-12 h-12 bg-white rounded-full opacity-60"></div>
-        <div className="absolute bottom-32 right-20 w-20 h-20 bg-white rounded-full opacity-75"></div>
-        <div className="absolute bottom-16 right-8 w-14 h-14 bg-white rounded-full opacity-85"></div>
-        
-        {/* Dark orange rounded squares */}
-        <div className="absolute top-16 right-40 w-20 h-20 bg-[#FF7B00] rounded-2xl opacity-70"></div>
-        <div className="absolute top-32 right-8 w-16 h-16 bg-[#FF7B00] rounded-xl opacity-60"></div>
-        <div className="absolute top-56 right-24 w-12 h-12 bg-[#FF7B00] rounded-lg opacity-80"></div>
-        <div className="absolute bottom-40 right-16 w-18 h-18 bg-[#FF7B00] rounded-2xl opacity-65"></div>
-        <div className="absolute bottom-24 right-36 w-14 h-14 bg-[#FF7B00] rounded-xl opacity-75"></div>
-        
-        {/* Inverted rounded squares (rotated 45 degrees) */}
-        <div className="absolute top-28 right-12 w-16 h-16 bg-white transform rotate-45 opacity-70"></div>
-        <div className="absolute top-48 right-28 w-12 h-12 bg-[#FF7B00] transform rotate-45 opacity-65"></div>
-        <div className="absolute top-72 right-8 w-14 h-14 bg-white transform rotate-45 opacity-60"></div>
-        <div className="absolute bottom-48 right-24 w-10 h-10 bg-[#FF7B00] transform rotate-45 opacity-70"></div>
-        <div className="absolute bottom-20 right-12 w-16 h-16 bg-white transform rotate-45 opacity-75"></div>
-        
-        {/* Additional scattered shapes for balance */}
-        <div className="absolute top-8 right-16 w-8 h-8 bg-white rounded-full opacity-50"></div>
-        <div className="absolute top-80 right-40 w-10 h-10 bg-[#FF7B00] rounded-lg opacity-55"></div>
-        <div className="absolute bottom-60 right-8 w-12 h-12 bg-white transform rotate-45 opacity-65"></div>
-        <div className="absolute bottom-8 right-28 w-8 h-8 bg-[#FF7B00] rounded-full opacity-60"></div>
+        {/* Bottom-right corner cluster with overlapping shapes */}
+        <div className="absolute bottom-0 right-0">
+          {/* Large white circle - back layer */}
+          <div className="absolute bottom-4 right-4 w-32 h-32 bg-white rounded-full opacity-90"></div>
+          
+          {/* Medium dark orange square - middle layer */}
+          <div className="absolute bottom-8 right-12 w-24 h-24 bg-[#FF7B00] rounded-2xl transform rotate-45 opacity-80"></div>
+          
+          {/* Small light orange circle - front layer */}
+          <div className="absolute bottom-16 right-8 w-16 h-16 bg-[#FFA652] rounded-full opacity-90"></div>
+          
+          {/* Large white rounded rectangle - overlapping */}
+          <div className="absolute bottom-12 right-20 w-28 h-20 bg-white rounded-3xl transform rotate-12 opacity-85"></div>
+          
+          {/* Medium white circle - accent */}
+          <div className="absolute bottom-20 right-28 w-20 h-20 bg-white rounded-2xl opacity-75"></div>
+          
+          {/* Small dark orange square - detail */}
+          <div className="absolute bottom-24 right-16 w-12 h-12 bg-[#FF7B00] rounded-xl transform rotate-45 opacity-70"></div>
+          
+          {/* Extra large light orange circle - background accent */}
+          <div className="absolute bottom-0 right-32 w-40 h-40 bg-[#FFA652] rounded-full opacity-30"></div>
+        </div>
       </div>
     </div>
   );
