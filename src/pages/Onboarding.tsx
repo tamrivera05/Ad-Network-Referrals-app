@@ -201,26 +201,8 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with #FF8D21 background, rounded corners, and half circles on edges */}
-      <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4 relative overflow-hidden">
-        {/* Large half circle on top edge */}
-        <div className="absolute top-0 left-20 w-48 h-48 bg-white rounded-t-full"></div>
-        
-        {/* Medium half circle on right edge */}
-        <div className="absolute top-32 right-0 w-32 h-32 bg-white rounded-r-full"></div>
-        
-        {/* Large half circle on bottom edge */}
-        <div className="absolute bottom-0 right-40 w-48 h-48 bg-white rounded-b-full"></div>
-        
-        {/* Medium half circle on left edge */}
-        <div className="absolute top-64 left-0 w-32 h-32 bg-white rounded-l-full"></div>
-        
-        {/* Large half circle on right edge (lower) */}
-        <div className="absolute bottom-40 right-0 w-48 h-48 bg-white rounded-r-full"></div>
-        
-        {/* Medium half circle on top edge (right side) */}
-        <div className="absolute top-0 right-32 w-32 h-32 bg-white rounded-t-full"></div>
-      </div>
+      {/* Right side with #FF8D21 background and rounded corners with margin */}
+      <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4"></div>
     </div>
   );
 };
