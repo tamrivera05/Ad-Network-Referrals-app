@@ -201,8 +201,22 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with neutral gray background */}
-      <div className="hidden md:flex flex-1 bg-gray-100"></div>
+      {/* Right side with neutral gray background, max width, rounded bottom right corner, and shapes */}
+      <div className="hidden md:flex max-w-lg bg-gray-100 rounded-br-[50px] relative overflow-hidden">
+        {/* Shapes in bottom right corner */}
+        <div className="absolute bottom-0 right-0 flex items-end justify-end">
+          <div className="relative">
+            {/* Orange circle */}
+            <div className="absolute bottom-8 right-8 w-24 h-24 bg-[#FF7B00] rounded-full"></div>
+            {/* Light orange square rotated */}
+            <div className="absolute bottom-4 right-20 w-20 h-20 bg-[#FFA652] rounded-2xl transform rotate-45"></div>
+            {/* Dark orange circle */}
+            <div className="absolute bottom-16 right-4 w-16 h-16 bg-[#FF8D21] rounded-full"></div>
+            {/* White square rotated */}
+            <div className="absolute bottom-0 right-12 w-16 h-16 bg-white rounded-xl transform rotate-12"></div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
