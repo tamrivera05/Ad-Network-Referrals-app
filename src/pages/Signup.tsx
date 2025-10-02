@@ -110,8 +110,8 @@ const Signup = () => {
         {/* White large rounded inverted square above text (lowered further) */}
         <div className="absolute top-80 left-20 w-32 h-32 bg-white rounded-3xl transform rotate-45"></div>
         
-        {/* White semi medium sized circle beside text (responsive positioning) */}
-        <div className="absolute bottom-32 right-4 md:right-10 lg:right-20 w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-white rounded-full"></div>
+        {/* White semi medium sized circle positioned at top right of the inverted square */}
+        <div className="absolute top-72 left-48 w-20 h-20 bg-white rounded-full"></div>
         
         {/* Text content */}
         <div className="max-w-lg relative z-10">
