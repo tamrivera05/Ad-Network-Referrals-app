@@ -205,8 +205,8 @@ const Onboarding = () => {
       <div className="hidden md:flex flex-1 relative">
         {/* Text at top left corner */}
         <div className="absolute top-8 left-8 right-8">
-          <p className="text-[40px] md:text-[50px] font-bold text-[#FF7B00] text-left leading-tight break-words">
-            Your CPA journey starts here
+          <p className="text-[40px] md:text-[50px] font-extrabold text-[#FF7B00] text-left leading-tight break-words">
+            Your CPA<br />journey starts<br />here
           </p>
         </div>
         
