@@ -107,11 +107,11 @@ const Signup = () => {
         {/* Inverted top right corner using pseudo-element approach */}
         <div className="absolute top-0 right-0 w-[50px] h-[50px] bg-white rounded-bl-full"></div>
         
-        {/* White large rounded inverted square above text (lowered further) */}
+        {/* White large rounded inverted square above text */}
         <div className="absolute top-80 left-20 w-32 h-32 bg-white rounded-3xl transform rotate-45"></div>
         
-        {/* White semi medium sized circle beside text (responsive positioning) */}
-        <div className="absolute bottom-32 right-4 md:right-10 lg:right-20 w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-white rounded-full"></div>
+        {/* White circle positioned at the tip right side of the inverted square */}
+        <div className="absolute top-72 left-44 w-16 h-16 bg-white rounded-full"></div>
         
         {/* Text content */}
         <div className="max-w-lg relative z-10">
