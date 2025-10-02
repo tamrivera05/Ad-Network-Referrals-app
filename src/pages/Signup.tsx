@@ -107,7 +107,7 @@ const Signup = () => {
         {/* Text content */}
         <div className="max-w-lg">
           <p className="text-6xl font-extrabold text-white text-left leading-relaxed">
-            Why build from scratch when ready-made templates are waiting for you?
+            Why start from scratch when templates are ready for you?
           </p>
         </div>
       </div>
