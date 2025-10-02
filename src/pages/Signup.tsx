@@ -108,14 +108,14 @@ const Signup = () => {
         <div className="absolute top-0 right-0 w-[50px] h-[50px] bg-white rounded-bl-full"></div>
         
         {/* White large rounded inverted square above text (lowered further) */}
-        <div className="absolute top-60 left-20 w-32 h-32 bg-white rounded-3xl transform rotate-45"></div>
+        <div className="absolute top-80 left-20 w-32 h-32 bg-white rounded-3xl transform rotate-45"></div>
         
-        {/* White semi medium sized circle beside text (moved further to the right) */}
-        <div className="absolute bottom-32 right-10 w-24 h-24 bg-white rounded-full"></div>
+        {/* White semi medium sized circle beside text (responsive positioning) */}
+        <div className="absolute bottom-32 right-4 md:right-10 lg:right-20 w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-white rounded-full"></div>
         
         {/* Text content */}
         <div className="max-w-lg relative z-10">
-          <p className="text-[50px] font-extrabold text-white text-left leading-relaxed">
+          <p className="text-[40px] md:text-[50px] font-extrabold text-white text-left leading-relaxed">
             Why start from scratch when templates are ready for you?
           </p>
         </div>
