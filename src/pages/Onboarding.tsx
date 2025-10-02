@@ -201,8 +201,32 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with #FF8D21 background and rounded corners with margin */}
-      <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4"></div>
+      {/* Right side with #FF8D21 background, rounded corners, and half circles on edges */}
+      <div className="hidden md:flex flex-1 bg-[#FF8D21] rounded-tl-[50px] rounded-br-[50px] m-4 relative overflow-hidden">
+        {/* Top edge - large half circle */}
+        <div className="absolute top-0 left-16 w-32 h-16 bg-white rounded-t-full"></div>
+        
+        {/* Top edge - medium half circle */}
+        <div className="absolute top-0 right-24 w-24 h-12 bg-white rounded-t-full"></div>
+        
+        {/* Right edge - large half circle */}
+        <div className="absolute top-32 right-0 w-16 h-32 bg-white rounded-r-full"></div>
+        
+        {/* Right edge - small half circle */}
+        <div className="absolute bottom-40 right-0 w-12 h-24 bg-white rounded-r-full"></div>
+        
+        {/* Bottom edge - medium half circle */}
+        <div className="absolute bottom-0 left-20 w-28 h-14 bg-white rounded-b-full"></div>
+        
+        {/* Bottom edge - small half circle */}
+        <div className="absolute bottom-0 right-32 w-20 h-10 bg-white rounded-b-full"></div>
+        
+        {/* Left edge - medium half circle */}
+        <div className="absolute top-20 left-0 w-14 h-28 bg-white rounded-l-full"></div>
+        
+        {/* Left edge - small half circle */}
+        <div className="absolute bottom-24 left-0 w-10 h-20 bg-white rounded-l-full"></div>
+      </div>
     </div>
   );
 };
