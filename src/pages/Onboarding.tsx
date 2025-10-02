@@ -201,8 +201,15 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with shapes positioned at bottom */}
+      {/* Right side with text and shapes */}
       <div className="hidden md:flex flex-1 relative">
+        {/* Text at top left corner */}
+        <div className="absolute top-8 left-8 right-8">
+          <p className="text-[40px] md:text-[50px] font-bold text-[#FF7B00] text-left leading-tight break-words">
+            Your CPA journey starts here
+          </p>
+        </div>
+        
         {/* Shapes positioned at bottom with varied colors */}
         <div className="absolute bottom-0 left-0 right-0 flex justify-center items-end pb-8">
           <div className="grid grid-cols-4 gap-4">
