@@ -32,13 +32,8 @@ const Onboarding = () => {
         <div className="w-full max-w-md">
           <Card className="border-0 shadow-none bg-transparent">
             <CardContent className="space-y-6">
-              {/* Progress bar with step indicator */}
+              {/* Progress bar without step indicator */}
               <div className="space-y-2">
-                <div className="flex justify-between text-sm font-medium">
-                  <span className={`text-[#FF7B00] ${step === 1 ? 'font-bold' : ''}`}>Step 1</span>
-                  <span className={`text-[#FF7B00] ${step === 2 ? 'font-bold' : ''}`}>Step 2</span>
-                  <span className={`text-[#FF7B00] ${step === 3 ? 'font-bold' : ''}`}>Step 3</span>
-                </div>
                 <Progress value={progressPercentage} className="h-2 bg-gray-200" />
               </div>
               
@@ -46,19 +41,19 @@ const Onboarding = () => {
               <div className="text-left">
                 {step === 1 && (
                   <>
-                    <h2 className="text-[40px] md:text-[50px] font-extrabold text-[#FF7B00] mb-4">Select CPA Network</h2>
+                    <h2 className="text-[20px] md:text-[25px] font-bold text-[#FF7B00] mb-4">Select CPA Network</h2>
                     <p className="text-xl font-semibold text-gray-700 mb-6">Select the CPA network you want to work with</p>
                   </>
                 )}
                 {step === 2 && (
                   <>
-                    <h2 className="text-[40px] md:text-[50px] font-extrabold text-[#FF7B00] mb-4">How to Use Your Referral Link</h2>
+                    <h2 className="text-[20px] md:text-[25px] font-bold text-[#FF7B00] mb-4">How to Use Your Referral Link</h2>
                     <p className="text-xl font-semibold text-gray-700 mb-6">Learn how to effectively use your OGads referral link</p>
                   </>
                 )}
                 {step === 3 && (
                   <>
-                    <h2 className="text-[40px] md:text-[50px] font-extrabold text-[#FF7B00] mb-4">Account Information</h2>
+                    <h2 className="text-[20px] md:text-[25px] font-bold text-[#FF7B00] mb-4">Account Information</h2>
                     <p className="text-xl font-semibold text-gray-700 mb-6">Provide your OGads username to get started</p>
                   </>
                 )}
