@@ -17,7 +17,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-white max-w-[1350px] mx-auto">
       <div className="flex flex-1">
         {/* Left side with custom vector */}
         <div className="hidden md:flex flex-1 items-center justify-center bg-[#FFA652] p-12 rounded-r-[50px]">
