@@ -115,7 +115,7 @@ const Signup = () => {
         
         {/* Text content */}
         <div className="max-w-lg relative z-10">
-          <p className="text-[40px] md:text-[50px] font-extrabold text-white text-left leading-relaxed">
+          <p className="text-[40px] md:text-[50px] font-extrabold text-white text-left leading-tight">
             Why start from scratch when templates are ready for you?
           </p>
         </div>
