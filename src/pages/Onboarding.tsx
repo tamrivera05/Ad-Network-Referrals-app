@@ -206,25 +206,25 @@ const Onboarding = () => {
         {/* Shapes positioned at bottom with varied colors */}
         <div className="absolute bottom-0 left-0 right-0 flex justify-center items-end pb-8">
           <div className="grid grid-cols-4 gap-4">
-            {/* Row 1 */}
-            <div className="w-24 h-24 bg-[#FF7B00] rounded-lg"></div>
-            <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
-            <div className="w-24 h-24 bg-[#FFA652] rounded-lg transform rotate-45"></div>
+            {/* Row 1 - only 4th shape remains */}
+            <div className="w-24 h-24"></div>
+            <div className="w-24 h-24"></div>
+            <div className="w-24 h-24"></div>
             <div className="w-24 h-24 bg-[#FFB76B] rounded-full"></div>
             
-            {/* Row 2 */}
-            <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
-            <div className="w-24 h-24 bg-[#FFA652] rounded-lg transform rotate-45"></div>
+            {/* Row 2 - only 3rd and 4th shapes remain */}
+            <div className="w-24 h-24"></div>
+            <div className="w-24 h-24"></div>
             <div className="w-24 h-24 bg-[#FF7B00] rounded-lg"></div>
             <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
             
-            {/* Row 3 */}
-            <div className="w-24 h-24 bg-[#FFA652] rounded-lg transform rotate-45"></div>
+            {/* Row 3 - only 2nd, 3rd, and 4th shapes remain */}
+            <div className="w-24 h-24"></div>
             <div className="w-24 h-24 bg-[#FFB76B] rounded-lg"></div>
             <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
             <div className="w-24 h-24 bg-[#FF7B00] rounded-lg transform rotate-45"></div>
             
-            {/* Row 4 */}
+            {/* Row 4 - all shapes remain */}
             <div className="w-24 h-24 bg-[#FFB76B] rounded-full"></div>
             <div className="w-24 h-24 bg-[#FF7B00] rounded-lg"></div>
             <div className="w-24 h-24 bg-[#FF8D21] rounded-lg transform rotate-45"></div>
