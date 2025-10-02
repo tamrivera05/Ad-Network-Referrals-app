@@ -26,7 +26,7 @@ const Onboarding = () => {
   const progressPercentage = (step / 3) * 100;
 
   return (
-    <div className="min-h-screen flex bg-white p-4 max-w-[1600px] mx-auto">
+    <div className="min-h-screen flex bg-white p-4 max-w-[1024px] mx-auto relative">
       {/* Left side with content/inputs */}
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-md">
@@ -200,6 +200,9 @@ const Onboarding = () => {
           </Card>
         </div>
       </div>
+      
+      {/* Center divider line */}
+      <div className="w-px bg-gray-300 mx-4"></div>
       
       {/* Right side with text and shapes */}
       <div className="hidden md:flex flex-1 relative">
