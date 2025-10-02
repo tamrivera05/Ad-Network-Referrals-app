@@ -201,10 +201,9 @@ const Onboarding = () => {
         </div>
       </div>
       
-      {/* Right side with individual shapes in #FF8D21 color */}
-      <div className="hidden md:flex flex-1 relative p-4">
-        {/* Grid of shapes replacing the solid background */}
-        <div className="grid grid-cols-4 gap-4 w-full h-full">
+      {/* Right side with shapes positioned lower to reduce bottom space */}
+      <div className="hidden md:flex flex-1 relative">
+        <div className="absolute bottom-0 right-0 grid grid-cols-4 gap-4 p-4">
           {/* Row 1 */}
           <div className="w-24 h-24 bg-[#FF8D21] rounded-lg"></div>
           <div className="w-24 h-24 bg-[#FF8D21] rounded-full"></div>
