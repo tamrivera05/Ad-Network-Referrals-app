@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 
 const Onboarding = () => {
   const [step, setStep] = useState(1);
@@ -22,43 +23,47 @@ const Onboarding = () => {
     alert("Onboarding completed! Redirecting to dashboard...");
   };
 
+  const stepInfo = {
+    1: {
+      title: "Select CPA Network",
+      description: "Select the CPA network you want to work with"
+    },
+    2: {
+      title: "How to Use Your Referral Link",
+      description: "Learn how to effectively use your OGads referral link"
+    },
+    3: {
+      title: "Account Information",
+      description: "Provide your OGads username to get started"
+    }
+  };
+
   return (
-    <div className="min-h-screen flex bg-white p-4">
+    <div className="min-h-screen flex bg-white">
       {/* Left side with content/inputs */}
       <div className="flex flex-1 items-center justify-center p-6">
         <div className="w-full max-w-md">
           <Card className="border-0 shadow-lg">
-            <CardHeader className="space-y-1 text-center">
-              <CardTitle className="text-3xl font-bold text-[#FF7B00]">
-                {step === 1 && "Select CPA Network"}
-                {step === 2 && "How to Use Your Referral Link"}
-                {step === 3 && "Account Information"}
-              </CardTitle>
-              <CardDescription className="text-gray-500">
-                {step === 1 && "Select the CPA network you want to work with"}
-                {step === 2 && "Learn how to effectively use your OGads referral link"}
-                {step === 3 && "Provide your OGads username to get started"}
-              </CardDescription>
-              
-              {/* Progress indicator */}
-              <div className="flex justify-center mt-4">
-                <div className="flex items-center">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 1 ? 'bg-[#FF7B00] text-white' : 'bg-gray-200 text-gray-500'}`}>
-                    1
-                  </div>
-                  <div className={`w-16 h-1 ${step >= 2 ? 'bg-[#FF7B00]' : 'bg-gray-200'}`}></div>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 2 ? 'bg-[#FF7B00] text-white' : 'bg-gray-200 text-gray-500'}`}>
-                    2
-                  </div>
-                  <div className={`w-16 h-1 ${step >= 3 ? 'bg-[#FF7B00]' : 'bg-gray-200'}`}></div>
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= 3 ? 'bg-[#FF7B00] text-white' : 'bg-gray-200 text-gray-500'}`}>
-                    3
-                  </div>
+            <CardContent className="pt-8">
+              {/* Progress bar with step indicator */}
+              <div className="mb-8">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium text-gray-700">Step {step} of 3</span>
+                  <span className="text-sm text-gray-500">{Math.round((step / 3) * 100)}%</span>
                 </div>
+                <Progress value={(step / 3) * 100} className="h-2" />
               </div>
-            </CardHeader>
-            
-            <CardContent>
+              
+              {/* Step title and description */}
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-[#FF7B00] mb-2">
+                  {stepInfo[step as keyof typeof stepInfo].title}
+                </h2>
+                <p className="text-gray-600">
+                  {stepInfo[step as keyof typeof stepInfo].description}
+                </p>
+              </div>
+              
               {step === 1 && (
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 gap-4">
@@ -187,35 +192,29 @@ const Onboarding = () => {
                   </Button>
                 )}
               </div>
-              
-              <p className="text-center text-sm text-gray-500 mt-6">
-                Step {step} of 3
-              </p>
             </CardFooter>
           </Card>
         </div>
       </div>
       
-      {/* Right side with instructions */}
-      <div className="hidden md:flex flex-1 items-start justify-end mt-8">
-        <div className="bg-[#FF8D21] rounded-tl-[50px] rounded-tr-[50px] p-12 max-w-lg">
-          <div className="text-right">
-            {step === 1 && (
-              <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
-                Select your CPA network to get started
-              </p>
-            )}
-            {step === 2 && (
-              <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
-                Learn how to use your referral link effectively
-              </p>
-            )}
-            {step === 3 && (
-              <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
-                Provide your OGads username to complete setup
-              </p>
-            )}
-          </div>
+      {/* Right side with instructions - full height */}
+      <div className="hidden md:flex flex-1 bg-[#FF8D21] p-12">
+        <div className="text-left">
+          {step === 1 && (
+            <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
+              Select your CPA network to get started
+            </p>
+          )}
+          {step === 2 && (
+            <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
+              Learn how to use your referral link effectively
+            </p>
+          )}
+          {step === 3 && (
+            <p className="text-[40px] md:text-[50px] font-extrabold text-white leading-tight">
+              Provide your OGads username to complete setup
+            </p>
+          )}
         </div>
       </div>
     </div>
