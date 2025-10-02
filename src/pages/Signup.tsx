@@ -102,20 +102,11 @@ const Signup = () => {
         </div>
       </div>
       
-      {/* Right side with #FF7B00 background and shapes */}
-      <div className="hidden md:flex flex-1 items-center justify-center bg-[#FF7B00] p-12 rounded-l-[50px] relative overflow-hidden">
-        {/* Top left shape */}
-        <div className="absolute top-8 left-8 w-24 h-24 bg-[#FF8d21] rounded-full opacity-80"></div>
-        
-        {/* Bottom left shape */}
-        <div className="absolute bottom-8 left-8 w-32 h-32 bg-white rounded-2xl transform rotate-45 opacity-70"></div>
-        
-        {/* Bottom right shape */}
-        <div className="absolute bottom-8 right-8 w-28 h-28 bg-[#FFA652] rounded-3xl transform rotate-12 opacity-80"></div>
-        
+      {/* Right side with #FF7B00 background */}
+      <div className="hidden md:flex flex-1 items-end justify-start bg-[#FF7B00] p-12 rounded-l-[50px]">
         {/* Text content */}
-        <div className="relative z-10 max-w-lg">
-          <p className="text-3xl text-white text-left leading-relaxed">
+        <div className="max-w-lg">
+          <p className="text-6xl font-extrabold text-white text-left leading-relaxed">
             Why build from scratch when ready-made templates are waiting for you?
           </p>
         </div>
