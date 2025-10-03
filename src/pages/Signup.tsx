@@ -5,8 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Link, useNavigate } from "react-router-dom";
-import { showSuccess } from "@/utils/toast";
+import { Link } from "react-router-dom";
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -14,7 +13,6 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,14 +22,6 @@ const Signup = () => {
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     console.log("Signup attempt with:", { name, email, password, confirmPassword });
-    
-    // Show success notification
-    showSuccess("Confirmation link sent to your email! Please check your inbox.");
-    
-    // Redirect to onboarding after a short delay
-    setTimeout(() => {
-      navigate("/onboarding");
-    }, 2000);
     
     setIsLoading(false);
   };
