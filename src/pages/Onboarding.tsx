@@ -12,17 +12,23 @@ const Onboarding = () => {
   const [step, setStep] = useState(1);
   const [selectedNetwork, setSelectedNetwork] = useState<string>("");
   const [ogadsUsername, setOgadsUsername] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleNetworkSelect = (networkId: string) => {
     setSelectedNetwork(networkId);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    
+    // Simulate API call and processing time
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
     console.log("Onboarding completed with:", { selectedNetwork, ogadsUsername });
-    // Here you would typically send the data to your backend
-    // Redirect to account pending page instead of dashboard
+    
+    // Redirect to account pending page after delay
     navigate("/account-pending");
   };
 
@@ -155,7 +161,7 @@ const Onboarding = () => {
                 <Button
                   variant="outline"
                   onClick={() => setStep(prev => Math.max(1, prev - 1))}
-                  disabled={step === 1}
+                  disabled={step === 1 || isLoading}
                   className="border-gray-300 text-gray-700 hover:bg-gray-100"
                 >
                   Back
@@ -164,7 +170,7 @@ const Onboarding = () => {
                 {step === 1 && (
                   <Button
                     onClick={() => setStep(2)}
-                    disabled={!selectedNetwork}
+                    disabled={!selectedNetwork || isLoading}
                     className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
                   >
                     Continue
@@ -174,6 +180,7 @@ const Onboarding = () => {
                 {step === 2 && (
                   <Button
                     onClick={() => setStep(3)}
+                    disabled={isLoading}
                     className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
                   >
                     Continue
@@ -183,10 +190,20 @@ const Onboarding = () => {
                 {step === 3 && (
                   <Button
                     onClick={handleSubmit}
-                    disabled={!ogadsUsername}
+                    disabled={!ogadsUsername || isLoading}
                     className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
                   >
-                    Complete Onboarding
+                    {isLoading ? (
+                      <div className="flex items-center space-x-2">
+                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span>Completing...</span>
+                      </div>
+                    ) : (
+                      "Complete Onboarding"
+                    )}
                   </Button>
                 )}
               </div>
