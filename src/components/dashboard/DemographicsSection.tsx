@@ -8,7 +8,7 @@ interface DemographicsSectionProps {
 const DemographicsSection = ({ title, children }: DemographicsSectionProps) => {
   return (
     <div className="mb-8">
-      <h3 className="text-sm font-medium text-[#FF7B00] mb-4">{title}</h3>
+      <h3 className="text-sm font-medium text-gray-900 mb-4">{title}</h3>
       {children}
     </div>
   );
