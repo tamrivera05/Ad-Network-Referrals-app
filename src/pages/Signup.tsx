@@ -23,6 +23,12 @@ const Signup = () => {
     
     console.log("Signup attempt with:", { name, email, password, confirmPassword });
     
+    // Clear form fields after successful signup
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    
     setIsLoading(false);
   };
 
