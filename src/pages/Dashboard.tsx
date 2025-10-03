@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 import Sidebar from "../components/dashboard/Sidebar";
-import DemographicsSection from "../components/dashboard/DemographicsSection";
-import AnalyticsBar from "../components/dashboard/AnalyticsBar";
-import GenderDistribution from "../components/dashboard/GenderDistribution";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
