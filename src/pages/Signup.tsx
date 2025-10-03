@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,6 +14,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,6 +32,9 @@ const Signup = () => {
     setConfirmPassword("");
     
     setIsLoading(false);
+    
+    // Redirect to confirmation sent page
+    navigate("/confirmation-sent");
   };
 
   return (
