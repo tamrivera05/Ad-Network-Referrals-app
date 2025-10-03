@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +12,7 @@ const Onboarding = () => {
   const [step, setStep] = useState(1);
   const [selectedNetwork, setSelectedNetwork] = useState<string>("");
   const [ogadsUsername, setOgadsUsername] = useState<string>("");
+  const navigate = useNavigate();
 
   const handleNetworkSelect = (networkId: string) => {
     setSelectedNetwork(networkId);
@@ -20,7 +22,8 @@ const Onboarding = () => {
     e.preventDefault();
     console.log("Onboarding completed with:", { selectedNetwork, ogadsUsername });
     // Here you would typically send the data to your backend
-    alert("Onboarding completed! Redirecting to dashboard...");
+    // Redirect to account pending page instead of dashboard
+    navigate("/account-pending");
   };
 
   const progressPercentage = (step / 3) * 100;
