@@ -5,19 +5,34 @@ import { Home, Search, Plus, Heart, User, Bookmark, Menu, X } from "lucide-react
 
 const Sidebar = () => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeTab, setActiveTab] = useState("create");
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
   };
 
   const menuItems = [
-    { icon: Home, label: "Home", color: "text-[#FF8D21]" },
-    { icon: Search, label: "Search", color: "text-[#FFA652]" },
-    { icon: Plus, label: "Create", color: "text-[#FF7B00]" },
-    { icon: Heart, label: "Favorites", color: "text-[#FFB76B]" },
-    { icon: User, label: "Profile", color: "text-[#FFCD90]" },
-    { icon: Bookmark, label: "Saved", color: "text-[#FFA652]" },
+    { icon: Home, label: "Home", id: "home" },
+    { icon: Search, label: "Search", id: "search" },
+    { icon: Plus, label: "Create", id: "create" },
+    { icon: Heart, label: "Favorites", id: "favorites" },
+    { icon: User, label: "Profile", id: "profile" },
+    { icon: Bookmark, label: "Saved", id: "saved" },
   ];
+
+  const getIconColor = (itemId: string) => {
+    if (activeTab === itemId) {
+      return "text-[#FF7B00]";
+    }
+    return "text-gray-500";
+  };
+
+  const getLabelColor = (itemId: string) => {
+    if (activeTab === itemId) {
+      return "text-[#FF7B00]";
+    }
+    return "text-gray-700";
+  };
 
   return (
     <div className={`${isExpanded ? 'w-64' : 'w-16'} bg-[#FFFFFF] border-r border-gray-200 flex flex-col py-4 transition-all duration-300 ease-in-out`}>
@@ -40,11 +55,14 @@ const Sidebar = () => {
           return (
             <button
               key={index}
-              className={`w-full flex items-center ${isExpanded ? 'justify-center px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
+              onClick={() => setActiveTab(item.id)}
+              className={`w-full flex items-center ${isExpanded ? 'justify-center px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-all duration-200 ${
+                activeTab === item.id ? 'bg-[#FFF5EB]' : ''
+              }`}
             >
-              <Icon className={`w-6 h-6 ${item.color} flex-shrink-0`} />
+              <Icon className={`w-6 h-6 ${getIconColor(item.id)} flex-shrink-0`} />
               {isExpanded && (
-                <span className="ml-4 text-gray-700 whitespace-nowrap">
+                <span className={`ml-4 whitespace-nowrap font-semibold ${getLabelColor(item.id)}`}>
                   {item.label}
                 </span>
               )}
@@ -60,12 +78,12 @@ const Sidebar = () => {
           className={`w-full flex items-center ${isExpanded ? 'justify-center px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
         >
           {isExpanded ? (
-            <X className="w-6 h-6 text-[#FF8D21] flex-shrink-0" />
+            <X className="w-6 h-6 text-gray-500 flex-shrink-0" />
           ) : (
-            <Menu className="w-6 h-6 text-[#FF8D21] flex-shrink-0" />
+            <Menu className="w-6 h-6 text-gray-500 flex-shrink-0" />
           )}
           {isExpanded && (
-            <span className="ml-4 text-gray-700 whitespace-nowrap">
+            <span className="ml-4 text-gray-700 whitespace-nowrap font-semibold">
               Close Menu
             </span>
           )}
