@@ -1,43 +1,74 @@
 "use client";
 
-import { Home, Search, Plus, Heart, User, Bookmark, Menu } from "lucide-react";
+import { useState } from "react";
+import { Home, Search, Plus, Heart, User, Bookmark, Menu, X } from "lucide-react";
 
 const Sidebar = () => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const menuItems = [
+    { icon: Home, label: "Home", color: "text-[#FF8D21]" },
+    { icon: Search, label: "Search", color: "text-[#FFA652]" },
+    { icon: Plus, label: "Create", color: "text-[#FF7B00]" },
+    { icon: Heart, label: "Favorites", color: "text-[#FFB76B]" },
+    { icon: User, label: "Profile", color: "text-[#FFCD90]" },
+    { icon: Bookmark, label: "Saved", color: "text-[#FFA652]" },
+  ];
+
   return (
-    <div className="w-16 bg-[#FFFFFF] border-r border-gray-200 flex flex-col py-4">
-      {/* Logo at top */}
-      <div className="flex justify-center mb-8">
-        <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center">
+    <div className={`${isExpanded ? 'w-64' : 'w-16'} bg-[#FFFFFF] border-r border-gray-200 flex flex-col py-4 transition-all duration-300 ease-in-out`}>
+      {/* Logo and App Name */}
+      <div className="flex items-center justify-center mb-8 px-4">
+        <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center flex-shrink-0">
           <span className="text-white font-bold text-lg">C</span>
         </div>
+        {isExpanded && (
+          <span className="ml-3 text-xl font-bold text-[#FF7B00] whitespace-nowrap">
+            CPA Dashboard
+          </span>
+        )}
       </div>
       
       {/* Navigation Icons - Vertically Centered */}
       <div className="flex-1 flex flex-col items-center justify-center space-y-6">
-        <button className="p-3 rounded-full hover:bg-[#FFF5EB]">
-          <Home className="w-6 h-6 text-[#FF8D21]" />
-        </button>
-        <button className="p-3 rounded-full hover:bg-[#FFF5EB]">
-          <Search className="w-6 h-6 text-[#FFA652]" />
-        </button>
-        <button className="p-3 rounded-full bg-[#FFF5EB]">
-          <Plus className="w-6 h-6 text-[#FF7B00]" />
-        </button>
-        <button className="p-3 rounded-full hover:bg-[#FFF5EB]">
-          <Heart className="w-6 h-6 text-[#FFB76B]" />
-        </button>
-        <button className="p-3 rounded-full hover:bg-[#FFF5EB]">
-          <User className="w-6 h-6 text-[#FFCD90]" />
-        </button>
-        <button className="p-3 rounded-full hover:bg-[#FFF5EB]">
-          <Bookmark className="w-6 h-6 text-[#FFA652]" />
-        </button>
+        {menuItems.map((item, index) => {
+          const Icon = item.icon;
+          return (
+            <button
+              key={index}
+              className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
+            >
+              <Icon className={`w-6 h-6 ${item.color} flex-shrink-0`} />
+              {isExpanded && (
+                <span className="ml-4 text-gray-700 whitespace-nowrap">
+                  {item.label}
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
       
       {/* Menu button at bottom */}
       <div className="flex justify-center mt-8">
-        <button className="p-3 rounded-full hover:bg-[#FFF5EB]">
-          <Menu className="w-6 h-6 text-[#FF8D21]" />
+        <button
+          onClick={toggleSidebar}
+          className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
+        >
+          {isExpanded ? (
+            <X className="w-6 h-6 text-[#FF8D21] flex-shrink-0" />
+          ) : (
+            <Menu className="w-6 h-6 text-[#FF8D21] flex-shrink-0" />
+          )}
+          {isExpanded && (
+            <span className="ml-4 text-gray-700 whitespace-nowrap">
+              Close Menu
+            </span>
+          )}
         </button>
       </div>
     </div>
