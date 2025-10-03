@@ -30,7 +30,7 @@ const ConfirmationSent = () => {
               <p className="text-sm text-gray-500 mb-8">
                 If you don't see the email, check your spam folder or request a new confirmation link.
               </p>
-              <div className="space-y-4">
+              <div className="flex flex-col space-y-4">
                 <Button 
                   className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
                 >
