@@ -130,4 +130,4 @@ const Overview = () => {
   );
 };
 
-export { Overview };
+export default Overview;

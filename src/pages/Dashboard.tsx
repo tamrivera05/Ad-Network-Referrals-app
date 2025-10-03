@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Overview } from "../components/dashboard/Overview";
-import { Sidebar } from "../components/dashboard/Sidebar";
+import Overview from "../components/dashboard/Overview";
+import Sidebar from "../components/dashboard/Sidebar";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
