@@ -83,7 +83,7 @@ const Login = () => {
                 Google
               </Button>
               <Button variant="outline" className="flex-1 border-gray-300 text-gray-700 hover:bg-gray-100 py-5 rounded-xl">
-                GitHub
+                Apple
               </Button>
             </div>
           </CardContent>
