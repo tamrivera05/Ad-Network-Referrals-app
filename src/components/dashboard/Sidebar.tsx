@@ -40,7 +40,7 @@ const Sidebar = () => {
           return (
             <button
               key={index}
-              className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
+              className={`w-full flex items-center ${isExpanded ? 'justify-center px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
             >
               <Icon className={`w-6 h-6 ${item.color} flex-shrink-0`} />
               {isExpanded && (
@@ -57,7 +57,7 @@ const Sidebar = () => {
       <div className="flex justify-center mt-8">
         <button
           onClick={toggleSidebar}
-          className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
+          className={`w-full flex items-center ${isExpanded ? 'justify-center px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
         >
           {isExpanded ? (
             <X className="w-6 h-6 text-[#FF8D21] flex-shrink-0" />
