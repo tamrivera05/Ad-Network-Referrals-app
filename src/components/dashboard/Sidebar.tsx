@@ -3,9 +3,13 @@
 import { useState } from "react";
 import { Home, Search, Plus, Heart, User, Bookmark, Menu, X } from "lucide-react";
 
-const Sidebar = () => {
+interface SidebarProps {
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}
+
+const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [activeTab, setActiveTab] = useState("create");
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
