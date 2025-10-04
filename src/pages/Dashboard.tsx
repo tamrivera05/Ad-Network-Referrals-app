@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Sidebar from "../components/dashboard/Sidebar";
+import TemplatesSection from "../components/dashboard/TemplatesSection";
 import Overview from "../components/dashboard/Overview";
 
 const Dashboard = () => {
@@ -11,6 +12,8 @@ const Dashboard = () => {
     switch (activeTab) {
       case "home":
         return <Overview />;
+      case "templates":
+        return <TemplatesSection />;
       default:
         return (
           <div className="max-w-2xl mx-auto">
