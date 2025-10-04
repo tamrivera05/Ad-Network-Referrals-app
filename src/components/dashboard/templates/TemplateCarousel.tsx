@@ -14,14 +14,22 @@ const TemplateCarousel = () => {
       id: 1,
       title: "CPA Landing Page",
       description: "High-converting landing page for CPA offers",
-      image: "https://placehold.co/600x400/e5f3ff/333333?text=CPA+Landing+Page",
+      images: [
+        "https://placehold.co/600x400/e5f3ff/333333?text=CPA+Landing+Page+1",
+        "https://placehold.co/600x400/e5f3ff/333333?text=CPA+Landing+Page+2",
+        "https://placehold.co/600x400/e5f3ff/333333?text=CPA+Landing+Page+3"
+      ],
       icon: ArrowRight
     },
     {
       id: 2,
       title: "Email Capture Form",
       description: "Optimized form for email collection",
-      image: "https://placehold.co/600x400/e5f3ff/333333?text=Email+Capture+Form",
+      images: [
+        "https://placehold.co/600x400/e5f3ff/333333?text=Email+Capture+Form+1",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Email+Capture+Form+2",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Email+Capture+Form+3"
+      ],
       icon: ArrowRight,
       isNew: true
     },
@@ -29,28 +37,44 @@ const TemplateCarousel = () => {
       id: 3,
       title: "Survey Page",
       description: "Interactive survey for lead generation",
-      image: "https://placehold.co/600x400/e5f3ff/333333?text=Survey+Page",
+      images: [
+        "https://placehold.co/600x400/e5f3ff/333333?text=Survey+Page+1",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Survey+Page+2",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Survey+Page+3"
+      ],
       icon: ArrowRight
     },
     {
       id: 4,
       title: "Video Landing Page",
       description: "Engaging video-based landing page",
-      image: "https://placehold.co/600x400/e5f3ff/333333?text=Video+Landing+Page",
+      images: [
+        "https://placehold.co/600x400/e5f3ff/333333?text=Video+Landing+Page+1",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Video+Landing+Page+2",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Video+Landing+Page+3"
+      ],
       icon: ArrowRight
     },
     {
       id: 5,
       title: "Mobile App Landing",
       description: "Mobile-optimized landing page",
-      image: "https://placehold.co/600x400/e5f3ff/333333?text=Mobile+App+Landing",
+      images: [
+        "https://placehold.co/600x400/e5f3ff/333333?text=Mobile+App+Landing+1",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Mobile+App+Landing+2",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Mobile+App+Landing+3"
+      ],
       icon: ArrowRight
     },
     {
       id: 6,
       title: "Thank You Page",
       description: "Confirmation page for conversions",
-      image: "https://placehold.co/600x400/e5f3ff/333333?text=Thank+You+Page",
+      images: [
+        "https://placehold.co/600x400/e5f3ff/333333?text=Thank+You+Page+1",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Thank+You+Page+2",
+        "https://placehold.co/600x400/e5f3ff/333333?text=Thank+You+Page+3"
+      ],
       icon: ArrowRight
     }
   ];
@@ -97,7 +121,7 @@ const TemplateCarousel = () => {
             key={template.id}
             title={template.title}
             description={template.description}
-            image={template.image}
+            images={template.images}
             icon={template.icon}
             isNew={template.isNew}
           />

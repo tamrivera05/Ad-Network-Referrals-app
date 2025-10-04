@@ -1,48 +1,91 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { useState } from "react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
 interface TemplateCardProps {
   title: string;
   description: string;
-  image: string;
+  images: string[];
   icon: LucideIcon;
   isNew?: boolean;
 }
 
-const TemplateCard = ({ title, description, image, icon: Icon, isNew = false }: TemplateCardProps) => {
+const TemplateCard = ({ title, description, images, icon: Icon, isNew = false }: TemplateCardProps) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const nextImage = () => {
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   return (
-    <div className="relative rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-300">
-      {isNew && (
-        <div className="absolute top-3 left-3 bg-[#FF7B00] text-white text-xs font-medium px-2 py-1 rounded-md">
-          New
+    <div className="space-y-3">
+      {/* Title and description outside the card */}
+      <div className="flex items-center space-x-2">
+        <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+          <Icon className="w-5 h-5 text-gray-600" />
         </div>
-      )}
-      <div className="h-48 overflow-hidden">
-        <img 
-          src={image} 
-          alt={title} 
-          className="w-full h-full object-cover"
-        />
-      </div>
-      <CardHeader className="p-4 pt-0">
-        <div className="flex items-center space-x-2 mb-2">
-          <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
-            <Icon className="w-5 h-5 text-gray-600" />
-          </div>
+        <div>
           <h3 className="font-semibold text-gray-900">{title}</h3>
+          <p className="text-sm text-gray-600">{description}</p>
         </div>
-      </CardHeader>
-      <CardContent className="px-4 pb-2">
-        <p className="text-sm text-gray-600">{description}</p>
-      </CardContent>
-      <CardFooter className="px-4 pb-4">
-        <Button className="w-full bg-[#FF7B00] hover:bg-[#FF8D21] text-white">
-          Use Template
-        </Button>
-      </CardFooter>
+        {isNew && (
+          <div className="bg-[#FF7B00] text-white text-xs font-medium px-2 py-1 rounded-md">
+            New
+          </div>
+        )}
+      </div>
+
+      {/* Card with carousel inside */}
+      <div className="relative group rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+        {/* Image carousel */}
+        <div className="h-48 overflow-hidden">
+          <img 
+            src={images[currentImageIndex]} 
+            alt={`${title} screenshot ${currentImageIndex + 1}`}
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Carousel controls - only visible on hover */}
+        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300">
+          {/* Previous arrow */}
+          <button 
+            onClick={prevImage}
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-90 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-opacity-100"
+          >
+            <ArrowLeft className="w-4 h-4 text-gray-800" />
+          </button>
+
+          {/* Next arrow */}
+          <button 
+            onClick={nextImage}
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-white bg-opacity-90 rounded-full p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-opacity-100"
+          >
+            <ArrowRight className="w-4 h-4 text-gray-800" />
+          </button>
+
+          {/* Image indicators */}
+          <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentImageIndex(index)}
+                className={`w-2 h-2 rounded-full transition-colors duration-200 ${
+                  index === currentImageIndex 
+                    ? 'bg-white' 
+                    : 'bg-white bg-opacity-50 hover:bg-opacity-75'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
