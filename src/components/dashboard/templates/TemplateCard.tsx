@@ -22,7 +22,7 @@ const TemplateCard = ({ title, description, images, isNew = false }: TemplateCar
   };
 
   return (
-    <div className="space-y-3">
+    <div className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-300">
       {/* Card with carousel inside */}
       <div className="relative group rounded-lg overflow-hidden bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-sm hover:shadow-md">
         {/* Image carousel */}
@@ -70,7 +70,7 @@ const TemplateCard = ({ title, description, images, isNew = false }: TemplateCar
       </div>
 
       {/* Title and description below the card */}
-      <div className="space-y-1">
+      <div className="space-y-1 mt-3">
         <div className="flex items-center space-x-2">
           <h3 className="font-semibold text-gray-900">{title}</h3>
           {isNew && (
