@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import TemplateCard from "./TemplateCard"; // Fixed import path
+import TemplateCard from "./TemplateCard";
 
 const TemplateCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -56,69 +55,92 @@ const TemplateCarousel = () => {
     }
   ];
 
+  const totalPages = Math.ceil(templates.length / 4);
+  const currentPage = Math.floor(currentIndex / 4) + 1;
+
   const nextSlide = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % templates.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 4) % templates.length);
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const prevSlide = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + templates.length) % templates.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 4 + templates.length) % templates.length);
+    setTimeout(() => setIsTransitioning(false), 300);
+  };
+
+  const goToPage = (page: number) => {
+    if (isTransitioning) return;
+    setIsTransitioning(true);
+    setCurrentIndex((page - 1) * 4);
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const visibleTemplates = () => {
     const result = [];
     for (let i = 0; i < 4; i++) {
-      result.push(templates[(currentIndex + i) % templates.length]);
+      const index = (currentIndex + i) % templates.length;
+      result.push(templates[index]);
     }
     return result;
   };
 
   return (
-    <Card className="border-gray-200">
-      <CardHeader className="flex items-center justify-between">
-        <div>
-          <h2 className="text-xl font-semibold text-gray-900">Templates</h2>
-          <p className="text-sm text-gray-600">Choose from our pre-built templates</p>
-        </div>
-        <div className="flex space-x-2">
-          <Button 
-            variant="outline" 
-            size="icon" 
-            onClick={prevSlide}
-            disabled={isTransitioning}
-          >
-            <ArrowLeft className="h-4 w-4" />
-          </Button>
-          <Button 
-            variant="outline" 
-            size="icon" 
-            onClick={nextSlide}
-            disabled={isTransitioning}
-          >
-            <ArrowRight className="h-4 w-4" />
-          </Button>
-        </div>
-      </CardHeader>
-      <CardContent>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {visibleTemplates().map((template) => (
-            <TemplateCard
-              key={template.id}
-              title={template.title}
-              description={template.description}
-              image={template.image}
-              icon={template.icon}
-              isNew={template.new}
-            />
+    <div>
+      {/* Template grid without card wrapper */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+        {visibleTemplates().map((template) => (
+          <TemplateCard
+            key={template.id}
+            title={template.title}
+            description={template.description}
+            image={template.image}
+            icon={template.icon}
+            isNew={template.isNew}
+          />
+        ))}
+      </div>
+
+      {/* Pagination controls at bottom right */}
+      <div className="flex justify-end items-center space-x-2">
+        <Button 
+          variant="outline" 
+          size="icon" 
+          onClick={prevSlide}
+          disabled={isTransitioning}
+        >
+          <ArrowLeft className="h-4 w-4" />
+        </Button>
+        
+        {/* Page numbers */}
+        <div className="flex space-x-1">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <Button
+              key={page}
+              variant={page === currentPage ? "default" : "outline"}
+              size="sm"
+              onClick={() => goToPage(page)}
+              disabled={isTransitioning}
+              className="w-8 h-8 p-0"
+            >
+              {page}
+            </Button>
           ))}
         </div>
-      </CardContent>
-    </Card>
+        
+        <Button 
+          variant="outline" 
+          size="icon" 
+          onClick={nextSlide}
+          disabled={isTransitioning}
+        >
+          <ArrowRight className="h-4 w-4" />
+        </Button>
+      </div>
+    </div>
   );
 };
 
