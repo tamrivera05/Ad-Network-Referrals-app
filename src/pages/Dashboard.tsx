@@ -37,24 +37,26 @@ const Dashboard = () => {
       <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       
       {/* Main Content */}
-      <div className="flex-1 p-4 overflow-y-auto">
-        {/* Header */}
-        <div className="mb-6">
-          <div className="flex justify-between items-center mb-2">
-            <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
-            <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-500">Aug 26 – Sep 24</span>
-              <button className="p-1 rounded-full hover:bg-gray-100">
-                <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-7xl mx-auto p-6">
+          {/* Header */}
+          <div className="mb-6">
+            <div className="flex justify-between items-center mb-2">
+              <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-gray-500">Aug 26 – Sep 24</span>
+                <button className="p-1 rounded-full hover:bg-gray-100">
+                  <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Dynamic Content */}
-        {renderContent()}
+          {/* Dynamic Content */}
+          {renderContent()}
+        </div>
       </div>
     </div>
   );
