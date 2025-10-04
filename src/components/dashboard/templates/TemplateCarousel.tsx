@@ -1,15 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState, useEffect, useRef } from "react";
 import TemplateCard from "./TemplateCard";
 
 const TemplateCarousel = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [templates, setTemplates] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const loaderRef = useRef(null);
 
-  const templates = [
+  const allTemplates = [
     {
       id: 1,
       title: "CPA Landing Page",
@@ -75,47 +74,91 @@ const TemplateCarousel = () => {
         "https://placehold.co/600x400/f3f4f6/333333?text=Thank+You+Page+3"
       ],
       isNew: false
+    },
+    {
+      id: 7,
+      title: "Squeeze Page",
+      description: "High-converting squeeze page template",
+      images: [
+        "https://placehold.co/600x400/f3f4f6/333333?text=Squeeze+Page+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Squeeze+Page+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Squeeze+Page+3"
+      ],
+      isNew: true
+    },
+    {
+      id: 8,
+      title: "Webinar Registration",
+      description: "Webinar landing page with registration",
+      images: [
+        "https://placehold.co/600x400/f3f4f6/333333?text=Webinar+Registration+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Webinar+Registration+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Webinar+Registration+3"
+      ],
+      isNew: false
+    },
+    {
+      id: 9,
+      title: "Product Launch",
+      description: "Product launch landing page template",
+      images: [
+        "https://placehold.co/600x400/f3f4f6/333333?text=Product+Launch+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Product+Launch+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Product+Launch+3"
+      ],
+      isNew: false
     }
   ];
 
-  const totalPages = Math.ceil(templates.length / 3);
-  const currentPage = Math.floor(currentIndex / 3) + 1;
+  useEffect(() => {
+    // Load initial templates
+    setTemplates(allTemplates.slice(0, 6));
+  }, []);
 
-  const nextSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 3) % templates.length);
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !loading) {
+          loadMoreTemplates();
+        }
+      },
+      { threshold: 1.0 }
+    );
 
-  const prevSlide = () => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 3 + templates.length) % templates.length);
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
-
-  const goToPage = (page: number) => {
-    if (isTransitioning) return;
-    setIsTransitioning(true);
-    setCurrentIndex((page - 1) * 3);
-    setTimeout(() => setIsTransitioning(false), 300);
-  };
-
-  const visibleTemplates = () => {
-    const result = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentIndex + i) % templates.length;
-      result.push(templates[index]);
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
     }
-    return result;
+
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  }, [loading, templates]);
+
+  const loadMoreTemplates = () => {
+    if (loading) return;
+    
+    setLoading(true);
+    
+    // Simulate API call delay
+    setTimeout(() => {
+      const currentLength = templates.length;
+      const nextTemplates = allTemplates.slice(currentLength, currentLength + 3);
+      
+      if (nextTemplates.length > 0) {
+        setTemplates(prev => [...prev, ...nextTemplates]);
+      }
+      
+      setLoading(false);
+    }, 1000);
   };
 
   return (
     <div>
-      {/* Template grid without card wrapper */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-        {visibleTemplates().map((template) => (
+      {/* Template grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {templates.map((template) => (
           <TemplateCard
             key={template.id}
             title={template.title}
@@ -126,41 +169,17 @@ const TemplateCarousel = () => {
         ))}
       </div>
 
-      {/* Pagination controls at bottom right */}
-      <div className="flex justify-end items-center space-x-2">
-        <Button 
-          variant="outline" 
-          size="icon" 
-          onClick={prevSlide}
-          disabled={isTransitioning}
-        >
-          <ArrowLeft className="h-4 w-4" />
-        </Button>
-        
-        {/* Page numbers */}
-        <div className="flex space-x-1">
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-            <Button
-              key={page}
-              variant={page === currentPage ? "default" : "outline"}
-              size="sm"
-              onClick={() => goToPage(page)}
-              disabled={isTransitioning}
-              className="w-8 h-8 p-0"
-            >
-              {page}
-            </Button>
-          ))}
-        </div>
-        
-        <Button 
-          variant="outline" 
-          size="icon" 
-          onClick={nextSlide}
-          disabled={isTransitioning}
-        >
-          <ArrowRight className="h-4 w-4" />
-        </Button>
+      {/* Loading indicator */}
+      <div ref={loaderRef} className="flex justify-center items-center py-8">
+        {loading && (
+          <div className="flex items-center space-x-2">
+            <svg className="animate-spin h-5 w-5 text-[#FF7B00]" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span className="text-gray-600">Loading more templates...</span>
+          </div>
+        )}
       </div>
     </div>
   );
