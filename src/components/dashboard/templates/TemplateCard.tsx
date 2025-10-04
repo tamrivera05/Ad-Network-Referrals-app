@@ -2,17 +2,15 @@
 
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { LucideIcon } from "lucide-react";
 
 interface TemplateCardProps {
   title: string;
   description: string;
   images: string[];
-  icon: LucideIcon;
   isNew?: boolean;
 }
 
-const TemplateCard = ({ title, description, images, icon: Icon, isNew = false }: TemplateCardProps) => {
+const TemplateCard = ({ title, description, images, isNew = false }: TemplateCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = () => {
@@ -25,24 +23,8 @@ const TemplateCard = ({ title, description, images, icon: Icon, isNew = false }:
 
   return (
     <div className="space-y-3">
-      {/* Title and description outside the card */}
-      <div className="flex items-center space-x-2">
-        <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
-          <Icon className="w-5 h-5 text-gray-600" />
-        </div>
-        <div>
-          <h3 className="font-semibold text-gray-900">{title}</h3>
-          <p className="text-sm text-gray-600">{description}</p>
-        </div>
-        {isNew && (
-          <div className="bg-[#FF7B00] text-white text-xs font-medium px-2 py-1 rounded-md">
-            New
-          </div>
-        )}
-      </div>
-
       {/* Card with carousel inside */}
-      <div className="relative group rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+      <div className="relative group rounded-lg overflow-hidden bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-sm hover:shadow-md">
         {/* Image carousel */}
         <div className="h-48 overflow-hidden">
           <img 
@@ -85,6 +67,19 @@ const TemplateCard = ({ title, description, images, icon: Icon, isNew = false }:
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Title and description below the card */}
+      <div className="space-y-1">
+        <div className="flex items-center space-x-2">
+          <h3 className="font-semibold text-gray-900">{title}</h3>
+          {isNew && (
+            <div className="bg-[#FF7B00] text-white text-xs font-medium px-2 py-1 rounded-md">
+              New
+            </div>
+          )}
+        </div>
+        <p className="text-sm text-gray-600">{description}</p>
       </div>
     </div>
   );

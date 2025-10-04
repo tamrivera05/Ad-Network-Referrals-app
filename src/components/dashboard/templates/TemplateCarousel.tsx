@@ -15,22 +15,21 @@ const TemplateCarousel = () => {
       title: "CPA Landing Page",
       description: "High-converting landing page for CPA offers",
       images: [
-        "https://placehold.co/600x400/e5f3ff/333333?text=CPA+Landing+Page+1",
-        "https://placehold.co/600x400/e5f3ff/333333?text=CPA+Landing+Page+2",
-        "https://placehold.co/600x400/e5f3ff/333333?text=CPA+Landing+Page+3"
+        "https://placehold.co/600x400/f3f4f6/333333?text=CPA+Landing+Page+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=CPA+Landing+Page+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=CPA+Landing+Page+3"
       ],
-      icon: ArrowRight
+      isNew: false
     },
     {
       id: 2,
       title: "Email Capture Form",
       description: "Optimized form for email collection",
       images: [
-        "https://placehold.co/600x400/e5f3ff/333333?text=Email+Capture+Form+1",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Email+Capture+Form+2",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Email+Capture+Form+3"
+        "https://placehold.co/600x400/f3f4f6/333333?text=Email+Capture+Form+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Email+Capture+Form+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Email+Capture+Form+3"
       ],
-      icon: ArrowRight,
       isNew: true
     },
     {
@@ -38,44 +37,44 @@ const TemplateCarousel = () => {
       title: "Survey Page",
       description: "Interactive survey for lead generation",
       images: [
-        "https://placehold.co/600x400/e5f3ff/333333?text=Survey+Page+1",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Survey+Page+2",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Survey+Page+3"
+        "https://placehold.co/600x400/f3f4f6/333333?text=Survey+Page+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Survey+Page+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Survey+Page+3"
       ],
-      icon: ArrowRight
+      isNew: false
     },
     {
       id: 4,
       title: "Video Landing Page",
       description: "Engaging video-based landing page",
       images: [
-        "https://placehold.co/600x400/e5f3ff/333333?text=Video+Landing+Page+1",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Video+Landing+Page+2",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Video+Landing+Page+3"
+        "https://placehold.co/600x400/f3f4f6/333333?text=Video+Landing+Page+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Video+Landing+Page+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Video+Landing+Page+3"
       ],
-      icon: ArrowRight
+      isNew: false
     },
     {
       id: 5,
       title: "Mobile App Landing",
       description: "Mobile-optimized landing page",
       images: [
-        "https://placehold.co/600x400/e5f3ff/333333?text=Mobile+App+Landing+1",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Mobile+App+Landing+2",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Mobile+App+Landing+3"
+        "https://placehold.co/600x400/f3f4f6/333333?text=Mobile+App+Landing+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Mobile+App+Landing+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Mobile+App+Landing+3"
       ],
-      icon: ArrowRight
+      isNew: false
     },
     {
       id: 6,
       title: "Thank You Page",
       description: "Confirmation page for conversions",
       images: [
-        "https://placehold.co/600x400/e5f3ff/333333?text=Thank+You+Page+1",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Thank+You+Page+2",
-        "https://placehold.co/600x400/e5f3ff/333333?text=Thank+You+Page+3"
+        "https://placehold.co/600x400/f3f4f6/333333?text=Thank+You+Page+1",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Thank+You+Page+2",
+        "https://placehold.co/600x400/f3f4f6/333333?text=Thank+You+Page+3"
       ],
-      icon: ArrowRight
+      isNew: false
     }
   ];
 
@@ -122,7 +121,6 @@ const TemplateCarousel = () => {
             title={template.title}
             description={template.description}
             images={template.images}
-            icon={template.icon}
             isNew={template.isNew}
           />
         ))}
