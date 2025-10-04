@@ -78,33 +78,33 @@ const TemplateCarousel = () => {
     }
   ];
 
-  const totalPages = Math.ceil(templates.length / 4);
-  const currentPage = Math.floor(currentIndex / 4) + 1;
+  const totalPages = Math.ceil(templates.length / 3);
+  const currentPage = Math.floor(currentIndex / 3) + 1;
 
   const nextSlide = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex + 4) % templates.length);
+    setCurrentIndex((prevIndex) => (prevIndex + 3) % templates.length);
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const prevSlide = () => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((prevIndex) => (prevIndex - 4 + templates.length) % templates.length);
+    setCurrentIndex((prevIndex) => (prevIndex - 3 + templates.length) % templates.length);
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const goToPage = (page: number) => {
     if (isTransitioning) return;
     setIsTransitioning(true);
-    setCurrentIndex((page - 1) * 4);
+    setCurrentIndex((page - 1) * 3);
     setTimeout(() => setIsTransitioning(false), 300);
   };
 
   const visibleTemplates = () => {
     const result = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 3; i++) {
       const index = (currentIndex + i) % templates.length;
       result.push(templates[index]);
     }
@@ -114,7 +114,7 @@ const TemplateCarousel = () => {
   return (
     <div>
       {/* Template grid without card wrapper */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         {visibleTemplates().map((template) => (
           <TemplateCard
             key={template.id}
