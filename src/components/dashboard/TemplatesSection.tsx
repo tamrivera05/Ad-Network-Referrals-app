@@ -11,6 +11,7 @@ const TemplatesSection = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   // All available categories from templates
   const allCategories = [
@@ -22,6 +23,7 @@ const TemplatesSection = () => {
   ];
 
   const handleCategoryToggle = (category: string) => {
+    setHasInteracted(true);
     setSelectedCategories(prev => {
       if (prev.includes(category)) {
         return prev.filter(c => c !== category);
@@ -32,11 +34,18 @@ const TemplatesSection = () => {
   };
 
   const clearFilters = () => {
+    setHasInteracted(true);
     setSelectedCategories([]);
   };
 
   const clearSearch = () => {
+    setHasInteracted(true);
     setSearchQuery("");
+  };
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setHasInteracted(true);
+    setSearchQuery(e.target.value);
   };
 
   const hasActiveFilters = selectedCategories.length > 0 || searchQuery.trim() !== "";
@@ -110,8 +119,8 @@ const TemplatesSection = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Active filters display beside filter button */}
-          {hasActiveFilters && (
+          {/* Active filters display - conditional on mobile, always show on desktop */}
+          {(hasInteracted || hasActiveFilters) && (
             <div className="flex flex-wrap items-center gap-2 sm:gap-2">
               {selectedCategories.map((category) => (
                 <div
@@ -151,7 +160,7 @@ const TemplatesSection = () => {
             type="text"
             placeholder="Search templates..."
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={handleSearchChange}
             className="pl-10 pr-10 w-full sm:w-64 border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
           />
           {searchQuery && (
