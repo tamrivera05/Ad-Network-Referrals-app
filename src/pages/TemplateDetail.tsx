@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -10,38 +10,262 @@ import Sidebar from "@/components/dashboard/Sidebar";
 
 const TemplateDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("templates");
-  const navigate = useNavigate();
+  const [template, setTemplate] = useState<any>(null);
 
-  // Mock template data - in a real app this would come from an API
-  const template = {
-    id: parseInt(id || "1"),
-    title: "CPA Landing Page",
-    description: "High-converting landing page for CPA offers with optimized design and user experience. This template includes multiple variations for different niches and industries.",
-    category: "Landing Pages",
-    createdAt: "2024-01-15",
-    downloads: 1234,
-    rating: 4.8,
-    images: [
-      "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+1",
-      "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+2",
-      "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+3",
-      "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+4",
-      "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+5",
-      "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+6"
-    ],
-    features: [
-      "Responsive design",
-      "Mobile optimized",
-      "High conversion rate",
-      "Easy customization",
-      "Cross-browser compatible",
-      "SEO friendly"
-    ],
-    isNew: false
-  };
+  // Complete template data for fallback lookup
+  const allTemplates = [
+    {
+      id: 1,
+      title: "CPA Landing Page",
+      description: "High-converting landing page for CPA offers with optimized design and user experience. This template includes multiple variations for different niches and industries.",
+      category: "Landing Pages",
+      createdAt: "2024-01-15",
+      downloads: 1234,
+      rating: 4.8,
+      features: [
+        "Responsive design",
+        "Mobile optimized",
+        "High conversion rate",
+        "Easy customization",
+        "Cross-browser compatible",
+        "SEO friendly"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+6"
+      ],
+      isNew: false
+    },
+    {
+      id: 2,
+      title: "Email Capture Form",
+      description: "Optimized form for email collection with advanced validation and auto-responder integration. Perfect for building your email list with high-converting designs.",
+      category: "Forms",
+      createdAt: "2024-01-20",
+      downloads: 892,
+      rating: 4.6,
+      features: [
+        "Email validation",
+        "Auto-responder integration",
+        "Mobile responsive",
+        "Custom fields support",
+        "GDPR compliant",
+        "A/B testing ready"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+6"
+      ],
+      isNew: true
+    },
+    {
+      id: 3,
+      title: "Survey Page",
+      description: "Interactive survey for lead generation with multiple question types and conditional logic. Great for gathering customer insights and qualifying leads.",
+      category: "Surveys",
+      createdAt: "2024-01-18",
+      downloads: 756,
+      rating: 4.7,
+      features: [
+        "Multiple question types",
+        "Progress tracking",
+        "Conditional logic",
+        "Real-time validation",
+        "Mobile optimized",
+        "Analytics integration"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+6"
+      ],
+      isNew: false
+    },
+    {
+      id: 4,
+      title: "Video Landing Page",
+      description: "Engaging video-based landing page with custom video player and call-to-action overlays. Perfect for product demonstrations and brand storytelling.",
+      category: "Landing Pages",
+      createdAt: "2024-01-22",
+      downloads: 1102,
+      rating: 4.9,
+      features: [
+        "Video autoplay",
+        "Custom video player",
+        "Mobile video optimization",
+        "Video analytics",
+        "Call-to-action overlays",
+        "Social sharing"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+6"
+      ],
+      isNew: false
+    },
+    {
+      id: 5,
+      title: "Mobile App Landing",
+      description: "Mobile-optimized landing page with app store buttons and device mockups. Designed specifically to drive mobile app downloads and installations.",
+      category: "Landing Pages",
+      createdAt: "2024-01-25",
+      downloads: 1456,
+      rating: 4.8,
+      features: [
+        "App store buttons",
+        "Device mockups",
+        "Touch-friendly interface",
+        "App preview videos",
+        "Download tracking",
+        "Push notification ready"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+6"
+      ],
+      isNew: false
+    },
+    {
+      id: 6,
+      title: "Thank You Page",
+      description: "Confirmation page for conversions with social sharing and related offers. Perfect for post-conversion engagement and upselling opportunities.",
+      category: "Confirmation",
+      createdAt: "2024-01-28",
+      downloads: 623,
+      rating: 4.5,
+      features: [
+        "Conversion tracking",
+        "Social sharing options",
+        "Related offers display",
+        "Email confirmation",
+        "Analytics integration",
+        "Custom branding"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+6"
+      ],
+      isNew: false
+    },
+    {
+      id: 7,
+      title: "Squeeze Page",
+      description: "High-converting squeeze page template with lead magnet delivery and urgency timers. Designed to maximize email sign-ups and lead generation.",
+      category: "Landing Pages",
+      createdAt: "2024-02-01",
+      downloads: 987,
+      rating: 4.7,
+      features: [
+        "Lead magnet delivery",
+        "Email integration",
+        "Urgency timers",
+        "Testimonial sections",
+        "Benefit highlights",
+        "Mobile responsive"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+6"
+      ],
+      isNew: true
+    },
+    {
+      id: 8,
+      title: "Webinar Registration",
+      description: "Webinar landing page with registration, countdown timer, and speaker profiles. Perfect for promoting online events and collecting registrations.",
+      category: "Events",
+      createdAt: "2024-02-05",
+      downloads: 543,
+      rating: 4.6,
+      features: [
+        "Event countdown timer",
+        "Calendar integration",
+        "Speaker profiles",
+        "Agenda display",
+        "Email reminders",
+        "Zoom integration"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+6"
+      ],
+      isNew: false
+    },
+    {
+      id: 9,
+      title: "Product Launch",
+      description: "Product launch landing page with coming soon timer and pre-order system. Designed to build anticipation and drive early sales.",
+      category: "Landing Pages",
+      createdAt: "2024-02-08",
+      downloads: 721,
+      rating: 4.8,
+      features: [
+        "Coming soon timer",
+        "Early bird pricing",
+        "Product showcase",
+        "Feature comparison",
+        "Pre-order system",
+        "Social proof widgets"
+      ],
+      images: [
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+6"
+      ],
+      isNew: false
+    }
+  ];
+
+  useEffect(() => {
+    // First try to get template data from navigation state
+    if (location.state?.template) {
+      setTemplate(location.state.template);
+    } else {
+      // Fallback to ID-based lookup
+      const templateId = parseInt(id || "1");
+      const foundTemplate = allTemplates.find(t => t.id === templateId);
+      setTemplate(foundTemplate || null);
+    }
+  }, [id, location.state]);
 
   const handleImageClick = (index: number) => {
     setSelectedImageIndex(index);
@@ -49,13 +273,13 @@ const TemplateDetail = () => {
   };
 
   const nextImage = () => {
-    if (selectedImageIndex !== null) {
+    if (selectedImageIndex !== null && template) {
       setSelectedImageIndex((prev) => (prev! + 1) % template.images.length);
     }
   };
 
   const prevImage = () => {
-    if (selectedImageIndex !== null) {
+    if (selectedImageIndex !== null && template) {
       setSelectedImageIndex((prev) => (prev! - 1 + template.images.length) % template.images.length);
     }
   };
@@ -139,6 +363,14 @@ const TemplateDetail = () => {
                   <span className="text-gray-500">Category:</span>
                   <span className="font-medium text-gray-900">{template.category}</span>
                 </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-500">Downloads:</span>
+                  <span className="font-medium text-gray-900">{template.downloads}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-500">Rating:</span>
+                  <span className="font-medium text-gray-900">{template.rating} ⭐</span>
+                </div>
               </div>
             </div>
 
@@ -146,7 +378,7 @@ const TemplateDetail = () => {
             <div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Features</h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {template.features.map((feature, index) => (
+                {template.features.map((feature: string, index: number) => (
                   <div key={index} className="flex items-center space-x-2">
                     <div className="w-2 h-2 bg-[#FF7B00] rounded-full"></div>
                     <span className="text-gray-700">{feature}</span>
@@ -164,7 +396,7 @@ const TemplateDetail = () => {
                 </Button>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {template.images.map((image, index) => (
+                {template.images.map((image: string, index: number) => (
                   <Card 
                     key={index} 
                     className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group"
@@ -257,7 +489,7 @@ const TemplateDetail = () => {
             {template.images.length > 1 && (
               <div className="p-6 bg-white">
                 <div className="flex items-center justify-center space-x-2">
-                  {template.images.map((_, index) => (
+                  {template.images.map((_: string, index: number) => (
                     <button
                       key={index}
                       onClick={() => goToImage(index)}

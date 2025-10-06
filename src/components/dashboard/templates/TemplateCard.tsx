@@ -5,14 +5,16 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 interface TemplateCardProps {
+  id: number;
   title: string;
   description: string;
   images: string[];
   isNew?: boolean;
-  id: number;
+  category?: string;
+  features?: string[];
 }
 
-const TemplateCard = ({ title, description, images, isNew = false, id }: TemplateCardProps) => {
+const TemplateCard = ({ id, title, description, images, isNew = false, category = "", features = [] }: TemplateCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate();
 
@@ -27,7 +29,20 @@ const TemplateCard = ({ title, description, images, isNew = false, id }: Templat
   };
 
   const handleCardClick = () => {
-    navigate(`/template/${id}`);
+    // Pass template data in navigation state
+    navigate(`/template/${id}`, {
+      state: {
+        template: {
+          id,
+          title,
+          description,
+          images,
+          isNew,
+          category,
+          features
+        }
+      }
+    });
   };
 
   return (

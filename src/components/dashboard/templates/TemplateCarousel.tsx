@@ -13,6 +13,15 @@ const TemplateCarousel = () => {
       id: 1,
       title: "CPA Landing Page",
       description: "High-converting landing page for CPA offers",
+      category: "Landing Pages",
+      features: [
+        "Responsive design",
+        "Mobile optimized",
+        "High conversion rate",
+        "Easy customization",
+        "Cross-browser compatible",
+        "SEO friendly"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=CPA+Landing+Page+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=CPA+Landing+Page+2",
@@ -24,6 +33,15 @@ const TemplateCarousel = () => {
       id: 2,
       title: "Email Capture Form",
       description: "Optimized form for email collection",
+      category: "Forms",
+      features: [
+        "Email validation",
+        "Auto-responder integration",
+        "Mobile responsive",
+        "Custom fields support",
+        "GDPR compliant",
+        "A/B testing ready"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=Email+Capture+Form+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=Email+Capture+Form+2",
@@ -35,6 +53,15 @@ const TemplateCarousel = () => {
       id: 3,
       title: "Survey Page",
       description: "Interactive survey for lead generation",
+      category: "Surveys",
+      features: [
+        "Multiple question types",
+        "Progress tracking",
+        "Conditional logic",
+        "Real-time validation",
+        "Mobile optimized",
+        "Analytics integration"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=Survey+Page+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=Survey+Page+2",
@@ -46,6 +73,15 @@ const TemplateCarousel = () => {
       id: 4,
       title: "Video Landing Page",
       description: "Engaging video-based landing page",
+      category: "Landing Pages",
+      features: [
+        "Video autoplay",
+        "Custom video player",
+        "Mobile video optimization",
+        "Video analytics",
+        "Call-to-action overlays",
+        "Social sharing"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=Video+Landing+Page+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=Video+Landing+Page+2",
@@ -57,6 +93,15 @@ const TemplateCarousel = () => {
       id: 5,
       title: "Mobile App Landing",
       description: "Mobile-optimized landing page",
+      category: "Landing Pages",
+      features: [
+        "App store buttons",
+        "Device mockups",
+        "Touch-friendly interface",
+        "App preview videos",
+        "Download tracking",
+        "Push notification ready"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=Mobile+App+Landing+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=Mobile+App+Landing+2",
@@ -68,6 +113,15 @@ const TemplateCarousel = () => {
       id: 6,
       title: "Thank You Page",
       description: "Confirmation page for conversions",
+      category: "Confirmation",
+      features: [
+        "Conversion tracking",
+        "Social sharing options",
+        "Related offers display",
+        "Email confirmation",
+        "Analytics integration",
+        "Custom branding"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=Thank+You+Page+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=Thank+You+Page+2",
@@ -79,6 +133,15 @@ const TemplateCarousel = () => {
       id: 7,
       title: "Squeeze Page",
       description: "High-converting squeeze page template",
+      category: "Landing Pages",
+      features: [
+        "Lead magnet delivery",
+        "Email integration",
+        "Urgency timers",
+        "Testimonial sections",
+        "Benefit highlights",
+        "Mobile responsive"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=Squeeze+Page+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=Squeeze+Page+2",
@@ -90,6 +153,15 @@ const TemplateCarousel = () => {
       id: 8,
       title: "Webinar Registration",
       description: "Webinar landing page with registration",
+      category: "Events",
+      features: [
+        "Event countdown timer",
+        "Calendar integration",
+        "Speaker profiles",
+        "Agenda display",
+        "Email reminders",
+        "Zoom integration"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=Webinar+Registration+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=Webinar+Registration+2",
@@ -101,6 +173,15 @@ const TemplateCarousel = () => {
       id: 9,
       title: "Product Launch",
       description: "Product launch landing page template",
+      category: "Landing Pages",
+      features: [
+        "Coming soon timer",
+        "Early bird pricing",
+        "Product showcase",
+        "Feature comparison",
+        "Pre-order system",
+        "Social proof widgets"
+      ],
       images: [
         "https://placehold.co/600x400/f3f4f6/333333?text=Product+Launch+1",
         "https://placehold.co/600x400/f3f4f6/333333?text=Product+Launch+2",
@@ -166,6 +247,8 @@ const TemplateCarousel = () => {
             description={template.description}
             images={template.images}
             isNew={template.isNew}
+            category={template.category}
+            features={template.features}
           />
         ))}
       </div>
