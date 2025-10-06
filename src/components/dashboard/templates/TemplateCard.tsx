@@ -8,21 +8,27 @@ interface TemplateCardProps {
   description: string;
   images: string[];
   isNew?: boolean;
+  onClick: () => void;
 }
 
-const TemplateCard = ({ title, description, images, isNew = false }: TemplateCardProps) => {
+const TemplateCard = ({ title, description, images, isNew = false, onClick }: TemplateCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const nextImage = () => {
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
 
-  const prevImage = () => {
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
   return (
-    <div className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-300">
+    <div 
+      className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-300 cursor-pointer group"
+      onClick={onClick}
+    >
       {/* Card with carousel inside */}
       <div className="relative group rounded-lg overflow-hidden bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-sm hover:shadow-md">
         {/* Image carousel */}
@@ -57,7 +63,10 @@ const TemplateCard = ({ title, description, images, isNew = false }: TemplateCar
             {images.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setCurrentImageIndex(index)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentImageIndex(index);
+                }}
                 className={`w-2 h-2 rounded-full transition-colors duration-200 ${
                   index === currentImageIndex 
                     ? 'bg-white' 
