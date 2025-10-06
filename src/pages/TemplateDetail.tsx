@@ -149,7 +149,12 @@ const TemplateDetail = () => {
 
             {/* Gallery Section */}
             <div>
-              <h3 className="text-xl font-bold text-gray-900 mb-6">Template Screenshots</h3>
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-gray-900">Template Screenshots</h3>
+                <Button className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white">
+                  Use This Template
+                </Button>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {template.images.map((image, index) => (
                   <Card 
