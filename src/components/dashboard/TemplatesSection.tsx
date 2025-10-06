@@ -48,7 +48,7 @@ const TemplatesSection = () => {
       {/* Filter and Search section */}
       <div className="flex flex-col gap-4 w-full">
         {/* Top row: Filter button, active filters, and search bar */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           {/* Left side: Filter button and active filters */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             {/* Filter button */}
@@ -116,7 +116,7 @@ const TemplatesSection = () => {
 
             {/* Active filters display for md and lg - beside filter button */}
             {hasActiveFilters && (
-              <div className="hidden md:flex flex-wrap items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {selectedCategories.map((category) => (
                   <div
                     key={category}
@@ -172,39 +172,6 @@ const TemplatesSection = () => {
         {/* Active filters display for mobile - below filter button when filters are applied and dropdown is closed */}
         {shouldShowActiveFilters && (
           <div className="flex flex-wrap items-center gap-2 sm:hidden">
-            {selectedCategories.map((category) => (
-              <div
-                key={category}
-                className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
-              >
-                <span className="text-sm text-[#FF7B00]">{category}</span>
-                <button
-                  onClick={() => handleCategoryToggle(category)}
-                  className="text-[#FF7B00] hover:text-[#FF8d21]"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </div>
-            ))}
-            {searchQuery && (
-              <div
-                className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
-              >
-                <span className="text-sm text-[#FF7B00]">Search: "{searchQuery}"</span>
-                <button
-                  onClick={clearSearch}
-                  className="text-[#FF7B00] hover:text-[#FF8d21]"
-                >
-                  <X className="w-3 h-3" />
-                </button>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Active filters display for small screens (sm) - below filter button */}
-        {hasActiveFilters && (
-          <div className="hidden sm:flex md:hidden flex-wrap items-center gap-2">
             {selectedCategories.map((category) => (
               <div
                 key={category}
