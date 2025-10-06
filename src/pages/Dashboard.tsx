@@ -66,7 +66,7 @@ const Dashboard = () => {
       
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-6 py-6 md:py-6 pt-20 md:pt-6">
+        <div className="max-w-5xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
           {/* Header */}
           <div className="mb-6">
             <div className="flex justify-between items-center mb-2">

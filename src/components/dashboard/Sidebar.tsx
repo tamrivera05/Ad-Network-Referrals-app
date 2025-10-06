@@ -38,20 +38,17 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 
   return (
     <>
-      {/* Mobile Top Bar with centered logo and burger icon beside it */}
-      <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-40">
+      {/* Mobile Top Bar with centered logo icon and burger icon beside it */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-40 mb-4">
         <div className="flex items-center justify-between px-6 py-4">
           {/* Left spacer */}
           <div className="w-10"></div>
           
-          {/* Centered Logo */}
+          {/* Centered Logo Icon Only */}
           <div className="flex items-center">
             <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-lg">C</span>
             </div>
-            <span className="ml-3 text-xl font-bold text-[#FF7B00]">
-              CPA Dashboard
-            </span>
           </div>
           
           {/* Burger icon on the right */}
