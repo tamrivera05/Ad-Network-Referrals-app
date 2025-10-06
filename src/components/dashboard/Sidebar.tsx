@@ -100,8 +100,8 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             </button>
           </div>
           
-          {/* Navigation Items - Centered and spaced for full screen */}
-          <div className="flex flex-col items-center justify-center h-full px-6 py-12 space-y-4">
+          {/* Navigation Items - Top aligned with mobile-appropriate sizing */}
+          <div className="flex flex-col px-6 py-8 space-y-2">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -113,16 +113,16 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
                     setActiveTab(item.id);
                     toggleSidebar(); // Close sidebar after navigation on mobile
                   }}
-                  className={`w-full max-w-md flex items-center px-6 py-4 rounded-xl transition-all duration-200 group ${
+                  className={`w-full flex items-center px-4 py-4 rounded-lg transition-all duration-200 group ${
                     isActive 
                       ? 'bg-[#FFF5EB] border-l-4 border-[#FF7B00]' 
                       : 'hover:bg-[#FFF5EB] hover:border-l-4 hover:border-[#FFA652]'
                   }`}
                 >
-                  <Icon className={`w-6 h-6 flex-shrink-0 transition-colors duration-200 ${
+                  <Icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-200 ${
                     isActive ? 'text-[#FF7B00]' : 'text-gray-500 group-hover:text-[#FF7B00]'
                   }`} />
-                  <span className={`ml-4 whitespace-nowrap font-semibold text-lg transition-colors duration-200 ${
+                  <span className={`ml-4 whitespace-nowrap font-medium transition-colors duration-200 ${
                     isActive ? 'text-[#FF7B00]' : 'text-gray-700 group-hover:text-[#FF7B00]'
                   }`}>
                     {item.label}
