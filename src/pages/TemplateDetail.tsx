@@ -2,15 +2,17 @@
 
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
+import Sidebar from "@/components/dashboard/Sidebar";
 
 const TemplateDetail = () => {
   const { id } = useParams<{ id: string }>();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState("templates");
 
   // Mock template data - in a real app this would come from an API
   const template = {
@@ -68,120 +70,142 @@ const TemplateDetail = () => {
 
   if (!template) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900">Template not found</h1>
-          <Link to="/dashboard" className="text-[#FF7B00] hover:underline mt-4 inline-block">
-            Back to Dashboard
-          </Link>
+      <div className="flex h-screen bg-[#FFFFFF]">
+        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <div className="flex-1 overflow-y-auto">
+          <div className="max-w-5xl mx-auto p-6">
+            <div className="text-center py-20">
+              <h1 className="text-2xl font-bold text-gray-900">Template not found</h1>
+              <Link to="/dashboard" className="text-[#FF7B00] hover:underline mt-4 inline-block">
+                Back to Templates
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        {/* Header */}
-        <div className="flex items-center mb-8">
-          <Link to="/dashboard" className="flex items-center text-gray-600 hover:text-[#FF7B00] transition-colors">
-            <ArrowLeft className="w-5 h-5 mr-2" />
-            Back to Templates
-          </Link>
-        </div>
-
-        {/* Template Title Section */}
-        <div className="mb-8">
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="flex items-center space-x-3 mb-2">
-                <h1 className="text-4xl font-bold text-gray-900">{template.title}</h1>
-                {template.isNew && (
-                  <div className="bg-[#FF7B00] text-white text-sm font-medium px-3 py-1 rounded-md">
-                    New
-                  </div>
-                )}
-              </div>
-              <p className="text-xl text-gray-600 mt-2">{template.description}</p>
-            </div>
-          </div>
-
-          {/* Template Stats */}
-          <div className="flex items-center space-x-6 mt-6">
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-500">Category:</span>
-              <span className="font-medium text-gray-900">{template.category}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-500">Downloads:</span>
-              <span className="font-medium text-gray-900">{template.downloads.toLocaleString()}</span>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className="text-gray-500">Rating:</span>
-              <span className="font-medium text-gray-900">⭐ {template.rating}</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Features Section */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4">Features</h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {template.features.map((feature, index) => (
-              <div key={index} className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-[#FF7B00] rounded-full"></div>
-                <span className="text-gray-700">{feature}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Gallery Section */}
-        <div>
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Template Screenshots</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {template.images.map((image, index) => (
-              <Card 
-                key={index} 
-                className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group"
-                onClick={() => handleImageClick(index)}
+    <div className="flex h-screen bg-[#FFFFFF]">
+      {/* Sidebar */}
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      
+      {/* Main Content */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="max-w-5xl mx-auto p-6">
+          {/* Header */}
+          <div className="mb-6">
+            <div className="flex items-center mb-2">
+              <Link 
+                to="/dashboard" 
+                className="flex items-center text-gray-600 hover:text-[#FF7B00] transition-colors mr-4"
               >
-                <CardContent className="p-0">
-                  <div className="relative overflow-hidden bg-gray-100">
-                    <img 
-                      src={image} 
-                      alt={`${template.title} screenshot ${index + 1}`}
-                      className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
-                      <div className="bg-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-4">
-                    <p className="text-sm text-gray-600">Screenshot {index + 1}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                <ChevronLeft className="w-5 h-5 mr-2" />
+                Back to Templates
+              </Link>
+            </div>
+            <div className="flex justify-between items-center">
+              <h1 className="text-lg font-semibold text-gray-900">Template Details</h1>
+            </div>
           </div>
-        </div>
 
-        {/* CTA Section */}
-        <div className="mt-12 text-center">
-          <div className="bg-[#FFF5EB] rounded-xl p-8">
-            <h3 className="text-2xl font-bold text-[#FF7B00] mb-4">Ready to use this template?</h3>
-            <p className="text-gray-700 mb-6">Get instant access and start building your campaigns today.</p>
-            <div className="flex justify-center space-x-4">
-              <Button className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white px-8 py-3">
-                Use This Template
-              </Button>
-              <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-100 px-8 py-3">
-                Preview Demo
-              </Button>
+          {/* Template Content */}
+          <div className="space-y-8">
+            {/* Template Title Section */}
+            <div>
+              <div className="flex items-start justify-between">
+                <div>
+                  <div className="flex items-center space-x-3 mb-2">
+                    <h2 className="text-3xl font-bold text-gray-900">{template.title}</h2>
+                    {template.isNew && (
+                      <div className="bg-[#FF7B00] text-white text-sm font-medium px-3 py-1 rounded-md">
+                        New
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-lg text-gray-600 mt-2">{template.description}</p>
+                </div>
+              </div>
+
+              {/* Template Stats */}
+              <div className="flex items-center space-x-6 mt-6">
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-500">Category:</span>
+                  <span className="font-medium text-gray-900">{template.category}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-500">Downloads:</span>
+                  <span className="font-medium text-gray-900">{template.downloads.toLocaleString()}</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <span className="text-gray-500">Rating:</span>
+                  <span className="font-medium text-gray-900">⭐ {template.rating}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Features Section */}
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">Features</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                {template.features.map((feature, index) => (
+                  <div key={index} className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-[#FF7B00] rounded-full"></div>
+                    <span className="text-gray-700">{feature}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Gallery Section */}
+            <div>
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Template Screenshots</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {template.images.map((image, index) => (
+                  <Card 
+                    key={index} 
+                    className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group"
+                    onClick={() => handleImageClick(index)}
+                  >
+                    <CardContent className="p-0">
+                      <div className="relative overflow-hidden bg-gray-100">
+                        <img 
+                          src={image} 
+                          alt={`${template.title} screenshot ${index + 1}`}
+                          className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+                          <div className="bg-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <svg className="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                            </svg>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <p className="text-sm text-gray-600">Screenshot {index + 1}</p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="text-center">
+              <div className="bg-[#FFF5EB] rounded-xl p-8">
+                <h3 className="text-2xl font-bold text-[#FF7B00] mb-4">Ready to use this template?</h3>
+                <p className="text-gray-700 mb-6">Get instant access and start building your campaigns today.</p>
+                <div className="flex justify-center space-x-4">
+                  <Button className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white px-8 py-3">
+                    Use This Template
+                  </Button>
+                  <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-100 px-8 py-3">
+                    Preview Demo
+                  </Button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
