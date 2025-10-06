@@ -38,8 +38,8 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 
   return (
     <>
-      {/* Mobile Burger Menu - Top right position, aligned with header */}
-      <div className="md:hidden fixed top-6 right-4 z-50">
+      {/* Mobile Burger Menu - Aligned with content and header title */}
+      <div className="md:hidden fixed top-6 right-6 z-50">
         <button
           onClick={toggleSidebar}
           className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-md hover:bg-[#FFF5EB] hover:border-[#FFA652] transition-all duration-200"
@@ -65,7 +65,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           isExpanded ? 'translate-y-0' : '-translate-y-full'
         }`}>
           {/* Header with Logo and Close button */}
-          <div className="flex items-center justify-between px-4 py-6 border-b border-gray-100">
+          <div className="flex items-center justify-between px-6 py-6 border-b border-gray-100">
             <div className="flex items-center">
               <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center flex-shrink-0">
                 <span className="text-white font-bold text-lg">C</span>
@@ -85,7 +85,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           </div>
           
           {/* Navigation Items */}
-          <div className="px-4 py-4 space-y-2">
+          <div className="px-6 py-4 space-y-2">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
