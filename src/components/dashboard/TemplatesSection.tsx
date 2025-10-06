@@ -41,13 +41,15 @@ const TemplatesSection = () => {
 
   const hasActiveFilters = selectedCategories.length > 0 || searchQuery.trim() !== "";
 
+  const shouldShowActiveFilters = hasActiveFilters && !isOpen;
+
   return (
     <div className="space-y-6">
       {/* Filter and Search section */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 w-full">
-        {/* Left side: Filter button and active filters */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-4 w-full sm:w-auto">
-          {/* Filter button at the start */}
+      <div className="flex flex-col gap-4 w-full">
+        {/* Top row: Filter button and search bar */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          {/* Filter button */}
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
               <Button 
@@ -110,59 +112,92 @@ const TemplatesSection = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Active filters display beside filter button */}
-          {hasActiveFilters && (
-            <div className="flex flex-wrap items-center gap-2 sm:gap-2">
-              {selectedCategories.map((category) => (
-                <div
-                  key={category}
-                  className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
-                >
-                  <span className="text-sm text-[#FF7B00]">{category}</span>
-                  <button
-                    onClick={() => handleCategoryToggle(category)}
-                    className="text-[#FF7B00] hover:text-[#FF8d21]"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </div>
-              ))}
-              {searchQuery && (
-                <div
-                  className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
-                >
-                  <span className="text-sm text-[#FF7B00]">Search: "{searchQuery}"</span>
-                  <button
-                    onClick={clearSearch}
-                    className="text-[#FF7B00] hover:text-[#FF8d21]"
-                  >
-                    <X className="w-3 h-3" />
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+          {/* Search bar */}
+          <div className="relative w-full sm:w-auto">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Search templates..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-10 w-full sm:w-64 border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+            />
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
         </div>
 
-        {/* Search bar at the end */}
-        <div className="relative w-full sm:w-auto">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input
-            type="text"
-            placeholder="Search templates..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-10 w-full sm:w-64 border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
-          />
-          {searchQuery && (
-            <button
-              onClick={clearSearch}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-            >
-              <X className="h-4 w-4" />
-            </button>
-          )}
-        </div>
+        {/* Active filters display - only show when filters are applied and dropdown is closed */}
+        {shouldShowActiveFilters && (
+          <div className="flex flex-wrap items-center gap-2 sm:hidden">
+            {selectedCategories.map((category) => (
+              <div
+                key={category}
+                className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
+              >
+                <span className="text-sm text-[#FF7B00]">{category}</span>
+                <button
+                  onClick={() => handleCategoryToggle(category)}
+                  className="text-[#FF7B00] hover:text-[#FF8d21]"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
+            {searchQuery && (
+              <div
+                className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
+              >
+                <span className="text-sm text-[#FF7B00]">Search: "{searchQuery}"</span>
+                <button
+                  onClick={clearSearch}
+                  className="text-[#FF7B00] hover:text-[#FF8d21]"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Active filters display for desktop - always visible when filters are applied */}
+        {hasActiveFilters && (
+          <div className="hidden sm:flex flex-wrap items-center gap-2">
+            {selectedCategories.map((category) => (
+              <div
+                key={category}
+                className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
+              >
+                <span className="text-sm text-[#FF7B00]">{category}</span>
+                <button
+                  onClick={() => handleCategoryToggle(category)}
+                  className="text-[#FF7B00] hover:text-[#FF8d21]"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
+            {searchQuery && (
+              <div
+                className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
+              >
+                <span className="text-sm text-[#FF7B00]">Search: "{searchQuery}"</span>
+                <button
+                  onClick={clearSearch}
+                  className="text-[#FF7B00] hover:text-[#FF8d21]"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
       
       {/* Template carousel with filters and search */}
