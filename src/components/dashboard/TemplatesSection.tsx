@@ -10,7 +10,7 @@ import TemplateCarousel from "./templates/TemplateCarousel";
 const TemplatesSection = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [isOpen, setIsOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   // All available categories from templates
   const allCategories = [
@@ -41,7 +41,7 @@ const TemplatesSection = () => {
 
   const hasActiveFilters = selectedCategories.length > 0 || searchQuery.trim() !== "";
 
-  const shouldShowActiveFilters = hasActiveFilters && !isOpen;
+  const shouldShowActiveFilters = hasActiveFilters && !isFilterOpen;
 
   return (
     <div className="space-y-6">
@@ -50,7 +50,7 @@ const TemplatesSection = () => {
         {/* Mobile-only row: Filter button and search bar */}
         <div className="flex flex-col sm:hidden gap-4">
           {/* Filter button */}
-          <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+          <DropdownMenu open={isFilterOpen} onOpenChange={setIsFilterOpen}>
             <DropdownMenuTrigger asChild>
               <Button 
                 variant={hasActiveFilters ? "default" : "outline"} 
@@ -171,7 +171,7 @@ const TemplatesSection = () => {
           {/* Left side: Filter button and active filters */}
           <div className="flex items-center gap-4">
             {/* Filter button */}
-            <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+            <DropdownMenu open={isFilterOpen} onOpenChange={setIsFilterOpen}>
               <DropdownMenuTrigger asChild>
                 <Button 
                   variant={hasActiveFilters ? "default" : "outline"} 
