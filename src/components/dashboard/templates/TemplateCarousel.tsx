@@ -3,7 +3,11 @@
 import { useState, useEffect, useRef } from "react";
 import TemplateCard from "./TemplateCard";
 
-const TemplateCarousel = () => {
+interface TemplateCarouselProps {
+  selectedCategories?: string[];
+}
+
+const TemplateCarousel = ({ selectedCategories = [] }: TemplateCarouselProps) => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
   const loaderRef = useRef(null);
@@ -191,15 +195,23 @@ const TemplateCarousel = () => {
     }
   ];
 
+  // Filter templates based on selected categories
+  const filteredTemplates = allTemplates.filter(template => {
+    if (selectedCategories.length === 0) {
+      return true; // Show all templates if no filters selected
+    }
+    return selectedCategories.includes(template.category);
+  });
+
   useEffect(() => {
-    // Load initial templates
-    setTemplates(allTemplates.slice(0, 6));
-  }, []);
+    // Load initial filtered templates
+    setTemplates(filteredTemplates.slice(0, 6));
+  }, [selectedCategories]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries[0].isIntersecting && !loading && templates.length < allTemplates.length) {
+        if (entries[0].isIntersecting && !loading && templates.length < filteredTemplates.length) {
           loadMoreTemplates();
         }
       },
@@ -215,17 +227,17 @@ const TemplateCarousel = () => {
         observer.unobserve(loaderRef.current);
       }
     };
-  }, [loading, templates]);
+  }, [loading, templates, filteredTemplates]);
 
   const loadMoreTemplates = () => {
-    if (loading || templates.length >= allTemplates.length) return;
+    if (loading || templates.length >= filteredTemplates.length) return;
     
     setLoading(true);
     
     // Simulate API call delay
     setTimeout(() => {
       const currentLength = templates.length;
-      const nextTemplates = allTemplates.slice(currentLength, currentLength + 3);
+      const nextTemplates = filteredTemplates.slice(currentLength, currentLength + 3);
       
       if (nextTemplates.length > 0) {
         setTemplates(prev => [...prev, ...nextTemplates]);
@@ -234,6 +246,21 @@ const TemplateCarousel = () => {
       setLoading(false);
     }, 1000);
   };
+
+  // Show message if no templates match the filter
+  if (filteredTemplates.length === 0) {
+    return (
+      <div className="text-center py-12">
+        <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">No templates found</h3>
+        <p className="text-gray-500">Try adjusting your filters to see more templates</p>
+      </div>
+    );
+  }
 
   return (
     <div>
@@ -254,7 +281,7 @@ const TemplateCarousel = () => {
       </div>
 
       {/* Loading indicator - only show if there are more templates to load */}
-      {templates.length < allTemplates.length && (
+      {templates.length < filteredTemplates.length && (
         <div ref={loaderRef} className="flex justify-center items-center py-8">
           {loading && (
             <div className="flex items-center space-x-2">
