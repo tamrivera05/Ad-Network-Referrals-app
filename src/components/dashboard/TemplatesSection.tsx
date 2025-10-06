@@ -109,6 +109,26 @@ const TemplatesSection = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Search bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Search templates..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-10 w-64 border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+            />
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
+
           {/* Active filters display */}
           {hasActiveFilters && (
             <div className="flex items-center space-x-2">
@@ -144,26 +164,6 @@ const TemplatesSection = () => {
               </div>
             </div>
           )}
-
-          {/* Search bar - moved to the end */}
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input
-              type="text"
-              placeholder="Search templates..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 pr-10 w-64 border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
-            />
-            {searchQuery && (
-              <button
-                onClick={clearSearch}
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                <X className="h-4 w-4" />
-              </button>
-            )}
-          </div>
         </div>
       </div>
       
