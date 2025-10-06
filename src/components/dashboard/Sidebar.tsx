@@ -38,18 +38,34 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 
   return (
     <>
-      {/* Mobile Burger Menu - Aligned with content and header title */}
-      <div className="md:hidden fixed top-6 right-6 z-50">
-        <button
-          onClick={toggleSidebar}
-          className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-md hover:bg-[#FFF5EB] hover:border-[#FFA652] transition-all duration-200"
-        >
-          <Menu className="w-5 h-5 text-gray-700 hover:text-[#FF7B00]" />
-        </button>
+      {/* Mobile Top Bar with centered logo and burger icon beside it */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-40">
+        <div className="flex items-center justify-between px-6 py-4">
+          {/* Left spacer */}
+          <div className="w-10"></div>
+          
+          {/* Centered Logo */}
+          <div className="flex items-center">
+            <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">C</span>
+            </div>
+            <span className="ml-3 text-xl font-bold text-[#FF7B00]">
+              CPA Dashboard
+            </span>
+          </div>
+          
+          {/* Burger icon on the right */}
+          <button
+            onClick={toggleSidebar}
+            className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-[#FFF5EB] hover:border-[#FFA652] transition-all duration-200"
+          >
+            <Menu className="w-5 h-5 text-gray-700 hover:text-[#FF7B00]" />
+          </button>
+        </div>
       </div>
 
-      {/* Mobile Overlay Sidebar - Slides down from top */}
-      <div className={`md:hidden fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
+      {/* Mobile Full-Screen Navigation Overlay */}
+      <div className={`md:hidden fixed inset-0 z-50 transition-all duration-300 ${
         isExpanded ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}>
         {/* Backdrop */}
@@ -60,14 +76,14 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           onClick={toggleSidebar}
         />
         
-        {/* Sidebar Content - Slides down from top */}
-        <div className={`absolute left-0 right-0 top-0 bg-white border-b border-gray-200 transition-transform duration-300 transform ${
+        {/* Full-Screen Navigation Content */}
+        <div className={`absolute inset-0 bg-white transition-transform duration-300 transform ${
           isExpanded ? 'translate-y-0' : '-translate-y-full'
         }`}>
           {/* Header with Logo and Close button */}
-          <div className="flex items-center justify-between px-6 py-6 border-b border-gray-100">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
             <div className="flex items-center">
-              <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center flex-shrink-0">
+              <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-lg">C</span>
               </div>
               <span className="ml-3 text-xl font-bold text-[#FF7B00]">
@@ -78,14 +94,14 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             {/* Close button */}
             <button
               onClick={toggleSidebar}
-              className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#FFF5EB] transition-colors duration-200"
+              className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-[#FFF5EB] hover:border-[#FFA652] transition-all duration-200"
             >
               <X className="w-5 h-5 text-gray-700 hover:text-[#FF7B00]" />
             </button>
           </div>
           
-          {/* Navigation Items */}
-          <div className="px-6 py-4 space-y-2">
+          {/* Navigation Items - Centered and spaced for full screen */}
+          <div className="flex flex-col items-center justify-center h-full px-6 py-12 space-y-4">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -97,7 +113,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
                     setActiveTab(item.id);
                     toggleSidebar(); // Close sidebar after navigation on mobile
                   }}
-                  className={`w-full flex items-center px-4 py-3 rounded-lg transition-all duration-200 group ${
+                  className={`w-full max-w-md flex items-center px-6 py-4 rounded-xl transition-all duration-200 group ${
                     isActive 
                       ? 'bg-[#FFF5EB] border-l-4 border-[#FF7B00]' 
                       : 'hover:bg-[#FFF5EB] hover:border-l-4 hover:border-[#FFA652]'
@@ -106,7 +122,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
                   <Icon className={`w-6 h-6 flex-shrink-0 transition-colors duration-200 ${
                     isActive ? 'text-[#FF7B00]' : 'text-gray-500 group-hover:text-[#FF7B00]'
                   }`} />
-                  <span className={`ml-4 whitespace-nowrap font-semibold transition-colors duration-200 ${
+                  <span className={`ml-4 whitespace-nowrap font-semibold text-lg transition-colors duration-200 ${
                     isActive ? 'text-[#FF7B00]' : 'text-gray-700 group-hover:text-[#FF7B00]'
                   }`}>
                     {item.label}
