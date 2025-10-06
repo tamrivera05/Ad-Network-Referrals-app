@@ -45,8 +45,8 @@ const TemplatesSection = () => {
     <div className="space-y-6">
       {/* Filter and Search section */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          {/* Filter dropdown */}
+        <div className="flex items-center space-x-4 flex-1">
+          {/* Filter button at the start */}
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
               <Button 
@@ -109,8 +109,8 @@ const TemplatesSection = () => {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Search bar */}
-          <div className="relative">
+          {/* Search bar at the end */}
+          <div className="relative ml-auto">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input
               type="text"
@@ -128,44 +128,44 @@ const TemplatesSection = () => {
               </button>
             )}
           </div>
-
-          {/* Active filters display */}
-          {hasActiveFilters && (
-            <div className="flex items-center space-x-2">
-              <span className="text-sm text-gray-500">Filters:</span>
-              <div className="flex items-center space-x-2">
-                {selectedCategories.map((category) => (
-                  <div
-                    key={category}
-                    className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
-                  >
-                    <span className="text-sm text-[#FF7B00]">{category}</span>
-                    <button
-                      onClick={() => handleCategoryToggle(category)}
-                      className="text-[#FF7B00] hover:text-[#FF8d21]"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </div>
-                ))}
-                {searchQuery && (
-                  <div
-                    className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
-                  >
-                    <span className="text-sm text-[#FF7B00]">Search: "{searchQuery}"</span>
-                    <button
-                      onClick={clearSearch}
-                      className="text-[#FF7B00] hover:text-[#FF8d21]"
-                    >
-                      <X className="w-3 h-3" />
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
         </div>
       </div>
+
+      {/* Active filters display */}
+      {hasActiveFilters && (
+        <div className="flex items-center space-x-2">
+          <span className="text-sm text-gray-500">Filters:</span>
+          <div className="flex items-center space-x-2">
+            {selectedCategories.map((category) => (
+              <div
+                key={category}
+                className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
+              >
+                <span className="text-sm text-[#FF7B00]">{category}</span>
+                <button
+                  onClick={() => handleCategoryToggle(category)}
+                  className="text-[#FF7B00] hover:text-[#FF8d21]"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            ))}
+            {searchQuery && (
+              <div
+                className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
+              >
+                <span className="text-sm text-[#FF7B00]">Search: "{searchQuery}"</span>
+                <button
+                  onClick={clearSearch}
+                  className="text-[#FF7B00] hover:text-[#FF8d21]"
+                >
+                  <X className="w-3 h-3" />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
       
       {/* Template carousel with filters and search */}
       <TemplateCarousel selectedCategories={selectedCategories} searchQuery={searchQuery} />
