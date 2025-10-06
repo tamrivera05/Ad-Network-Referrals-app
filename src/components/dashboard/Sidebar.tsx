@@ -38,8 +38,8 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 
   return (
     <>
-      {/* Mobile Burger Menu - Positioned to avoid blocking header */}
-      <div className="md:hidden fixed top-6 left-4 z-50">
+      {/* Mobile Burger Menu - Top right position, aligned with header */}
+      <div className="md:hidden fixed top-6 right-4 z-50">
         <button
           onClick={toggleSidebar}
           className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-md hover:bg-[#FFF5EB] hover:border-[#FFA652] transition-all duration-200"
@@ -48,8 +48,8 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
         </button>
       </div>
 
-      {/* Mobile Overlay Sidebar - Only on mobile, overlay when opened */}
-      <div className={`md:hidden fixed inset-0 z-40 transition-all duration-300 ${
+      {/* Mobile Overlay Sidebar - Slides down from top */}
+      <div className={`md:hidden fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
         isExpanded ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
       }`}>
         {/* Backdrop */}
@@ -60,24 +60,22 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           onClick={toggleSidebar}
         />
         
-        {/* Sidebar Content - Adjusted top positioning to avoid header overlap */}
-        <div className={`absolute left-0 top-0 h-full bg-white border-r border-gray-200 transition-transform duration-300 transform ${
-          isExpanded ? 'translate-x-0' : '-translate-x-full'
-        } ${isExpanded ? 'w-64' : 'w-16'}`}>
-          {/* Logo and App Name with proper spacing */}
-          <div className="flex items-center justify-between px-4 py-8">
+        {/* Sidebar Content - Slides down from top */}
+        <div className={`absolute left-0 right-0 top-0 bg-white border-b border-gray-200 transition-transform duration-300 transform ${
+          isExpanded ? 'translate-y-0' : '-translate-y-full'
+        }`}>
+          {/* Header with Logo and Close button */}
+          <div className="flex items-center justify-between px-4 py-6 border-b border-gray-100">
             <div className="flex items-center">
               <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center flex-shrink-0">
                 <span className="text-white font-bold text-lg">C</span>
               </div>
-              {isExpanded && (
-                <span className="ml-3 text-xl font-bold text-[#FF7B00] whitespace-nowrap">
-                  CPA Dashboard
-                </span>
-              )}
+              <span className="ml-3 text-xl font-bold text-[#FF7B00]">
+                CPA Dashboard
+              </span>
             </div>
             
-            {/* Close button for mobile */}
+            {/* Close button */}
             <button
               onClick={toggleSidebar}
               className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-[#FFF5EB] transition-colors duration-200"
@@ -86,11 +84,11 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             </button>
           </div>
           
-          {/* Navigation Items with proper top spacing */}
-          <div className="flex-1 flex flex-col items-center justify-start space-y-2 px-3 py-4">
+          {/* Navigation Items */}
+          <div className="px-4 py-4 space-y-2">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
-              const styles = getTabStyles(item.id);
+              const isActive = activeTab === item.id;
               
               return (
                 <button
@@ -99,14 +97,20 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
                     setActiveTab(item.id);
                     toggleSidebar(); // Close sidebar after navigation on mobile
                   }}
-                  className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all duration-200 group ${styles.background}`}
+                  className={`w-full flex items-center px-4 py-3 rounded-lg transition-all duration-200 group ${
+                    isActive 
+                      ? 'bg-[#FFF5EB] border-l-4 border-[#FF7B00]' 
+                      : 'hover:bg-[#FFF5EB] hover:border-l-4 hover:border-[#FFA652]'
+                  }`}
                 >
-                  <Icon className={`w-6 h-6 ${styles.icon} flex-shrink-0 transition-colors duration-200`} />
-                  {isExpanded && (
-                    <span className={`ml-4 whitespace-nowrap font-semibold ${styles.label} transition-colors duration-200`}>
-                      {item.label}
-                    </span>
-                  )}
+                  <Icon className={`w-6 h-6 flex-shrink-0 transition-colors duration-200 ${
+                    isActive ? 'text-[#FF7B00]' : 'text-gray-500 group-hover:text-[#FF7B00]'
+                  }`} />
+                  <span className={`ml-4 whitespace-nowrap font-semibold transition-colors duration-200 ${
+                    isActive ? 'text-[#FF7B00]' : 'text-gray-700 group-hover:text-[#FF7B00]'
+                  }`}>
+                    {item.label}
+                  </span>
                 </button>
               );
             })}
