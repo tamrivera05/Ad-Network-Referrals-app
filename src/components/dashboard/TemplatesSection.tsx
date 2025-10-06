@@ -116,7 +116,7 @@ const TemplatesSection = () => {
 
             {/* Active filters display for md and lg - beside filter button */}
             {hasActiveFilters && (
-              <div className="hidden md:flex flex-wrap items-center gap-2">
+              <div className="hidden sm:flex flex-wrap items-center gap-2">
                 {selectedCategories.map((category) => (
                   <div
                     key={category}
