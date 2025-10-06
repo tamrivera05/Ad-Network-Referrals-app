@@ -183,12 +183,9 @@ const TemplateDetail = () => {
               <div className="bg-[#FFF5EB] rounded-xl p-8">
                 <h3 className="text-2xl font-bold text-[#FF7B00] mb-4">Ready to use this template?</h3>
                 <p className="text-gray-700 mb-6">Get instant access and start building your campaigns today.</p>
-                <div className="flex justify-center space-x-4">
+                <div className="flex justify-center">
                   <Button className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white px-8 py-3">
                     Use This Template
-                  </Button>
-                  <Button variant="outline" className="border-gray-300 text-gray-700 hover:bg-gray-100 px-8 py-3">
-                    Preview Demo
                   </Button>
                 </div>
               </div>
