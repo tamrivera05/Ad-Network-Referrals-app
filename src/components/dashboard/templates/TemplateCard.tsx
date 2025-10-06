@@ -2,17 +2,19 @@
 
 import { useState } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface TemplateCardProps {
   title: string;
   description: string;
   images: string[];
   isNew?: boolean;
-  onClick: () => void;
+  id: number;
 }
 
-const TemplateCard = ({ title, description, images, isNew = false, onClick }: TemplateCardProps) => {
+const TemplateCard = ({ title, description, images, isNew = false, id }: TemplateCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const navigate = useNavigate();
 
   const nextImage = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -24,10 +26,14 @@ const TemplateCard = ({ title, description, images, isNew = false, onClick }: Te
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const handleCardClick = () => {
+    navigate(`/template/${id}`);
+  };
+
   return (
     <div 
       className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-300 cursor-pointer group"
-      onClick={onClick}
+      onClick={handleCardClick}
     >
       {/* Card with carousel inside */}
       <div className="relative group rounded-lg overflow-hidden bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-sm hover:shadow-md">

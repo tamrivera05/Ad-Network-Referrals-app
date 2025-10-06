@@ -15,10 +15,11 @@ interface TemplateModalProps {
     images: string[];
     isNew?: boolean;
   } | null;
+  initialImageIndex?: number;
 }
 
-const TemplateModal = ({ isOpen, onClose, template }: TemplateModalProps) => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+const TemplateModal = ({ isOpen, onClose, template, initialImageIndex = 0 }: TemplateModalProps) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(initialImageIndex);
 
   if (!template) return null;
 

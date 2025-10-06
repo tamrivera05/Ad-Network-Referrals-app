@@ -2,13 +2,10 @@
 
 import { useState, useEffect, useRef } from "react";
 import TemplateCard from "./TemplateCard";
-import TemplateModal from "./TemplateModal";
 
 const TemplateCarousel = () => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const loaderRef = useRef(null);
 
   const allTemplates = [
@@ -157,16 +154,6 @@ const TemplateCarousel = () => {
     }, 1000);
   };
 
-  const handleTemplateClick = (template: any) => {
-    setSelectedTemplate(template);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-    setSelectedTemplate(null);
-  };
-
   return (
     <div>
       {/* Template grid */}
@@ -174,11 +161,11 @@ const TemplateCarousel = () => {
         {templates.map((template) => (
           <TemplateCard
             key={template.id}
+            id={template.id}
             title={template.title}
             description={template.description}
             images={template.images}
             isNew={template.isNew}
-            onClick={() => handleTemplateClick(template)}
           />
         ))}
       </div>
@@ -197,13 +184,6 @@ const TemplateCarousel = () => {
           )}
         </div>
       )}
-
-      {/* Modal */}
-      <TemplateModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        template={selectedTemplate}
-      />
     </div>
   );
 };
