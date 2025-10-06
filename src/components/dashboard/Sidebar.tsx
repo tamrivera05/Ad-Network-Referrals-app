@@ -38,8 +38,8 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
 
   return (
     <>
-      {/* Mobile Burger Menu - Always visible on mobile, hidden on larger screens */}
-      <div className="md:hidden fixed top-4 left-4 z-50">
+      {/* Mobile Burger Menu - Positioned to avoid blocking header */}
+      <div className="md:hidden fixed top-6 left-4 z-50">
         <button
           onClick={toggleSidebar}
           className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-md hover:bg-[#FFF5EB] hover:border-[#FFA652] transition-all duration-200"
@@ -60,12 +60,12 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           onClick={toggleSidebar}
         />
         
-        {/* Sidebar Content */}
+        {/* Sidebar Content - Adjusted top positioning to avoid header overlap */}
         <div className={`absolute left-0 top-0 h-full bg-white border-r border-gray-200 transition-transform duration-300 transform ${
           isExpanded ? 'translate-x-0' : '-translate-x-full'
         } ${isExpanded ? 'w-64' : 'w-16'}`}>
-          {/* Logo and App Name */}
-          <div className="flex items-center justify-between px-4 py-6">
+          {/* Logo and App Name with proper spacing */}
+          <div className="flex items-center justify-between px-4 py-8">
             <div className="flex items-center">
               <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center flex-shrink-0">
                 <span className="text-white font-bold text-lg">C</span>
@@ -86,7 +86,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             </button>
           </div>
           
-          {/* Navigation Items */}
+          {/* Navigation Items with proper top spacing */}
           <div className="flex-1 flex flex-col items-center justify-start space-y-2 px-3 py-4">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
