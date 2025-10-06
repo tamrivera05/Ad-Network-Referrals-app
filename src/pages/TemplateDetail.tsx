@@ -98,7 +98,7 @@ const TemplateDetail = () => {
           <div className="mb-6">
             <div className="flex items-center mb-2">
               <Link 
-                to="/dashboard" 
+                to="/dashboard?tab=templates" 
                 className="flex items-center text-gray-600 hover:text-[#FF7B00] transition-colors mr-4"
               >
                 <ChevronLeft className="w-5 h-5 mr-2" />
