@@ -105,9 +105,6 @@ const TemplateDetail = () => {
                 Back to Templates
               </Link>
             </div>
-            <div className="flex justify-between items-center">
-              <h1 className="text-lg font-semibold text-gray-900">Template Details</h1>
-            </div>
           </div>
 
           {/* Template Content */}
@@ -133,14 +130,6 @@ const TemplateDetail = () => {
                 <div className="flex items-center space-x-2">
                   <span className="text-gray-500">Category:</span>
                   <span className="font-medium text-gray-900">{template.category}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-gray-500">Downloads:</span>
-                  <span className="font-medium text-gray-900">{template.downloads.toLocaleString()}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-gray-500">Rating:</span>
-                  <span className="font-medium text-gray-900">⭐ {template.rating}</span>
                 </div>
               </div>
             </div>
@@ -182,9 +171,6 @@ const TemplateDetail = () => {
                             </svg>
                           </div>
                         </div>
-                      </div>
-                      <div className="p-4">
-                        <p className="text-sm text-gray-600">Screenshot {index + 1}</p>
                       </div>
                     </CardContent>
                   </Card>
