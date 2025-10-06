@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
@@ -42,15 +42,12 @@ const TemplateModal = ({ isOpen, onClose, template }: TemplateModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
       <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-white">
-        {/* Header with exit button */}
+        {/* Header */}
         <div className="flex items-center justify-between p-6">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">{template.title}</h2>
             <p className="text-gray-600 mt-1">{template.description}</p>
           </div>
-          <Button variant="ghost" size="icon" onClick={handleClose}>
-            <X className="h-6 w-6" />
-          </Button>
         </div>
 
         {/* Main content */}
