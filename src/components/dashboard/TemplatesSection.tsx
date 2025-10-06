@@ -44,15 +44,15 @@ const TemplatesSection = () => {
   return (
     <div className="space-y-6">
       {/* Filter and Search section */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex items-center justify-between w-full">
         {/* Left side: Filter button and active filters */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+        <div className="flex items-center space-x-4">
           {/* Filter button at the start */}
           <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
               <Button 
                 variant={hasActiveFilters ? "default" : "outline"} 
-                className="flex items-center space-x-2 w-full sm:w-auto"
+                className="flex items-center space-x-2"
               >
                 <Filter className="h-4 w-4" />
                 <span>Filter</span>
@@ -112,7 +112,7 @@ const TemplatesSection = () => {
 
           {/* Active filters display beside filter button */}
           {hasActiveFilters && (
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center space-x-2">
               {selectedCategories.map((category) => (
                 <div
                   key={category}
@@ -145,14 +145,14 @@ const TemplatesSection = () => {
         </div>
 
         {/* Search bar at the end */}
-        <div className="relative w-full sm:w-auto">
+        <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
             type="text"
             placeholder="Search templates..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-10 w-full sm:w-64 border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+            className="pl-10 pr-10 w-64 border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
           />
           {searchQuery && (
             <button
