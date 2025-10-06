@@ -24,22 +24,20 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
     { icon: Bookmark, label: "Saved", id: "saved" },
   ];
 
-  const getIconColor = (itemId: string) => {
-    if (activeTab === itemId) {
-      return "text-[#FF7B00]";
-    }
-    return "text-gray-500";
-  };
-
-  const getLabelColor = (itemId: string) => {
-    if (activeTab === itemId) {
-      return "text-[#FF7B00]";
-    }
-    return "text-gray-700";
+  const getTabStyles = (itemId: string) => {
+    const isActive = activeTab === itemId;
+    
+    return {
+      icon: isActive ? "text-[#FF7B00]" : "text-gray-500 group-hover:text-[#FF7B00]",
+      label: isActive ? "text-[#FF7B00]" : "text-gray-700 group-hover:text-[#FF7B00]",
+      background: isActive 
+        ? "bg-[#FFF5EB] border-l-4 border-[#FF7B00]" 
+        : "hover:bg-[#FFF5EB] hover:border-l-4 hover:border-[#FFA652]"
+    };
   };
 
   return (
-    <div className={`${isExpanded ? 'w-64' : 'w-16'} bg-[#FFFFFF] border-r border-gray-200 flex flex-col py-4 transition-all duration-300 ease-in-out`}>
+    <div className={`${isExpanded ? 'w-64' : 'w-16'} bg-[#FFFFFF] border-r border-gray-200 flex flex-col py-6 transition-all duration-300 ease-in-out`}>
       {/* Logo and App Name */}
       <div className="flex items-center justify-center mb-8 px-4">
         <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center flex-shrink-0">
@@ -53,20 +51,20 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
       </div>
       
       {/* Navigation Icons - Vertically Centered */}
-      <div className="flex-1 flex flex-col items-center justify-center space-y-6">
+      <div className="flex-1 flex flex-col items-center justify-center space-y-2 px-3">
         {menuItems.map((item, index) => {
           const Icon = item.icon;
+          const styles = getTabStyles(item.id);
+          
           return (
             <button
               key={index}
               onClick={() => setActiveTab(item.id)}
-              className={`w-full flex items-center ${isExpanded ? 'justify-center px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-all duration-200 ${
-                activeTab === item.id ? 'bg-[#FFF5EB]' : ''
-              }`}
+              className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all duration-200 group ${styles.background}`}
             >
-              <Icon className={`w-6 h-6 ${getIconColor(item.id)} flex-shrink-0`} />
+              <Icon className={`w-6 h-6 ${styles.icon} flex-shrink-0 transition-colors duration-200`} />
               {isExpanded && (
-                <span className={`ml-4 whitespace-nowrap font-semibold ${getLabelColor(item.id)}`}>
+                <span className={`ml-4 whitespace-nowrap font-semibold ${styles.label} transition-colors duration-200`}>
                   {item.label}
                 </span>
               )}
@@ -76,18 +74,18 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
       </div>
       
       {/* Menu button at bottom */}
-      <div className="flex justify-center mt-8">
+      <div className="flex justify-center mt-8 px-3">
         <button
           onClick={toggleSidebar}
-          className={`w-full flex items-center ${isExpanded ? 'justify-center px-4' : 'justify-center'} p-3 rounded-full hover:bg-[#FFF5EB] transition-colors duration-200`}
+          className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg hover:bg-[#FFF5EB] hover:border-l-4 hover:border-[#FFA652] transition-all duration-200 group`}
         >
           {isExpanded ? (
-            <X className="w-6 h-6 text-gray-500 flex-shrink-0" />
+            <X className="w-6 h-6 text-gray-500 group-hover:text-[#FF7B00] flex-shrink-0 transition-colors duration-200" />
           ) : (
-            <Menu className="w-6 h-6 text-gray-500 flex-shrink-0" />
+            <Menu className="w-6 h-6 text-gray-500 group-hover:text-[#FF7B00] flex-shrink-0 transition-colors duration-200" />
           )}
           {isExpanded && (
-            <span className="ml-4 text-gray-700 whitespace-nowrap font-semibold">
+            <span className="ml-4 text-gray-700 whitespace-nowrap font-semibold group-hover:text-[#FF7B00] transition-colors duration-200">
               Close Menu
             </span>
           )}
