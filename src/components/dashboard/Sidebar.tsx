@@ -47,10 +47,10 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           {/* Centered Full Logo */}
           <div className="flex items-center">
             <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">C</span>
+              <span className="text-white font-bold text-lg">G</span>
             </div>
             <span className="ml-3 text-xl font-bold text-[#FF7B00]">
-              CPA Dashboard
+              GridTemplates
             </span>
           </div>
           
@@ -84,10 +84,10 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
             <div className="flex items-center">
               <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">C</span>
+                <span className="text-white font-bold text-lg">G</span>
               </div>
               <span className="ml-3 text-xl font-bold text-[#FF7B00]">
-                CPA Dashboard
+                GridTemplates
               </span>
             </div>
             
@@ -139,11 +139,11 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
         {/* Logo and App Name */}
         <div className="flex items-center justify-center mb-8 px-4">
           <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center flex-shrink-0">
-            <span className="text-white font-bold text-lg">C</span>
+            <span className="text-white font-bold text-lg">G</span>
           </div>
           {isExpanded && (
             <span className="ml-3 text-xl font-bold text-[#FF7B00] whitespace-nowrap">
-              CPA Dashboard
+              GridTemplates
             </span>
           )}
         </div>
