@@ -41,9 +41,9 @@ const TemplateModal = ({ isOpen, onClose, template }: TemplateModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b">
+      <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-white">
+        {/* Header with exit button */}
+        <div className="flex items-center justify-between p-6">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">{template.title}</h2>
             <p className="text-gray-600 mt-1">{template.description}</p>
@@ -56,7 +56,7 @@ const TemplateModal = ({ isOpen, onClose, template }: TemplateModalProps) => {
         {/* Main content */}
         <div className="flex flex-col h-[calc(90vh-120px)]">
           {/* Image display */}
-          <div className="flex-1 relative bg-gray-100 flex items-center justify-center p-8">
+          <div className="flex-1 relative bg-white flex items-center justify-center p-8">
             <img 
               src={template.images[currentImageIndex]} 
               alt={`${template.title} screenshot ${currentImageIndex + 1}`}
@@ -88,7 +88,7 @@ const TemplateModal = ({ isOpen, onClose, template }: TemplateModalProps) => {
 
           {/* Thumbnail navigation */}
           {template.images.length > 1 && (
-            <div className="p-6 border-t bg-gray-50">
+            <div className="p-6 bg-white">
               <div className="flex items-center justify-center space-x-2">
                 {template.images.map((_, index) => (
                   <button
