@@ -5,9 +5,10 @@ import TemplateCard from "./TemplateCard";
 
 interface TemplateCarouselProps {
   selectedCategories?: string[];
+  searchQuery?: string;
 }
 
-const TemplateCarousel = ({ selectedCategories = [] }: TemplateCarouselProps) => {
+const TemplateCarousel = ({ selectedCategories = [], searchQuery = "" }: TemplateCarouselProps) => {
   const [templates, setTemplates] = useState([]);
   const [loading, setLoading] = useState(false);
   const loaderRef = useRef(null);
@@ -195,18 +196,19 @@ const TemplateCarousel = ({ selectedCategories = [] }: TemplateCarouselProps) =>
     }
   ];
 
-  // Filter templates based on selected categories
+  // Filter templates based on selected categories and search query
   const filteredTemplates = allTemplates.filter(template => {
-    if (selectedCategories.length === 0) {
-      return true; // Show all templates if no filters selected
-    }
-    return selectedCategories.includes(template.category);
+    const matchesCategory = selectedCategories.length === 0 || selectedCategories.includes(template.category);
+    const matchesSearch = searchQuery.trim() === "" || 
+      template.title.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return matchesCategory && matchesSearch;
   });
 
   useEffect(() => {
     // Load initial filtered templates
     setTemplates(filteredTemplates.slice(0, 6));
-  }, [selectedCategories]);
+  }, [selectedCategories, searchQuery]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -257,7 +259,7 @@ const TemplateCarousel = ({ selectedCategories = [] }: TemplateCarouselProps) =>
           </svg>
         </div>
         <h3 className="text-lg font-medium text-gray-900 mb-2">No templates found</h3>
-        <p className="text-gray-500">Try adjusting your filters to see more templates</p>
+        <p className="text-gray-500">Try adjusting your filters or search query to see more templates</p>
       </div>
     );
   }

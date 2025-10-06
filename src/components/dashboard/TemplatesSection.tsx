@@ -2,12 +2,14 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { Button } from "@/components/ui/button";
-import { Filter, X } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Filter, X, Search } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import TemplateCarousel from "./templates/TemplateCarousel";
 
 const TemplatesSection = () => {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   // All available categories from templates
@@ -33,11 +35,15 @@ const TemplatesSection = () => {
     setSelectedCategories([]);
   };
 
-  const hasActiveFilters = selectedCategories.length > 0;
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
+
+  const hasActiveFilters = selectedCategories.length > 0 || searchQuery.trim() !== "";
 
   return (
     <div className="space-y-6">
-      {/* Filter section */}
+      {/* Filter and Search section */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           {/* Filter dropdown */}
@@ -49,7 +55,7 @@ const TemplatesSection = () => {
               >
                 <Filter className="h-4 w-4" />
                 <span>Filter</span>
-                {hasActiveFilters && (
+                {selectedCategories.length > 0 && (
                   <span className="ml-1 bg-white bg-opacity-20 px-2 py-0.5 rounded text-xs">
                     {selectedCategories.length}
                   </span>
@@ -85,7 +91,7 @@ const TemplatesSection = () => {
               </div>
               
               {/* Clear filters option */}
-              {hasActiveFilters && (
+              {selectedCategories.length > 0 && (
                 <>
                   <div className="border-t border-gray-200 my-2"></div>
                   <DropdownMenuItem
@@ -102,6 +108,26 @@ const TemplatesSection = () => {
               )}
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Search bar */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              type="text"
+              placeholder="Search templates..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-10 pr-10 w-64 border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+            />
+            {searchQuery && (
+              <button
+                onClick={clearSearch}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            )}
+          </div>
 
           {/* Active filters display */}
           {hasActiveFilters && (
@@ -122,14 +148,27 @@ const TemplatesSection = () => {
                     </button>
                   </div>
                 ))}
+                {searchQuery && (
+                  <div
+                    className="flex items-center space-x-1 bg-[#FFF5EB] border border-[#FFA652] rounded-full px-3 py-1"
+                  >
+                    <span className="text-sm text-[#FF7B00]">Search: "{searchQuery}"</span>
+                    <button
+                      onClick={clearSearch}
+                      className="text-[#FF7B00] hover:text-[#FF8d21]"
+                    >
+                      <X className="w-3 h-3" />
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           )}
         </div>
       </div>
       
-      {/* Template carousel with filters */}
-      <TemplateCarousel selectedCategories={selectedCategories} />
+      {/* Template carousel with filters and search */}
+      <TemplateCarousel selectedCategories={selectedCategories} searchQuery={searchQuery} />
     </div>
   );
 };
