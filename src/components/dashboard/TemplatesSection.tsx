@@ -41,8 +41,6 @@ const TemplatesSection = () => {
 
   const hasActiveFilters = selectedCategories.length > 0 || searchQuery.trim() !== "";
 
-  const shouldShowActiveFilters = hasActiveFilters && !isOpen;
-
   return (
     <div className="space-y-6">
       {/* Filter and Search section */}
@@ -114,9 +112,9 @@ const TemplatesSection = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Active filters display for md and lg - beside filter button */}
+            {/* Active filters display for md and lg - beside filter button (hidden on mobile) */}
             {hasActiveFilters && (
-              <div className="flex flex-wrap items-center gap-2">
+              <div className="hidden sm:flex flex-wrap items-center gap-2">
                 {selectedCategories.map((category) => (
                   <div
                     key={category}
@@ -169,8 +167,11 @@ const TemplatesSection = () => {
           </div>
         </div>
 
-        {/* Active filters display for mobile - below filter button when filters are applied and dropdown is closed */}
-        {shouldShowActiveFilters && (
+        {/* Active filters display for mobile - below filter button when filters are applied and dropdown is closed (REMOVED) */}
+        {/* This section has been removed to eliminate duplicate display on mobile */}
+        
+        {/* Active filters display for mobile below search bar */}
+        {hasActiveFilters && (
           <div className="flex flex-wrap items-center gap-2 sm:hidden">
             {selectedCategories.map((category) => (
               <div
