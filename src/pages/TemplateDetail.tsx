@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
@@ -13,6 +13,7 @@ const TemplateDetail = () => {
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("templates");
+  const navigate = useNavigate();
 
   // Mock template data - in a real app this would come from an API
   const template = {
@@ -68,6 +69,10 @@ const TemplateDetail = () => {
     setSelectedImageIndex(null);
   };
 
+  const handleBackToTemplates = () => {
+    navigate("/dashboard?tab=templates");
+  };
+
   if (!template) {
     return (
       <div className="flex h-screen bg-[#FFFFFF]">
@@ -76,9 +81,12 @@ const TemplateDetail = () => {
           <div className="max-w-5xl mx-auto p-6">
             <div className="text-center py-20">
               <h1 className="text-2xl font-bold text-gray-900">Template not found</h1>
-              <Link to="/dashboard" className="text-[#FF7B00] hover:underline mt-4 inline-block">
+              <button 
+                onClick={handleBackToTemplates}
+                className="text-[#FF7B00] hover:underline mt-4 inline-block"
+              >
                 Back to Templates
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -97,13 +105,13 @@ const TemplateDetail = () => {
           {/* Header */}
           <div className="mb-6">
             <div className="flex items-center mb-2">
-              <Link 
-                to="/dashboard?tab=templates" 
+              <button 
+                onClick={handleBackToTemplates}
                 className="flex items-center text-gray-600 hover:text-[#FF7B00] transition-colors mr-4"
               >
                 <ChevronLeft className="w-5 h-5 mr-2" />
                 Back to Templates
-              </Link>
+              </button>
             </div>
           </div>
 
