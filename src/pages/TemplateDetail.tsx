@@ -17,7 +17,7 @@ const TemplateDetail = () => {
   const [activeTab, setActiveTab] = useState("templates");
   const [template, setTemplate] = useState<any>(null);
 
-  // Complete template data for fallback lookup
+  // Complete template data with more screenshots for each template
   const allTemplates = [
     {
       id: 1,
@@ -25,8 +25,6 @@ const TemplateDetail = () => {
       description: "High-converting landing page for CPA offers with optimized design and user experience. This template includes multiple variations for different niches and industries.",
       category: "Landing Pages",
       createdAt: "2024-01-15",
-      downloads: 1234,
-      rating: 4.8,
       features: [
         "Responsive design",
         "Mobile optimized",
@@ -41,7 +39,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+9"
       ],
       isNew: false
     },
@@ -51,8 +52,6 @@ const TemplateDetail = () => {
       description: "Optimized form for email collection with advanced validation and auto-responder integration. Perfect for building your email list with high-converting designs.",
       category: "Forms",
       createdAt: "2024-01-20",
-      downloads: 892,
-      rating: 4.6,
       features: [
         "Email validation",
         "Auto-responder integration",
@@ -67,7 +66,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+9"
       ],
       isNew: true
     },
@@ -77,8 +79,6 @@ const TemplateDetail = () => {
       description: "Interactive survey for lead generation with multiple question types and conditional logic. Great for gathering customer insights and qualifying leads.",
       category: "Surveys",
       createdAt: "2024-01-18",
-      downloads: 756,
-      rating: 4.7,
       features: [
         "Multiple question types",
         "Progress tracking",
@@ -93,7 +93,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+9"
       ],
       isNew: false
     },
@@ -103,8 +106,6 @@ const TemplateDetail = () => {
       description: "Engaging video-based landing page with custom video player and call-to-action overlays. Perfect for product demonstrations and brand storytelling.",
       category: "Landing Pages",
       createdAt: "2024-01-22",
-      downloads: 1102,
-      rating: 4.9,
       features: [
         "Video autoplay",
         "Custom video player",
@@ -119,7 +120,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+9"
       ],
       isNew: false
     },
@@ -129,8 +133,6 @@ const TemplateDetail = () => {
       description: "Mobile-optimized landing page with app store buttons and device mockups. Designed specifically to drive mobile app downloads and installations.",
       category: "Landing Pages",
       createdAt: "2024-01-25",
-      downloads: 1456,
-      rating: 4.8,
       features: [
         "App store buttons",
         "Device mockups",
@@ -145,7 +147,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+9"
       ],
       isNew: false
     },
@@ -155,8 +160,6 @@ const TemplateDetail = () => {
       description: "Confirmation page for conversions with social sharing and related offers. Perfect for post-conversion engagement and upselling opportunities.",
       category: "Confirmation",
       createdAt: "2024-01-28",
-      downloads: 623,
-      rating: 4.5,
       features: [
         "Conversion tracking",
         "Social sharing options",
@@ -171,7 +174,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+9"
       ],
       isNew: false
     },
@@ -181,8 +187,6 @@ const TemplateDetail = () => {
       description: "High-converting squeeze page template with lead magnet delivery and urgency timers. Designed to maximize email sign-ups and lead generation.",
       category: "Landing Pages",
       createdAt: "2024-02-01",
-      downloads: 987,
-      rating: 4.7,
       features: [
         "Lead magnet delivery",
         "Email integration",
@@ -197,7 +201,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+9"
       ],
       isNew: true
     },
@@ -207,8 +214,6 @@ const TemplateDetail = () => {
       description: "Webinar landing page with registration, countdown timer, and speaker profiles. Perfect for promoting online events and collecting registrations.",
       category: "Events",
       createdAt: "2024-02-05",
-      downloads: 543,
-      rating: 4.6,
       features: [
         "Event countdown timer",
         "Calendar integration",
@@ -223,7 +228,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+9"
       ],
       isNew: false
     },
@@ -233,8 +241,6 @@ const TemplateDetail = () => {
       description: "Product launch landing page with coming soon timer and pre-order system. Designed to build anticipation and drive early sales.",
       category: "Landing Pages",
       createdAt: "2024-02-08",
-      downloads: 721,
-      rating: 4.8,
       features: [
         "Coming soon timer",
         "Early bird pricing",
@@ -249,7 +255,10 @@ const TemplateDetail = () => {
         "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+3",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+4",
         "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+5",
-        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+6"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+6",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+7",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+8",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+9"
       ],
       isNew: false
     }
@@ -258,7 +267,10 @@ const TemplateDetail = () => {
   useEffect(() => {
     // First try to get template data from navigation state
     if (location.state?.template) {
-      setTemplate(location.state.template);
+      // Find the matching template with full data
+      const templateId = location.state.template.id;
+      const fullTemplate = allTemplates.find(t => t.id === templateId);
+      setTemplate(fullTemplate || null);
     } else {
       // Fallback to ID-based lookup
       const templateId = parseInt(id || "1");
@@ -357,19 +369,11 @@ const TemplateDetail = () => {
                 </div>
               </div>
 
-              {/* Template Stats */}
+              {/* Template Stats - Only showing Category */}
               <div className="flex items-center space-x-6 mt-6">
                 <div className="flex items-center space-x-2">
                   <span className="text-gray-500">Category:</span>
                   <span className="font-medium text-gray-900">{template.category}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-gray-500">Downloads:</span>
-                  <span className="font-medium text-gray-900">{template.downloads}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-gray-500">Rating:</span>
-                  <span className="font-medium text-gray-900">{template.rating} ⭐</span>
                 </div>
               </div>
             </div>
