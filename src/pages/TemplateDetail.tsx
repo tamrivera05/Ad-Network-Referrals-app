@@ -17,7 +17,7 @@ const TemplateDetail = () => {
   const [activeTab, setActiveTab] = useState("templates");
   const [template, setTemplate] = useState<any>(null);
 
-  // Complete template data with more screenshots for detail view
+  // Complete template data for fallback lookup
   const allTemplates = [
     {
       id: 1,
@@ -36,14 +36,12 @@ const TemplateDetail = () => {
         "SEO friendly"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=CPA+Landing+Page+-+Hero+Section",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=CPA+Landing+Page+-+Features",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=CPA+Landing+Page+-+Testimonials",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=CPA+Landing+Page+-+Pricing",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=CPA+Landing+Page+-+FAQ",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=CPA+Landing+Page+-+Contact+Form",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=CPA+Landing+Page+-+Mobile+View",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=CPA+Landing+Page+-+Thank+You"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=CPA+Landing+Page+6"
       ],
       isNew: false
     },
@@ -64,14 +62,12 @@ const TemplateDetail = () => {
         "A/B testing ready"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Email+Capture+-+Main+Form",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Email+Capture+-+Success+Message",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Email+Capture+-+Mobile+Form",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Email+Capture+-+Sidebar+Form",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Email+Capture+-+Popup+Form",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Email+Capture+-+Inline+Form",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Email+Capture+-+Multi-Step+Form",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Email+Capture+-+Thank+You+Page"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Email+Capture+Form+6"
       ],
       isNew: true
     },
@@ -92,14 +88,12 @@ const TemplateDetail = () => {
         "Analytics integration"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Survey+-+Introduction",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Survey+-+Multiple+Choice",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Survey+-+Text+Questions",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Survey+-+Progress+Bar",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Survey+-+Results+Page",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Survey+-+Mobile+View",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Survey+-+Thank+You",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Survey+-+Analytics+Dashboard"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Survey+Page+6"
       ],
       isNew: false
     },
@@ -120,14 +114,12 @@ const TemplateDetail = () => {
         "Social sharing"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Video+Landing+-+Hero+Video",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Video+Landing+-+Video+Player",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Video+Landing+-+CTA+Overlay",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Video+Landing+-+Video+Gallery",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Video+Landing+-+Testimonials",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Video+Landing+-Mobile+Video",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Video+Landing+-+Video+Controls",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Video+Landing+-+Share+Section"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Video+Landing+Page+6"
       ],
       isNew: false
     },
@@ -148,14 +140,12 @@ const TemplateDetail = () => {
         "Push notification ready"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Mobile+App+-+Hero+Section",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Mobile+App+-+Device+Mockups",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Mobile+App+-+App+Store+Buttons",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Mobile+App+-+Features+Grid",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Mobile+App+-+Screenshots",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Mobile+App+-+Testimonials",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Mobile+App+-+Download+Stats",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Mobile+App+-+Mobile+View"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Mobile+App+Landing+6"
       ],
       isNew: false
     },
@@ -176,14 +166,12 @@ const TemplateDetail = () => {
         "Custom branding"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Thank+You+-+Success+Message",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Thank+You+-+Order+Details",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Thank+You+-+Social+Sharing",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Thank+You+-+Related+Products",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Thank+You+-+Email+Confirmation",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Thank+You+-+Mobile+View",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Thank+You+-+Countdown+Timer",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Thank+You+-+Next+Steps"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Thank+You+Page+6"
       ],
       isNew: false
     },
@@ -204,14 +192,12 @@ const TemplateDetail = () => {
         "Mobile responsive"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Squeeze+Page+-+Hero+Section",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Squeeze+Page+-+Lead+Magnet",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Squeeze+Page+-+Email+Form",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Squeeze+Page+-+Urgency+Timer",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Squeeze+Page+-+Testimonials",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Squeeze+Page+-+Benefits",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Squeeze+Page+-+Mobile+Form",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Squeeze+Page+-+Thank+You"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Squeeze+Page+6"
       ],
       isNew: true
     },
@@ -232,14 +218,12 @@ const TemplateDetail = () => {
         "Zoom integration"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Webinar+-+Event+Header",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Webinar+-+Registration+Form",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Webinar+-+Speaker+Profiles",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Webinar+-+Event+Agenda",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Webinar+-+Countdown+Timer",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Webinar+-+Calendar+Integration",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Webinar+-+Mobile+Registration",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Webinar+-+Confirmation+Email"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Webinar+Registration+6"
       ],
       isNew: false
     },
@@ -260,14 +244,12 @@ const TemplateDetail = () => {
         "Social proof widgets"
       ],
       images: [
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Product+Launch+-+Coming+Soon",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Product+Launch+-+Product+Showcase",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Product+Launch+-+Feature+Comparison",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Product+Launch+-+Pre-Order+Form",
-        "https://placehold.co/1200x800/FF7B00/FFFFFF?text=Product+Launch+-+Early+Bird+Pricing",
-        "https://placehold.co/1200x800/FF8D21/FFFFFF?text=Product+Launch+-+Social+Proof",
-        "https://placehold.co/1200x800/FFA652/FFFFFF?text=Product+Launch+-+Mobile+View",
-        "https://placehold.co/1200x800/FFB76B/FFFFFF?text=Product+Launch+-+Launch+Countdown"
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+1",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+2",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+3",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+4",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+5",
+        "https://placehold.co/1200x800/f3f4f6/333333?text=Product+Launch+6"
       ],
       isNew: false
     }
@@ -276,10 +258,7 @@ const TemplateDetail = () => {
   useEffect(() => {
     // First try to get template data from navigation state
     if (location.state?.template) {
-      // Find the full template data from the allTemplates array
-      const templateId = location.state.template.id;
-      const fullTemplate = allTemplates.find(t => t.id === templateId);
-      setTemplate(fullTemplate || null);
+      setTemplate(location.state.template);
     } else {
       // Fallback to ID-based lookup
       const templateId = parseInt(id || "1");
@@ -411,29 +390,24 @@ const TemplateDetail = () => {
             {/* Gallery Section */}
             <div>
               <div className="flex items-center justify-between mb-6">
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900">Template Screenshots</h3>
-                  <p className="text-sm text-gray-500 mt-1">
-                    {template.images.length} screenshots showing all template variations and features
-                  </p>
-                </div>
+                <h3 className="text-xl font-bold text-gray-900">Template Screenshots</h3>
                 <Button className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white">
                   Use This Template
                 </Button>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {template.images.map((image: string, index: number) => (
                   <Card 
                     key={index} 
-                    className="cursor-pointer hover:shadow-lg transition-all duration-300 overflow-hidden group"
+                    className="cursor-pointer hover:shadow-lg transition-shadow duration-300 overflow-hidden group"
                     onClick={() => handleImageClick(index)}
                   >
                     <CardContent className="p-0">
-                      <div className="relative overflow-hidden bg-gray-100 aspect-video">
+                      <div className="relative overflow-hidden bg-gray-100">
                         <img 
                           src={image} 
                           alt={`${template.title} screenshot ${index + 1}`}
-                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                          className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
                           <div className="bg-white rounded-full p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -441,9 +415,6 @@ const TemplateDetail = () => {
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                             </svg>
                           </div>
-                        </div>
-                        <div className="absolute bottom-2 left-2 bg-black bg-opacity-75 text-white text-xs px-2 py-1 rounded">
-                          {index + 1}/{template.images.length}
                         </div>
                       </div>
                     </CardContent>
@@ -456,7 +427,7 @@ const TemplateDetail = () => {
             <div className="text-center">
               <div className="bg-[#FFF5EB] rounded-xl p-8">
                 <h3 className="text-2xl font-bold text-[#FF7B00] mb-4">Ready to use this template?</h3>
-                <p className="text-gray-700 mb-6">Get instant access to all {template.images.length} screenshots and start building your campaigns today.</p>
+                <p className="text-gray-700 mb-6">Get instant access and start building your campaigns today.</p>
                 <div className="flex justify-center">
                   <Button className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white px-8 py-3">
                     Use This Template
@@ -470,26 +441,19 @@ const TemplateDetail = () => {
 
       {/* Modal for image viewing */}
       <Dialog open={isModalOpen} onOpenChange={handleCloseModal}>
-        <DialogContent className="max-w-6xl w-full h-[90vh] p-0 overflow-hidden bg-white">
+        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-white">
           {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b">
+          <div className="flex items-center justify-between p-6">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">{template.title}</h2>
-              <p className="text-gray-600 mt-1">
-                Screenshot {selectedImageIndex !== null ? selectedImageIndex + 1 : 1} of {template.images.length}
-              </p>
+              <p className="text-gray-600 mt-1">{template.description}</p>
             </div>
-            <Button variant="ghost" size="icon" onClick={handleCloseModal}>
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </Button>
           </div>
 
           {/* Main content */}
           <div className="flex flex-col h-[calc(90vh-120px)]">
             {/* Image display */}
-            <div className="flex-1 relative bg-gray-50 flex items-center justify-center p-8">
+            <div className="flex-1 relative bg-white flex items-center justify-center p-8">
               {selectedImageIndex !== null && (
                 <img 
                   src={template.images[selectedImageIndex]} 
@@ -504,7 +468,7 @@ const TemplateDetail = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full shadow-lg"
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg"
                     onClick={prevImage}
                   >
                     <ChevronLeft className="h-6 w-6" />
@@ -512,7 +476,7 @@ const TemplateDetail = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white rounded-full shadow-lg"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg"
                     onClick={nextImage}
                   >
                     <ChevronRight className="h-6 w-6" />
@@ -523,13 +487,13 @@ const TemplateDetail = () => {
 
             {/* Thumbnail navigation */}
             {template.images.length > 1 && (
-              <div className="p-6 bg-white border-t">
-                <div className="flex items-center justify-center space-x-2 overflow-x-auto">
+              <div className="p-6 bg-white">
+                <div className="flex items-center justify-center space-x-2">
                   {template.images.map((_: string, index: number) => (
                     <button
                       key={index}
                       onClick={() => goToImage(index)}
-                      className={`relative overflow-hidden rounded-lg transition-all flex-shrink-0 ${
+                      className={`relative overflow-hidden rounded-lg transition-all ${
                         selectedImageIndex === index 
                           ? 'ring-2 ring-[#FF7B00] scale-105' 
                           : 'opacity-70 hover:opacity-100'
@@ -545,6 +509,9 @@ const TemplateDetail = () => {
                       )}
                     </button>
                   ))}
+                </div>
+                <div className="text-center mt-4 text-sm text-gray-600">
+                  {selectedImageIndex !== null ? selectedImageIndex + 1 : 1} of {template.images.length}
                 </div>
               </div>
             )}
