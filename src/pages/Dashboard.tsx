@@ -23,8 +23,14 @@ const Dashboard = () => {
         return "Dashboard";
       case "templates":
         return "Templates";
-      case "account":
-        return "Account";
+      case "create":
+        return "Create";
+      case "favorites":
+        return "Favorites";
+      case "profile":
+        return "Profile";
+      case "saved":
+        return "Saved";
       default:
         return "Dashboard";
     }
@@ -36,9 +42,6 @@ const Dashboard = () => {
         return <Overview />;
       case "templates":
         return <TemplatesSection />;
-      case "account":
-        // This will be handled by the Account component directly
-        return null;
       default:
         return (
           <div className="max-w-2xl mx-auto">
@@ -55,11 +58,6 @@ const Dashboard = () => {
         );
     }
   };
-
-  // If account tab is selected, don't render the dashboard layout
-  if (activeTab === "account") {
-    return null;
-  }
 
   return (
     <div className="flex h-screen bg-[#FFFFFF]">

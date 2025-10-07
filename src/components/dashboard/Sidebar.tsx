@@ -18,7 +18,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   const menuItems = [
     { icon: Home, label: "Home", id: "home" },
     { icon: Layout, label: "Templates", id: "templates" },
-    { icon: User, label: "Account", id: "account" },
+    { icon: User, label: "Profile", id: "profile" },
   ];
 
   const getTabStyles = (itemId: string) => {
