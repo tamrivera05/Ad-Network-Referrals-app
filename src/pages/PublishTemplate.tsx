@@ -279,14 +279,25 @@ const PublishTemplate = () => {
                     </div>
                   </div>
                   
-                  {userAccountStatus === "approved" && (
-                    <Button 
-                      onClick={handleFinish}
-                      className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                    >
-                      View My Sites
-                    </Button>
-                  )}
+                  <div className="flex flex-col space-y-3">
+                    {userAccountStatus === "approved" && (
+                      <Button 
+                        onClick={handleFinish}
+                        className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                      >
+                        View My Sites
+                      </Button>
+                    )}
+                    
+                    {userAccountStatus === "pending" && (
+                      <Button 
+                        onClick={handleNext}
+                        className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                      >
+                        Continue
+                      </Button>
+                    )}
+                  </div>
                 </CardContent>
               </Card>
             )}
