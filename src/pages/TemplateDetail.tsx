@@ -309,6 +309,13 @@ const TemplateDetail = () => {
     navigate("/dashboard?tab=templates");
   };
 
+  const handleUseTemplate = () => {
+    // Navigate to publish template page with template data
+    navigate("/publish-template", {
+      state: { template }
+    });
+  };
+
   if (!template) {
     return (
       <div className="flex h-screen bg-[#FFFFFF]">
@@ -395,7 +402,10 @@ const TemplateDetail = () => {
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-xl font-bold text-gray-900">Template Screenshots</h3>
-                <Button className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white">
+                <Button 
+                  onClick={handleUseTemplate}
+                  className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                >
                   Use This Template
                 </Button>
               </div>
@@ -433,7 +443,10 @@ const TemplateDetail = () => {
                 <h3 className="text-2xl font-bold text-[#FF7B00] mb-4">Ready to use this template?</h3>
                 <p className="text-gray-700 mb-6">Get instant access and start building your campaigns today.</p>
                 <div className="flex justify-center">
-                  <Button className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white px-8 py-3">
+                  <Button 
+                    onClick={handleUseTemplate}
+                    className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white px-8 py-3"
+                  >
                     Use This Template
                   </Button>
                 </div>
