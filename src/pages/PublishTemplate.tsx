@@ -72,16 +72,10 @@ const PublishTemplate = () => {
     navigate("/dashboard?tab=sites");
   };
 
-  // Handle tab navigation
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    navigate(`/dashboard?tab=${tab}`);
-  };
-
   if (!template) {
     return (
       <div className="flex h-screen bg-[#FFFFFF]">
-        <Sidebar activeTab={activeTab} setActiveTab={handleTabChange} />
+        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
         <div className="flex-1 overflow-y-auto">
           <div className="max-w-5xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
             <div className="text-center py-20">
@@ -102,7 +96,7 @@ const PublishTemplate = () => {
   return (
     <div className="flex h-screen bg-[#FFFFFF]">
       {/* Sidebar */}
-      <Sidebar activeTab={activeTab} setActiveTab={handleTabChange} />
+      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
       
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
