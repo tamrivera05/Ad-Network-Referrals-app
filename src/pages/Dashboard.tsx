@@ -25,7 +25,7 @@ const Dashboard = () => {
       case "templates":
         return "Templates";
       case "profile":
-        return "Profile";
+        return "Account";
       default:
         return "Dashboard";
     }
