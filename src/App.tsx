@@ -10,6 +10,7 @@ import Onboarding from "./pages/Onboarding";
 import ConfirmationSent from "./pages/ConfirmationSent";
 import AccountPending from "./pages/AccountPending";
 import Dashboard from "./pages/Dashboard";
+import Account from "./pages/Account";
 import TemplateDetail from "./pages/TemplateDetail";
 import NotFound from "./pages/NotFound";
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/confirmation-sent" element={<ConfirmationSent />} />
           <Route path="/account-pending" element={<AccountPending />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/account" element={<Account />} />
           <Route path="/template/:id" element={<TemplateDetail />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
