@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Home, Layout, Plus, Heart, User, Bookmark, Menu, X } from "lucide-react";
+import { Home, Layout, User, Menu, X } from "lucide-react";
 
 interface SidebarProps {
   activeTab: string;
@@ -18,10 +18,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   const menuItems = [
     { icon: Home, label: "Home", id: "home" },
     { icon: Layout, label: "Templates", id: "templates" },
-    { icon: Plus, label: "Create", id: "create" },
-    { icon: Heart, label: "Favorites", id: "favorites" },
     { icon: User, label: "Profile", id: "profile" },
-    { icon: Bookmark, label: "Saved", id: "saved" },
   ];
 
   const getTabStyles = (itemId: string) => {
