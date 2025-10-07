@@ -17,6 +17,7 @@ interface TemplateData {
   title: string;
   description: string;
   category: string;
+  images: string[];
 }
 
 const PublishTemplate = () => {
@@ -131,12 +132,28 @@ const PublishTemplate = () => {
             </div>
           </div>
 
-          {/* Template Info */}
+          {/* Template Info with Screenshot */}
           <Card className="mb-6 border-gray-200">
-            <CardHeader className="pb-3">
-              <CardTitle className="text-xl text-gray-900">{template.title}</CardTitle>
-              <CardDescription>{template.description}</CardDescription>
-            </CardHeader>
+            <CardContent className="p-6">
+              <div className="flex flex-col md:flex-row gap-6">
+                {/* Template Screenshot */}
+                <div className="flex-shrink-0">
+                  <div className="w-48 h-36 bg-gray-100 rounded-lg overflow-hidden">
+                    <img 
+                      src={template.images[0]} 
+                      alt={`${template.title} preview`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+                
+                {/* Template Details */}
+                <div className="flex-1">
+                  <CardTitle className="text-xl text-gray-900 mb-2">{template.title}</CardTitle>
+                  <CardDescription className="text-gray-600">{template.description}</CardDescription>
+                </div>
+              </div>
+            </CardContent>
           </Card>
 
           {/* Step Content */}
