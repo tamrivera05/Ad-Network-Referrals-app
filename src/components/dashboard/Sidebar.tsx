@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Home, Layout, User, Globe, Menu, X } from "lucide-react";
 
 interface SidebarProps {
@@ -11,15 +10,9 @@ interface SidebarProps {
 
 const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
-  };
-
-  const handleNavigation = (tabId: string) => {
-    setActiveTab(tabId);
-    navigate(`/dashboard?tab=${tabId}`);
   };
 
   const menuItems = [
@@ -115,7 +108,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
                 <button
                   key={index}
                   onClick={() => {
-                    handleNavigation(item.id);
+                    setActiveTab(item.id);
                     toggleSidebar(); // Close sidebar after navigation on mobile
                   }}
                   className={`w-full flex items-center px-4 py-4 rounded-lg transition-all duration-200 group ${
@@ -162,7 +155,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             return (
               <button
                 key={index}
-                onClick={() => handleNavigation(item.id)}
+                onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all duration-200 group ${styles.background}`}
               >
                 <Icon className={`w-6 h-6 ${styles.icon} flex-shrink-0 transition-colors duration-200`} />
