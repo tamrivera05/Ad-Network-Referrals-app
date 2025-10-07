@@ -6,9 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle, ExternalLink, Globe, Link, Clock, AlertCircle, ArrowLeft } from "lucide-react";
+import { CheckCircle, ExternalLink, Globe, Link, AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
 import { showSuccess, showError } from "@/utils/toast";
 import Sidebar from "@/components/dashboard/Sidebar";
 
@@ -23,11 +22,11 @@ interface TemplateData {
 const PublishTemplate = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [step, setStep] = useState(1);
   const [activeTab, setActiveTab] = useState("templates");
   const [template, setTemplate] = useState<TemplateData | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [userAccountStatus, setUserAccountStatus] = useState<"approved" | "pending">("pending"); // Changed to pending for mock design
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [isPublished, setIsPublished] = useState(false);
+  const [userAccountStatus, setUserAccountStatus] = useState<"approved" | "pending">("pending");
   
   // Form data
   const [smartlink, setSmartlink] = useState("");
@@ -43,37 +42,30 @@ const PublishTemplate = () => {
     }
   }, [location.state, navigate]);
 
-  const totalSteps = userAccountStatus === "pending" ? 4 : 3;
-  const progressPercentage = (step / totalSteps) * 100;
+  const handleBack = () => {
+    navigate(`/template/${template?.id}`);
+  };
 
-  const handleNext = async () => {
-    if (step === 1 && !smartlink.trim()) {
+  const handlePublish = async () => {
+    // Validation
+    if (!smartlink.trim()) {
       showError("Please enter your OGads smartlink");
       return;
     }
     
-    if (step === 2 && !domainName.trim()) {
+    if (!domainName.trim()) {
       showError("Please enter your domain name");
       return;
     }
 
-    if (step === 2) {
-      setIsLoading(true);
-      // Simulate publishing process
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      setIsLoading(false);
-      showSuccess("Site published successfully!");
-    }
-
-    setStep(prev => prev + 1);
-  };
-
-  const handleBack = () => {
-    if (step > 1) {
-      setStep(prev => prev - 1);
-    } else {
-      navigate(`/template/${template?.id}`);
-    }
+    setIsPublishing(true);
+    
+    // Simulate publishing process
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    
+    setIsPublishing(false);
+    setIsPublished(true);
+    showSuccess("Site published successfully!");
   };
 
   const handleFinish = () => {
@@ -121,15 +113,7 @@ const PublishTemplate = () => {
               </button>
             </div>
             
-            <div className="flex items-center justify-between mb-2">
-              <h1 className="text-lg font-semibold text-gray-900">Publish Template</h1>
-              <span className="text-sm text-gray-500">Step {step} of {totalSteps}</span>
-            </div>
-            
-            {/* Progress Bar */}
-            <div className="space-y-2">
-              <Progress value={progressPercentage} className="h-2 bg-gray-200" />
-            </div>
+            <h1 className="text-lg font-semibold text-gray-900">Publish Template</h1>
           </div>
 
           {/* Template Info with Screenshot */}
@@ -156,9 +140,10 @@ const PublishTemplate = () => {
             </CardContent>
           </Card>
 
-          {/* Step Content */}
-          <div className="max-w-2xl mx-auto">
-            {step === 1 && (
+          {/* Publish Form */}
+          {!isPublished ? (
+            <div className="max-w-2xl mx-auto space-y-6">
+              {/* OGads Smartlink Section */}
               <Card className="border-gray-200">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -179,6 +164,7 @@ const PublishTemplate = () => {
                       value={smartlink}
                       onChange={(e) => setSmartlink(e.target.value)}
                       className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+                      disabled={isPublishing}
                       required
                     />
                   </div>
@@ -197,18 +183,10 @@ const PublishTemplate = () => {
                       </a>
                     </AlertDescription>
                   </Alert>
-                  
-                  <Button 
-                    onClick={handleNext}
-                    className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                  >
-                    Continue
-                  </Button>
                 </CardContent>
               </Card>
-            )}
 
-            {step === 2 && (
+              {/* Domain Name Section */}
               <Card className="border-gray-200">
                 <CardHeader>
                   <CardTitle className="flex items-center space-x-2">
@@ -229,6 +207,7 @@ const PublishTemplate = () => {
                       value={domainName}
                       onChange={(e) => setDomainName(e.target.value)}
                       className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+                      disabled={isPublishing}
                       required
                     />
                   </div>
@@ -247,125 +226,122 @@ const PublishTemplate = () => {
                       </a>
                     </AlertDescription>
                   </Alert>
-                  
-                  <div className="flex space-x-4">
-                    <Button 
-                      variant="outline" 
-                      onClick={handleBack}
-                      className="flex-1"
-                    >
-                      Back
-                    </Button>
-                    <Button 
-                      onClick={handleNext}
-                      className="flex-1 bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                      disabled={isLoading}
-                    >
-                      {isLoading ? "Publishing..." : "Publish Site"}
-                    </Button>
-                  </div>
                 </CardContent>
               </Card>
-            )}
 
-            {step === 3 && (
-              <Card className="border-gray-200">
-                <CardContent className="space-y-6 py-8">
-                  <div className="text-center">
-                    <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                      <CheckCircle className="w-8 h-8 text-green-600" />
+              {/* Action Buttons */}
+              <div className="flex space-x-4">
+                <Button 
+                  variant="outline" 
+                  onClick={handleBack}
+                  className="flex-1"
+                  disabled={isPublishing}
+                >
+                  Back
+                </Button>
+                <Button 
+                  onClick={handlePublish}
+                  className="flex-1 bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                  disabled={isPublishing}
+                >
+                  {isPublishing ? (
+                    <>
+                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                      Publishing...
+                    </>
+                  ) : (
+                    "Publish Site"
+                  )}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            /* Success State */
+            <div className="max-w-2xl mx-auto">
+              {userAccountStatus === "approved" ? (
+                <Card className="border-gray-200">
+                  <CardContent className="space-y-6 py-8">
+                    <div className="text-center">
+                      <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                        <CheckCircle className="w-8 h-8 text-green-600" />
+                      </div>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Site Published Successfully!</h2>
+                      <p className="text-gray-600 mb-6">
+                        Your site is now live at <span className="font-semibold text-[#FF7B00]">https://{domainName}</span>
+                      </p>
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Site Published Successfully!</h2>
-                    <p className="text-gray-600 mb-6">
-                      Your site is now live at <span className="font-semibold text-[#FF7B00]">https://{domainName}</span>
-                    </p>
-                  </div>
-                  
-                  <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Template:</span>
-                      <span className="font-medium text-gray-900">{template.title}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Domain:</span>
-                      <span className="font-medium text-gray-900">{domainName}</span>
-                    </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Smartlink:</span>
-                      <span className="font-medium text-gray-900 truncate max-w-xs">{smartlink}</span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex flex-col space-y-3">
-                    {userAccountStatus === "approved" && (
-                      <Button 
-                        onClick={handleFinish}
-                        className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                      >
-                        View My Sites
-                      </Button>
-                    )}
                     
-                    {userAccountStatus === "pending" && (
-                      <Button 
-                        onClick={handleNext}
-                        className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                      >
-                        Continue
-                      </Button>
-                    )}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {step === 4 && userAccountStatus === "pending" && (
-              <Card className="border-gray-200">
-                <CardContent className="space-y-6 py-8">
-                  <div className="text-center">
-                    <div className="mx-auto w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
-                      <Clock className="w-8 h-8 text-yellow-600" />
+                    <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Template:</span>
+                        <span className="font-medium text-gray-900">{template.title}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Domain:</span>
+                        <span className="font-medium text-gray-900">{domainName}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Smartlink:</span>
+                        <span className="font-medium text-gray-900 truncate max-w-xs">{smartlink}</span>
+                      </div>
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Under Review</h2>
-                    <p className="text-gray-600 mb-6">
-                      Your site has been submitted and is pending approval
-                    </p>
-                  </div>
-                  
-                  <Alert className="bg-yellow-50 border-yellow-200">
-                    <AlertCircle className="h-4 w-4 text-yellow-600" />
-                    <AlertDescription className="text-yellow-700">
-                      <span className="font-medium">Important:</span> Your account is currently under review. 
-                      Your site will be approved within <span className="font-bold">24-72 hours</span>. 
-                      This is a one-time verification process. Once approved, your future sites will be published automatically without requiring approval.
-                    </AlertDescription>
-                  </Alert>
-                  
-                  <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Template:</span>
-                      <span className="font-medium text-gray-900">{template.title}</span>
+                    
+                    <Button 
+                      onClick={handleFinish}
+                      className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                    >
+                      View My Sites
+                    </Button>
+                  </CardContent>
+                </Card>
+              ) : (
+                <Card className="border-gray-200">
+                  <CardContent className="space-y-6 py-8">
+                    <div className="text-center">
+                      <div className="mx-auto w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
+                        <AlertCircle className="w-8 h-8 text-yellow-600" />
+                      </div>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Under Review</h2>
+                      <p className="text-gray-600 mb-6">
+                        Your site has been submitted and is pending approval
+                      </p>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Domain:</span>
-                      <span className="font-medium text-gray-900">{domainName}</span>
+                    
+                    <Alert className="bg-yellow-50 border-yellow-200">
+                      <AlertCircle className="h-4 w-4 text-yellow-600" />
+                      <AlertDescription className="text-yellow-700">
+                        <span className="font-medium">Important:</span> Your account is currently under review. 
+                        Your site will be approved within <span className="font-bold">24-72 hours</span>. 
+                        This is a one-time verification process. Once approved, your future sites will be published automatically without requiring approval.
+                      </AlertDescription>
+                    </Alert>
+                    
+                    <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Template:</span>
+                        <span className="font-medium text-gray-900">{template.title}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Domain:</span>
+                        <span className="font-medium text-gray-900">{domainName}</span>
+                      </div>
+                      <div className="flex justify-between text-sm">
+                        <span className="text-gray-600">Status:</span>
+                        <span className="font-medium text-yellow-600">Pending Approval</span>
+                      </div>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Status:</span>
-                      <span className="font-medium text-yellow-600">Pending Approval</span>
-                    </div>
-                  </div>
-                  
-                  <Button 
-                    onClick={handleFinish}
-                    className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                  >
-                    View My Sites
-                  </Button>
-                </CardContent>
-              </Card>
-            )}
-          </div>
+                    
+                    <Button 
+                      onClick={handleFinish}
+                      className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                    >
+                      View My Sites
+                    </Button>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
