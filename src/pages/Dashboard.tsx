@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import TemplatesSection from "../components/dashboard/TemplatesSection";
 import Overview from "../components/dashboard/Overview";
+import ProfileSection from "../components/dashboard/ProfileSection";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -23,14 +24,8 @@ const Dashboard = () => {
         return "Dashboard";
       case "templates":
         return "Templates";
-      case "create":
-        return "Create";
-      case "favorites":
-        return "Favorites";
       case "profile":
         return "Profile";
-      case "saved":
-        return "Saved";
       default:
         return "Dashboard";
     }
@@ -42,6 +37,8 @@ const Dashboard = () => {
         return <Overview />;
       case "templates":
         return <TemplatesSection />;
+      case "profile":
+        return <ProfileSection />;
       default:
         return (
           <div className="max-w-2xl mx-auto">
