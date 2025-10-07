@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,8 +14,14 @@ import Sidebar from "@/components/dashboard/Sidebar";
 
 const Account = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("account");
   const [isLoading, setIsLoading] = useState(false);
+
+  // Set active tab to account when on this page
+  useEffect(() => {
+    setActiveTab("account");
+  }, []);
 
   // Profile information state
   const [profileData, setProfileData] = useState({
@@ -132,6 +138,10 @@ const Account = () => {
     }, 1000);
   };
 
+  const handleBackToDashboard = () => {
+    navigate("/dashboard?tab=home");
+  };
+
   return (
     <div className="flex h-screen bg-[#FFFFFF]">
       {/* Sidebar */}
@@ -142,6 +152,17 @@ const Account = () => {
         <div className="max-w-4xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
           {/* Header */}
           <div className="mb-6">
+            <div className="flex items-center space-x-4 mb-2">
+              <button 
+                onClick={handleBackToDashboard}
+                className="flex items-center text-gray-600 hover:text-[#FF7B00] transition-colors"
+              >
+                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Dashboard
+              </button>
+            </div>
             <h1 className="text-lg font-semibold text-gray-900">Account Settings</h1>
             <p className="text-sm text-gray-600 mt-1">Manage your account information and security settings</p>
           </div>
