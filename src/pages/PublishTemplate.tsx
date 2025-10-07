@@ -100,7 +100,7 @@ const PublishTemplate = () => {
       
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
-        <div className="max-w-5xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
+        <div className="max-w-2xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
           {/* Header */}
           <div className="mb-6">
             <div className="flex items-center mb-4">
@@ -142,7 +142,7 @@ const PublishTemplate = () => {
 
           {/* Publish Form */}
           {!isPublished ? (
-            <div className="max-w-2xl mx-auto space-y-6">
+            <div className="space-y-6">
               {/* OGads Smartlink Section */}
               <Card className="border-gray-200">
                 <CardHeader>
@@ -257,7 +257,7 @@ const PublishTemplate = () => {
             </div>
           ) : (
             /* Success State */
-            <div className="max-w-2xl mx-auto">
+            <div>
               {userAccountStatus === "approved" ? (
                 <Card className="border-gray-200">
                   <CardContent className="space-y-6 py-8">
