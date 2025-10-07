@@ -21,7 +21,7 @@ const Account = () => {
   // Set active tab to account when on this page
   useEffect(() => {
     setActiveTab("account");
-  }, []);
+  }, [location.pathname]);
 
   // Profile information state
   const [profileData, setProfileData] = useState({

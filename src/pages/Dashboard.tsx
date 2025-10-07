@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import Sidebar from "../components/dashboard/Sidebar";
 import TemplatesSection from "../components/dashboard/TemplatesSection";
 import Overview from "../components/dashboard/Overview";
@@ -9,11 +9,14 @@ import Overview from "../components/dashboard/Overview";
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("home");
   const [searchParams] = useSearchParams();
+  const location = useLocation();
 
   useEffect(() => {
     const tab = searchParams.get("tab");
     if (tab) {
       setActiveTab(tab);
+    } else {
+      setActiveTab("home");
     }
   }, [searchParams]);
 

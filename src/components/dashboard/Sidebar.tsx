@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Home, Layout, User, Menu, X } from "lucide-react";
 
 interface SidebarProps {
@@ -11,7 +11,23 @@ interface SidebarProps {
 
 const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [currentPath, setCurrentPath] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Track current path to determine active state
+  useEffect(() => {
+    setCurrentPath(location.pathname);
+    
+    // Set active tab based on current path
+    if (location.pathname === "/account") {
+      setActiveTab("account");
+    } else if (location.pathname === "/dashboard") {
+      const params = new URLSearchParams(location.search);
+      const tab = params.get("tab") || "home";
+      setActiveTab(tab);
+    }
+  }, [location, setActiveTab]);
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
@@ -36,7 +52,9 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
   ];
 
   const getTabStyles = (itemId: string) => {
-    const isActive = activeTab === itemId;
+    // Determine active state based on current path and activeTab
+    const isActive = (itemId === "account" && currentPath === "/account") || 
+                     (itemId !== "account" && activeTab === itemId);
     
     return {
       icon: isActive ? "text-[#FF7B00]" : "text-gray-500 group-hover:text-[#FF7B00]",
@@ -115,7 +133,8 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
           <div className="flex flex-col px-6 py-8 space-y-2">
             {menuItems.map((item, index) => {
               const Icon = item.icon;
-              const isActive = activeTab === item.id;
+              const isActive = (item.id === "account" && currentPath === "/account") || 
+                             (item.id !== "account" && activeTab === item.id);
               
               return (
                 <button
