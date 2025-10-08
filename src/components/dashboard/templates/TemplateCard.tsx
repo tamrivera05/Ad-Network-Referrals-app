@@ -55,10 +55,10 @@ const TemplateCard = ({ id, title, description, images, isNew = false, category 
       className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-300 cursor-pointer group relative"
       onClick={handleCardClick}
     >
-      {/* Arrow button - appears on hover, positioned in bottom-right corner */}
+      {/* Arrow button - appears on hover, positioned at bottom of image area */}
       <button
         onClick={handleArrowClick}
-        className="absolute bottom-6 right-6 w-10 h-10 bg-[#FF7B00] hover:bg-[#FF8d21] text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-lg hover:shadow-xl z-10"
+        className="absolute bottom-[calc(12rem+16px)] right-6 w-10 h-10 bg-white hover:bg-gray-100 text-[#FF7B00] rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-lg hover:shadow-xl z-10 border border-gray-200"
         aria-label="Use this template"
       >
         <ArrowRight className="w-5 h-5" />
