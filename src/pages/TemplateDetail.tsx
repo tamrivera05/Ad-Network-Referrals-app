@@ -14,7 +14,6 @@ const TemplateDetail = () => {
   const navigate = useNavigate();
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState("templates");
   const [template, setTemplate] = useState<any>(null);
 
   // Complete template data with more screenshots for each template
@@ -319,7 +318,7 @@ const TemplateDetail = () => {
   if (!template) {
     return (
       <div className="flex h-screen bg-[#FFFFFF]">
-        <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+        <Sidebar />
         <div className="flex-1 overflow-y-auto">
           <div className="max-w-5xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
             <div className="text-center py-20">
@@ -340,7 +339,7 @@ const TemplateDetail = () => {
   return (
     <div className="flex h-screen bg-[#FFFFFF]">
       {/* Sidebar */}
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Sidebar />
       
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">

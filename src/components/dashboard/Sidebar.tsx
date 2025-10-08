@@ -1,18 +1,52 @@
 "use client";
 
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Home, Layout, User, Globe, Menu, X } from "lucide-react";
 
 interface SidebarProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+  activeTab?: string;
+  setActiveTab?: (tab: string) => void;
 }
 
-const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
+const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: SidebarProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Determine active tab from URL or props
+  const getActiveTab = () => {
+    if (propActiveTab) return propActiveTab;
+    
+    // Extract tab from URL for dashboard pages
+    if (location.pathname === "/dashboard") {
+      const params = new URLSearchParams(location.search);
+      return params.get("tab") || "home";
+    }
+    
+    // Default for non-dashboard pages
+    return "templates";
+  };
+  
+  const activeTab = getActiveTab();
 
   const toggleSidebar = () => {
     setIsExpanded(!isExpanded);
+  };
+
+  const handleTabClick = (tabId: string) => {
+    // Navigate to dashboard with the selected tab
+    navigate(`/dashboard?tab=${tabId}`);
+    
+    // Close mobile sidebar after navigation
+    if (window.innerWidth < 768) {
+      setIsExpanded(false);
+    }
+    
+    // Update local state if provided (for Dashboard component)
+    if (propSetActiveTab) {
+      propSetActiveTab(tabId);
+    }
   };
 
   const menuItems = [
@@ -107,10 +141,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
               return (
                 <button
                   key={index}
-                  onClick={() => {
-                    setActiveTab(item.id);
-                    toggleSidebar(); // Close sidebar after navigation on mobile
-                  }}
+                  onClick={() => handleTabClick(item.id)}
                   className={`w-full flex items-center px-4 py-4 rounded-lg transition-all duration-200 group ${
                     isActive 
                       ? 'bg-[#FFF5EB] border-l-4 border-[#FF7B00]' 
@@ -155,7 +186,7 @@ const Sidebar = ({ activeTab, setActiveTab }: SidebarProps) => {
             return (
               <button
                 key={index}
-                onClick={() => setActiveTab(item.id)}
+                onClick={() => handleTabClick(item.id)}
                 className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all duration-200 group ${styles.background}`}
               >
                 <Icon className={`w-6 h-6 ${styles.icon} flex-shrink-0 transition-colors duration-200`} />
