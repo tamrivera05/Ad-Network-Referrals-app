@@ -55,15 +55,6 @@ const TemplateCard = ({ id, title, description, images, isNew = false, category 
       className="bg-gray-50 rounded-xl p-4 hover:bg-gray-100 transition-all duration-300 cursor-pointer group relative"
       onClick={handleCardClick}
     >
-      {/* Arrow button - appears on hover, positioned at bottom of image area */}
-      <button
-        onClick={handleArrowClick}
-        className="absolute bottom-[calc(12rem+16px)] right-6 w-10 h-10 bg-white hover:bg-gray-100 text-[#FF7B00] rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-lg hover:shadow-xl z-10 border border-gray-200"
-        aria-label="Use this template"
-      >
-        <ArrowRight className="w-5 h-5" />
-      </button>
-
       {/* Card with carousel inside */}
       <div className="relative group rounded-lg overflow-hidden bg-gray-100 hover:bg-gray-200 transition-all duration-300 shadow-sm hover:shadow-md">
         {/* Image carousel */}
@@ -113,17 +104,28 @@ const TemplateCard = ({ id, title, description, images, isNew = false, category 
         </div>
       </div>
 
-      {/* Title and description below the card */}
-      <div className="space-y-1 mt-3">
-        <div className="flex items-center space-x-2">
-          <h3 className="font-semibold text-gray-900">{title}</h3>
-          {isNew && (
-            <div className="bg-[#FF7B00] text-white text-xs font-medium px-2 py-1 rounded-md">
-              New
-            </div>
-          )}
+      {/* Title and description with arrow button */}
+      <div className="flex items-start justify-between mt-3">
+        <div className="flex-1 space-y-1 pr-3">
+          <div className="flex items-center space-x-2">
+            <h3 className="font-semibold text-gray-900">{title}</h3>
+            {isNew && (
+              <div className="bg-[#FF7B00] text-white text-xs font-medium px-2 py-1 rounded-md">
+                New
+              </div>
+            )}
+          </div>
+          <p className="text-sm text-gray-600">{description}</p>
         </div>
-        <p className="text-sm text-gray-600">{description}</p>
+        
+        {/* Arrow button - positioned beside content */}
+        <button
+          onClick={handleArrowClick}
+          className="w-10 h-10 bg-white hover:bg-gray-100 text-[#FF7B00] rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 shadow-lg hover:shadow-xl z-10 border border-gray-200 flex-shrink-0"
+          aria-label="Use this template"
+        >
+          <ArrowRight className="w-5 h-5" />
+        </button>
       </div>
     </div>
   );
