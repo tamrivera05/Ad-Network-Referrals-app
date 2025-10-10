@@ -457,7 +457,7 @@ const TemplateDetail = () => {
 
       {/* Modal for image viewing */}
       <Dialog open={isModalOpen} onOpenChange={handleCloseModal}>
-        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-white rounded-2xl mx-4 my-4">
+        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-white rounded-2xl mx-4 md:mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between p-6">
             <div>
