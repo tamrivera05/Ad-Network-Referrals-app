@@ -467,14 +467,14 @@ const TemplateDetail = () => {
           </div>
 
           {/* Main content */}
-          <div className="flex flex-col h-[calc(100vh-120px)] md:h-[calc(90vh-120px)]">
+          <div className="flex items-center justify-center p-6">
             {/* Image display */}
-            <div className="flex-1 relative bg-white flex items-center justify-center p-8">
+            <div className="relative bg-white flex items-center justify-center">
               {selectedImageIndex !== null && (
                 <img 
                   src={template.images[selectedImageIndex]} 
                   alt={`${template.title} screenshot ${selectedImageIndex + 1}`}
-                  className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+                  className="max-w-full max-h-[60vh] object-contain rounded-lg shadow-lg"
                 />
               )}
 
@@ -500,38 +500,38 @@ const TemplateDetail = () => {
                 </>
               )}
             </div>
-
-            {/* Thumbnail navigation */}
-            {template.images.length > 1 && (
-              <div className="p-6 bg-white">
-                <div className="flex items-center justify-center space-x-2 overflow-x-auto">
-                  {template.images.map((_: string, index: number) => (
-                    <button
-                      key={index}
-                      onClick={() => goToImage(index)}
-                      className={`relative overflow-hidden rounded-lg transition-all flex-shrink-0 ${
-                        selectedImageIndex === index 
-                          ? 'ring-2 ring-[#FF7B00] scale-105' 
-                          : 'opacity-70 hover:opacity-100'
-                      }`}
-                    >
-                      <img 
-                        src={template.images[index]} 
-                        alt={`Thumbnail ${index + 1}`}
-                        className="w-20 h-20 object-cover"
-                      />
-                      {selectedImageIndex === index && (
-                        <div className="absolute inset-0 bg-[#FF7B00]/10"></div>
-                      )}
-                    </button>
-                  ))}
-                </div>
-                <div className="text-center mt-4 text-sm text-gray-600">
-                  {selectedImageIndex !== null ? selectedImageIndex + 1 : 1} of {template.images.length}
-                </div>
-              </div>
-            )}
           </div>
+
+          {/* Thumbnail navigation */}
+          {template.images.length > 1 && (
+            <div className="p-6 bg-white">
+              <div className="flex items-center justify-center space-x-2 overflow-x-auto">
+                {template.images.map((_: string, index: number) => (
+                  <button
+                    key={index}
+                    onClick={() => goToImage(index)}
+                    className={`relative overflow-hidden rounded-lg transition-all flex-shrink-0 ${
+                      selectedImageIndex === index 
+                        ? 'ring-2 ring-[#FF7B00] scale-105' 
+                        : 'opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <img 
+                      src={template.images[index]} 
+                      alt={`Thumbnail ${index + 1}`}
+                      className="w-20 h-20 object-cover"
+                    />
+                    {selectedImageIndex === index && (
+                      <div className="absolute inset-0 bg-[#FF7B00]/10"></div>
+                    )}
+                  </button>
+                ))}
+              </div>
+              <div className="text-center mt-4 text-sm text-gray-600">
+                {selectedImageIndex !== null ? selectedImageIndex + 1 : 1} of {template.images.length}
+              </div>
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </div>
