@@ -506,14 +506,14 @@ const TemplateDetail = () => {
             {/* Thumbnail navigation */}
             {template.images.length > 1 && (
               <div className="p-6 bg-white flex-shrink-0">
-                <div className="flex items-center justify-center gap-2 overflow-x-auto overflow-y-hidden scrollbar-hide w-fit mx-auto">
+                <div className="flex items-center justify-center gap-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
                   {template.images.map((_: string, index: number) => (
                     <button
                       key={index}
                       onClick={() => goToImage(index)}
                       className={`relative overflow-hidden rounded-lg transition-all flex-shrink-0 ${
                         selectedImageIndex === index 
-                          ? 'ring-2 ring-[#FF7B00] ring-offset-2 scale-105' 
+                          ? 'ring-2 ring-[#FF7B00] scale-105' 
                           : 'opacity-70 hover:opacity-100'
                       }`}
                     >
