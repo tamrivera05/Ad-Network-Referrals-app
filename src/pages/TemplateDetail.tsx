@@ -506,7 +506,7 @@ const TemplateDetail = () => {
             {/* Thumbnail navigation */}
             {template.images.length > 1 && (
               <div className="p-6 bg-white flex-shrink-0">
-                <div className="flex items-center justify-center gap-2 overflow-x-auto scrollbar-hide">
+                <div className="flex items-center justify-center gap-2 overflow-x-auto overflow-y-hidden scrollbar-hide">
                   {template.images.map((_: string, index: number) => (
                     <button
                       key={index}
