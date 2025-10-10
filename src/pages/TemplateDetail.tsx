@@ -457,7 +457,7 @@ const TemplateDetail = () => {
 
       {/* Modal for image viewing */}
       <Dialog open={isModalOpen} onOpenChange={handleCloseModal}>
-        <DialogContent className="max-w-4xl w-full h-[90vh] md:h-[90vh] p-0 overflow-hidden bg-white rounded-2xl mx-auto md:mx-auto">
+        <DialogContent className="max-w-4xl w-full h-[100vh] md:h-[90vh] p-0 overflow-hidden bg-white rounded-2xl mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between p-6">
             <div>
@@ -467,7 +467,7 @@ const TemplateDetail = () => {
           </div>
 
           {/* Main content */}
-          <div className="flex flex-col h-[calc(90vh-120px)] md:h-[calc(90vh-120px)]">
+          <div className="flex flex-col h-[calc(100vh-120px)] md:h-[calc(90vh-120px)]">
             {/* Image display */}
             <div className="flex-1 relative bg-white flex items-center justify-center p-8">
               {selectedImageIndex !== null && (
