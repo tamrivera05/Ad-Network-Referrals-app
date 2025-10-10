@@ -505,8 +505,8 @@ const TemplateDetail = () => {
 
             {/* Thumbnail navigation */}
             {template.images.length > 1 && (
-              <div className="px-6 py-4 bg-white flex-shrink-0">
-                <div className="flex items-center justify-center gap-2 overflow-x-auto overflow-y-hidden scrollbar-hide py-2">
+              <div className="px-6 md:px-6 py-4 bg-white flex-shrink-0">
+                <div className="flex items-center justify-center gap-2 overflow-x-auto overflow-y-hidden scrollbar-hide py-2 px-4 md:px-0">
                   {template.images.map((_: string, index: number) => (
                     <button
                       key={index}
