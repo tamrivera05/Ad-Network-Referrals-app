@@ -457,7 +457,7 @@ const TemplateDetail = () => {
 
       {/* Modal for image viewing */}
       <Dialog open={isModalOpen} onOpenChange={handleCloseModal}>
-        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-white">
+        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-white rounded-2xl mx-4 md:mx-auto">
           {/* Header */}
           <div className="flex items-center justify-between p-6">
             <div>
@@ -504,12 +504,12 @@ const TemplateDetail = () => {
             {/* Thumbnail navigation */}
             {template.images.length > 1 && (
               <div className="p-6 bg-white">
-                <div className="flex items-center justify-center space-x-2">
+                <div className="flex items-center justify-center space-x-2 overflow-x-auto">
                   {template.images.map((_: string, index: number) => (
                     <button
                       key={index}
                       onClick={() => goToImage(index)}
-                      className={`relative overflow-hidden rounded-lg transition-all ${
+                      className={`relative overflow-hidden rounded-lg transition-all flex-shrink-0 ${
                         selectedImageIndex === index 
                           ? 'ring-2 ring-[#FF7B00] scale-105' 
                           : 'opacity-70 hover:opacity-100'
