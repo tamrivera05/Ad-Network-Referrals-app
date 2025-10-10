@@ -457,9 +457,9 @@ const TemplateDetail = () => {
 
       {/* Modal for image viewing */}
       <Dialog open={isModalOpen} onOpenChange={handleCloseModal}>
-        <DialogContent className="max-w-4xl w-full h-[100vh] md:h-[90vh] p-0 overflow-hidden bg-white rounded-2xl mx-auto">
+        <DialogContent className="max-w-4xl w-full max-h-[100vh] md:max-h-[90vh] p-0 overflow-hidden bg-white rounded-2xl mx-auto flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between p-6">
+          <div className="flex items-center justify-between p-6 flex-shrink-0">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">{template.title}</h2>
               <p className="text-gray-600 mt-1">{template.description}</p>
@@ -467,71 +467,73 @@ const TemplateDetail = () => {
           </div>
 
           {/* Main content */}
-          <div className="flex items-center justify-center p-6">
+          <div className="flex-1 flex flex-col min-h-0">
             {/* Image display */}
-            <div className="relative bg-white flex items-center justify-center">
-              {selectedImageIndex !== null && (
-                <img 
-                  src={template.images[selectedImageIndex]} 
-                  alt={`${template.title} screenshot ${selectedImageIndex + 1}`}
-                  className="max-w-full max-h-[60vh] object-contain rounded-lg shadow-lg"
-                />
-              )}
+            <div className="flex-1 flex items-center justify-center p-6 min-h-0">
+              <div className="relative w-full h-full flex items-center justify-center">
+                {selectedImageIndex !== null && (
+                  <img 
+                    src={template.images[selectedImageIndex]} 
+                    alt={`${template.title} screenshot ${selectedImageIndex + 1}`}
+                    className="max-w-full max-h-full object-contain rounded-lg shadow-lg"
+                  />
+                )}
 
-              {/* Navigation arrows */}
-              {template.images.length > 1 && (
-                <>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg"
-                    onClick={prevImage}
-                  >
-                    <ChevronLeft className="h-6 w-6" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg"
-                    onClick={nextImage}
-                  >
-                    <ChevronRight className="h-6 w-6" />
-                  </Button>
-                </>
-              )}
+                {/* Navigation arrows */}
+                {template.images.length > 1 && (
+                  <>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg z-10"
+                      onClick={prevImage}
+                    >
+                      <ChevronLeft className="h-6 w-6" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg z-10"
+                      onClick={nextImage}
+                    >
+                      <ChevronRight className="h-6 w-6" />
+                    </Button>
+                  </>
+                )}
+              </div>
             </div>
+
+            {/* Thumbnail navigation */}
+            {template.images.length > 1 && (
+              <div className="p-6 bg-white flex-shrink-0">
+                <div className="flex items-center justify-center space-x-2 overflow-x-auto">
+                  {template.images.map((_: string, index: number) => (
+                    <button
+                      key={index}
+                      onClick={() => goToImage(index)}
+                      className={`relative overflow-hidden rounded-lg transition-all flex-shrink-0 ${
+                        selectedImageIndex === index 
+                          ? 'ring-2 ring-[#FF7B00] scale-105' 
+                          : 'opacity-70 hover:opacity-100'
+                      }`}
+                    >
+                      <img 
+                        src={template.images[index]} 
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-20 h-20 object-cover"
+                      />
+                      {selectedImageIndex === index && (
+                        <div className="absolute inset-0 bg-[#FF7B00]/10"></div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+                <div className="text-center mt-4 text-sm text-gray-600">
+                  {selectedImageIndex !== null ? selectedImageIndex + 1 : 1} of {template.images.length}
+                </div>
+              </div>
+            )}
           </div>
-
-          {/* Thumbnail navigation */}
-          {template.images.length > 1 && (
-            <div className="p-6 bg-white">
-              <div className="flex items-center justify-center space-x-2 overflow-x-auto">
-                {template.images.map((_: string, index: number) => (
-                  <button
-                    key={index}
-                    onClick={() => goToImage(index)}
-                    className={`relative overflow-hidden rounded-lg transition-all flex-shrink-0 ${
-                      selectedImageIndex === index 
-                        ? 'ring-2 ring-[#FF7B00] scale-105' 
-                        : 'opacity-70 hover:opacity-100'
-                    }`}
-                  >
-                    <img 
-                      src={template.images[index]} 
-                      alt={`Thumbnail ${index + 1}`}
-                      className="w-20 h-20 object-cover"
-                    />
-                    {selectedImageIndex === index && (
-                      <div className="absolute inset-0 bg-[#FF7B00]/10"></div>
-                    )}
-                  </button>
-                ))}
-              </div>
-              <div className="text-center mt-4 text-sm text-gray-600">
-                {selectedImageIndex !== null ? selectedImageIndex + 1 : 1} of {template.images.length}
-              </div>
-            </div>
-          )}
         </DialogContent>
       </Dialog>
     </div>
