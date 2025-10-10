@@ -485,7 +485,7 @@ const TemplateDetail = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg z-10"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 hover:bg-white rounded-full shadow-lg z-10"
                       onClick={prevImage}
                     >
                       <ChevronLeft className="h-6 w-6" />
@@ -493,7 +493,7 @@ const TemplateDetail = () => {
                     <Button
                       variant="ghost"
                       size="icon"
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg z-10"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 hover:bg-white rounded-full shadow-lg z-10"
                       onClick={nextImage}
                     >
                       <ChevronRight className="h-6 w-6" />
