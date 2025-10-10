@@ -482,18 +482,22 @@ const TemplateDetail = () => {
                 {/* Navigation arrows */}
                 {template.images.length > 1 && (
                   <>
-                    <button
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg z-10 p-3 transition-all duration-200 hover:scale-110"
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg z-10"
                       onClick={prevImage}
                     >
-                      <ChevronLeft className="h-6 w-6 text-gray-800" />
-                    </button>
-                    <button
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg z-10 p-3 transition-all duration-200 hover:scale-110"
+                      <ChevronLeft className="h-6 w-6" />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg z-10"
                       onClick={nextImage}
                     >
-                      <ChevronRight className="h-6 w-6 text-gray-800" />
-                    </button>
+                      <ChevronRight className="h-6 w-6" />
+                    </Button>
                   </>
                 )}
               </div>
