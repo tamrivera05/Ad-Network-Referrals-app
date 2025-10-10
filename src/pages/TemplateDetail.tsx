@@ -457,19 +457,19 @@ const TemplateDetail = () => {
 
       {/* Modal for image viewing */}
       <Dialog open={isModalOpen} onOpenChange={handleCloseModal}>
-        <DialogContent className="max-w-4xl w-full h-[90vh] p-0 overflow-hidden bg-white rounded-2xl mx-auto">
+        <DialogContent className="max-w-4xl w-full h-[90vh] md:h-[90vh] p-0 overflow-hidden bg-white rounded-2xl md:rounded-2xl rounded-none mx-auto md:mx-auto m-0 md:m-4">
           {/* Header */}
-          <div className="flex items-center justify-between p-6">
+          <div className="flex items-center justify-between p-4 md:p-6">
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">{template.title}</h2>
-              <p className="text-gray-600 mt-1">{template.description}</p>
+              <h2 className="text-xl md:text-2xl font-bold text-gray-900">{template.title}</h2>
+              <p className="text-gray-600 mt-1 text-sm md:text-base">{template.description}</p>
             </div>
           </div>
 
           {/* Main content */}
-          <div className="flex flex-col h-[calc(90vh-120px)]">
+          <div className="flex flex-col h-[calc(90vh-80px)] md:h-[calc(90vh-120px)]">
             {/* Image display */}
-            <div className="flex-1 relative bg-white flex items-center justify-center p-8">
+            <div className="flex-1 relative bg-white flex items-center justify-center p-4 md:p-8">
               {selectedImageIndex !== null && (
                 <img 
                   src={template.images[selectedImageIndex]} 
@@ -484,18 +484,18 @@ const TemplateDetail = () => {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg"
+                    className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg"
                     onClick={prevImage}
                   >
-                    <ChevronLeft className="h-6 w-6" />
+                    <ChevronLeft className="h-4 w-4 md:h-6 md:w-6" />
                   </Button>
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg"
+                    className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white rounded-full shadow-lg"
                     onClick={nextImage}
                   >
-                    <ChevronRight className="h-6 w-6" />
+                    <ChevronRight className="h-4 w-4 md:h-6 md:w-6" />
                   </Button>
                 </>
               )}
@@ -503,7 +503,7 @@ const TemplateDetail = () => {
 
             {/* Thumbnail navigation */}
             {template.images.length > 1 && (
-              <div className="p-6 bg-white">
+              <div className="p-4 md:p-6 bg-white">
                 <div className="flex items-center justify-center space-x-2 overflow-x-auto">
                   {template.images.map((_: string, index: number) => (
                     <button
@@ -518,7 +518,7 @@ const TemplateDetail = () => {
                       <img 
                         src={template.images[index]} 
                         alt={`Thumbnail ${index + 1}`}
-                        className="w-20 h-20 object-cover"
+                        className="w-16 h-16 md:w-20 md:h-20 object-cover"
                       />
                       {selectedImageIndex === index && (
                         <div className="absolute inset-0 bg-[#FF7B00]/10"></div>
