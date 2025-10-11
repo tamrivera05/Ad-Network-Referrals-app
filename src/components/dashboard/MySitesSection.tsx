@@ -85,8 +85,8 @@ const MySitesSection = () => {
         return (
           <div className="group relative">
             <Clock className="w-5 h-5 text-yellow-500" />
-            {/* Tooltip - positioned to the right for all screen sizes */}
-            <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+            {/* Tooltip - positioned to the right for all screen sizes with yellow background */}
+            <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-yellow-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
               Pending Publish
             </div>
           </div>
