@@ -69,14 +69,35 @@ const MySitesSection = () => {
     }
   ]);
 
-  const getStatusIcon = (status: Site["status"]) => {
+  const getStatusIcon = (status: Site["status"], errorMessage?: string) => {
     switch (status) {
       case "live":
-        return <CheckCircle className="w-5 h-5 text-green-500" />;
+        return (
+          <div className="group relative">
+            <CheckCircle className="w-5 h-5 text-green-500" />
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+              Live
+            </div>
+          </div>
+        );
       case "pending":
-        return <Clock className="w-5 h-5 text-yellow-500" />;
+        return (
+          <div className="group relative">
+            <Clock className="w-5 h-5 text-yellow-500" />
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+              Pending Publish
+            </div>
+          </div>
+        );
       case "error":
-        return <AlertCircle className="w-5 h-5 text-red-500" />;
+        return (
+          <div className="group relative">
+            <AlertCircle className="w-5 h-5 text-red-500" />
+            <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+              {errorMessage || "Error"}
+            </div>
+          </div>
+        );
     }
   };
 
@@ -118,7 +139,7 @@ const MySitesSection = () => {
           <div key={site.id} className="relative h-full">
             {/* Status Icon positioned outside top left of card */}
             <div className="absolute -top-2 -left-2 z-10 bg-white rounded-full p-2 shadow-md">
-              {getStatusIcon(site.status)}
+              {getStatusIcon(site.status, site.errorMessage)}
             </div>
             
             <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300 h-full">
@@ -157,13 +178,6 @@ const MySitesSection = () => {
                     </span>
                   </div>
                 </div>
-
-                {/* Error Message */}
-                {site.status === "error" && site.errorMessage && (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                    <p className="text-sm text-red-700">{site.errorMessage}</p>
-                  </div>
-                )}
 
                 {/* Publish Date */}
                 <div className="text-sm text-gray-500">
