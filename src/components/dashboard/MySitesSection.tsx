@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink, Eye, Globe, AlertCircle, Clock, CheckCircle, XCircle, Settings } from "lucide-react";
+import { ExternalLink, Globe, AlertCircle, Clock, CheckCircle, XCircle, Settings, Copy } from "lucide-react";
 import { showSuccess, showError } from "@/utils/toast";
 
 interface Site {
@@ -107,8 +107,13 @@ const MySitesSection = () => {
     }
   };
 
-  const handleViewLive = (url: string) => {
-    window.open(url, "_blank");
+  const handleCopyUrl = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      showSuccess("URL copied to clipboard!");
+    } catch (err) {
+      showError("Failed to copy URL");
+    }
   };
 
   const handleEditSite = (site: Site) => {
@@ -137,7 +142,7 @@ const MySitesSection = () => {
       {/* Sites Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sites.map((site) => (
-          <Card key={site.id} className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
+          <Card key={site.id} className="border-gray-200 hover:shadow-lg transition-shadow duration-300 relative">
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex items-center space-x-2">
@@ -192,20 +197,19 @@ const MySitesSection = () => {
                 Published: {formatDate(site.publishDate)}
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col space-y-2">
-                {site.status === "live" && (
+              {/* Copy URL Button - positioned at bottom right */}
+              {site.status === "live" && (
+                <div className="absolute bottom-4 right-4">
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => handleViewLive(site.url)}
-                    className="w-full justify-center"
+                    onClick={() => handleCopyUrl(site.url)}
+                    className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
                   >
-                    <Eye className="w-4 h-4 mr-2" />
-                    View Live
+                    <Copy className="w-4 h-4" />
                   </Button>
-                )}
-              </div>
+                </div>
+              )}
             </CardContent>
           </Card>
         ))}
