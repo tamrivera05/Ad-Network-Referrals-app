@@ -170,20 +170,23 @@ const MySitesSection = () => {
                   Published: {formatDate(site.publishDate)}
                 </div>
 
-                {/* Copy URL Button - positioned at bottom right */}
-                {site.status === "live" && (
-                  <div className="absolute bottom-4 right-4">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleCopyUrl(site.url)}
-                      className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
-                    >
-                      <Copy className="w-4 h-4" />
-                    </Button>
-                  </div>
-                )}
+                {/* Reserve space for copy button to maintain consistent layout */}
+                <div className="h-10"></div>
               </CardContent>
+              
+              {/* Copy URL Button - positioned at bottom right of card */}
+              {site.status === "live" && (
+                <div className="absolute bottom-4 right-4">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleCopyUrl(site.url)}
+                    className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                </div>
+              )}
             </Card>
           </div>
         ))}
