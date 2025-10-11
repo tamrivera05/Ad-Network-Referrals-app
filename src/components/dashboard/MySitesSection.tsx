@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { ExternalLink, Globe, AlertCircle, Clock, CheckCircle, XCircle, Settings, Copy } from "lucide-react";
 import { showSuccess, showError } from "@/utils/toast";
 
@@ -70,32 +69,6 @@ const MySitesSection = () => {
     }
   ]);
 
-  const getStatusBadge = (status: Site["status"]) => {
-    switch (status) {
-      case "live":
-        return (
-          <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
-            <CheckCircle className="w-3 h-3 mr-1" />
-            Live
-          </Badge>
-        );
-      case "pending":
-        return (
-          <Badge className="bg-yellow-100 text-yellow-800 hover:bg-yellow-100">
-            <Clock className="w-3 h-3 mr-1" />
-            Pending Publish
-          </Badge>
-        );
-      case "error":
-        return (
-          <Badge className="bg-red-100 text-red-800 hover:bg-red-100">
-            <XCircle className="w-3 h-3 mr-1" />
-            Error
-          </Badge>
-        );
-    }
-  };
-
   const getStatusIcon = (status: Site["status"]) => {
     switch (status) {
       case "live":
@@ -142,17 +115,18 @@ const MySitesSection = () => {
       {/* Sites Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sites.map((site) => (
-          <Card key={site.id} className="border-gray-200 hover:shadow-lg transition-shadow duration-300 relative">
-            <CardHeader className="pb-3">
-              <div className="flex items-start justify-between">
-                <div className="flex items-center space-x-2">
-                  {getStatusIcon(site.status)}
+          <div key={site.id} className="relative">
+            {/* Status Icon positioned outside top left of card */}
+            <div className="absolute -top-2 -left-2 z-10 bg-white rounded-full p-2 shadow-md">
+              {getStatusIcon(site.status)}
+            </div>
+            
+            <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
+              <CardHeader className="pb-3">
+                <div className="flex items-start justify-between">
                   <CardTitle className="text-lg font-semibold text-gray-900 line-clamp-2">
                     {site.name}
                   </CardTitle>
-                </div>
-                <div className="flex items-center space-x-2">
-                  {getStatusBadge(site.status)}
                   <Button
                     variant="ghost"
                     size="icon"
@@ -162,56 +136,56 @@ const MySitesSection = () => {
                     <Settings className="h-4 w-4" />
                   </Button>
                 </div>
-              </div>
-              <CardDescription className="text-sm">
-                Template: {site.template}
-              </CardDescription>
-            </CardHeader>
-            
-            <CardContent className="space-y-4">
-              {/* URL Display */}
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <Globe className="w-4 h-4" />
-                  <span className="truncate" title={site.url}>
-                    {site.url}
-                  </span>
+                <CardDescription className="text-sm">
+                  Template: {site.template}
+                </CardDescription>
+              </CardHeader>
+              
+              <CardContent className="space-y-4">
+                {/* URL Display */}
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <Globe className="w-4 h-4" />
+                    <span className="truncate" title={site.url}>
+                      {site.url}
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-2 text-sm text-gray-600">
+                    <ExternalLink className="w-4 h-4" />
+                    <span className="truncate" title={site.offerLink}>
+                      {site.offerLink}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-600">
-                  <ExternalLink className="w-4 h-4" />
-                  <span className="truncate" title={site.offerLink}>
-                    {site.offerLink}
-                  </span>
-                </div>
-              </div>
 
-              {/* Error Message */}
-              {site.status === "error" && site.errorMessage && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-                  <p className="text-sm text-red-700">{site.errorMessage}</p>
-                </div>
-              )}
+                {/* Error Message */}
+                {site.status === "error" && site.errorMessage && (
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
+                    <p className="text-sm text-red-700">{site.errorMessage}</p>
+                  </div>
+                )}
 
-              {/* Publish Date */}
-              <div className="text-sm text-gray-500">
-                Published: {formatDate(site.publishDate)}
-              </div>
-
-              {/* Copy URL Button - positioned at bottom right */}
-              {site.status === "live" && (
-                <div className="absolute bottom-4 right-4">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleCopyUrl(site.url)}
-                    className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
-                  >
-                    <Copy className="w-4 h-4" />
-                  </Button>
+                {/* Publish Date */}
+                <div className="text-sm text-gray-500">
+                  Published: {formatDate(site.publishDate)}
                 </div>
-              )}
-            </CardContent>
-          </Card>
+
+                {/* Copy URL Button - positioned at bottom right */}
+                {site.status === "live" && (
+                  <div className="absolute bottom-4 right-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleCopyUrl(site.url)}
+                      className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          </div>
         ))}
       </div>
     </div>
