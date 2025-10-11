@@ -141,7 +141,7 @@ const MySitesSection = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="space-y-4">
+              <CardContent className="space-y-4 pb-12">
                 {/* URL Display */}
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2 text-sm text-gray-600">
@@ -169,21 +169,21 @@ const MySitesSection = () => {
                 <div className="text-sm text-gray-500">
                   Published: {formatDate(site.publishDate)}
                 </div>
-
-                {/* Copy URL Button - positioned at bottom right */}
-                {site.status === "live" && (
-                  <div className="absolute bottom-4 right-4">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => handleCopyUrl(site.url)}
-                      className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
-                    >
-                      <Copy className="w-4 h-4" />
-                    </Button>
-                  </div>
-                )}
               </CardContent>
+
+              {/* Copy URL Button - always positioned at bottom right of card, only visible for live sites */}
+              {site.status === "live" && (
+                <div className="absolute bottom-4 right-4">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handleCopyUrl(site.url)}
+                    className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
+                  >
+                    <Copy className="w-4 h-4" />
+                  </Button>
+                </div>
+              )}
             </Card>
           </div>
         ))}
