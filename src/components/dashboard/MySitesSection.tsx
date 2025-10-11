@@ -115,13 +115,13 @@ const MySitesSection = () => {
       {/* Sites Grid */}
       <div className="grid grid-cols-3 gap-6">
         {sites.map((site) => (
-          <div key={site.id} className="relative">
+          <div key={site.id} className="relative h-full">
             {/* Status Icon positioned outside top left of card */}
             <div className="absolute -top-2 -left-2 z-10 bg-white rounded-full p-2 shadow-md">
               {getStatusIcon(site.status)}
             </div>
             
-            <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
+            <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300 h-full">
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
                   <CardTitle className="text-lg font-semibold text-gray-900 line-clamp-2">
