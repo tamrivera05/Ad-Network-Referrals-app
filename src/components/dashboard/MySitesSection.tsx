@@ -7,7 +7,8 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { ExternalLink, Edit, Eye, EyeOff, Globe, AlertCircle, Clock, CheckCircle, XCircle } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { ExternalLink, Edit, Eye, EyeOff, Globe, AlertCircle, Clock, CheckCircle, XCircle, MoreHorizontal } from "lucide-react";
 import { showSuccess, showError } from "@/utils/toast";
 
 interface Site {
@@ -188,7 +189,32 @@ const MySitesSection = () => {
                     {site.name}
                   </CardTitle>
                 </div>
-                {getStatusBadge(site.status)}
+                <div className="flex items-center space-x-2">
+                  {getStatusBadge(site.status)}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-8 w-8 hover:bg-gray-100"
+                      >
+                        <MoreHorizontal className="h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end">
+                      {site.status === "live" && (
+                        <DropdownMenuItem
+                          onClick={() => handleUnpublish(site.id)}
+                          className="text-red-600 focus:text-red-600"
+                          disabled={isLoading}
+                        >
+                          <EyeOff className="w-4 h-4 mr-2" />
+                          Unpublish
+                        </DropdownMenuItem>
+                      )}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+                </div>
               </div>
               <CardDescription className="text-sm">
                 Template: {site.template}
@@ -247,19 +273,6 @@ const MySitesSection = () => {
                   <Edit className="w-4 h-4 mr-2" />
                   Edit Offer Link
                 </Button>
-                
-                {site.status === "live" && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleUnpublish(site.id)}
-                    className="w-full justify-center border-red-200 text-red-600 hover:bg-red-50"
-                    disabled={isLoading}
-                  >
-                    <EyeOff className="w-4 h-4 mr-2" />
-                    Unpublish
-                  </Button>
-                )}
               </div>
             </CardContent>
           </Card>
