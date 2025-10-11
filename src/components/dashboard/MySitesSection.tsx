@@ -134,7 +134,7 @@ const MySitesSection = () => {
       </div>
 
       {/* Sites Grid */}
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {sites.map((site) => (
           <div key={site.id} className="relative h-full">
             {/* Status Icon positioned outside top left of card */}
