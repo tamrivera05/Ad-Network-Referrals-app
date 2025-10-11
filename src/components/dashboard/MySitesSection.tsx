@@ -75,12 +75,8 @@ const MySitesSection = () => {
         return (
           <div className="group relative">
             <CheckCircle className="w-5 h-5 text-green-500" />
-            {/* Mobile and md tooltip - positioned to the right */}
-            <div className="lg:hidden absolute left-full ml-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
-              Live
-            </div>
-            {/* Desktop (lg and up) tooltip - positioned above */}
-            <div className="hidden lg:block absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+            {/* Tooltip - positioned to the right for all screen sizes */}
+            <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
               Live
             </div>
           </div>
@@ -89,12 +85,8 @@ const MySitesSection = () => {
         return (
           <div className="group relative">
             <Clock className="w-5 h-5 text-yellow-500" />
-            {/* Mobile and md tooltip - positioned to the right */}
-            <div className="lg:hidden absolute left-full ml-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
-              Pending Publish
-            </div>
-            {/* Desktop (lg and up) tooltip - positioned above */}
-            <div className="hidden lg:block absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+            {/* Tooltip - positioned to the right for all screen sizes */}
+            <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
               Pending Publish
             </div>
           </div>
@@ -103,12 +95,8 @@ const MySitesSection = () => {
         return (
           <div className="group relative">
             <AlertCircle className="w-5 h-5 text-red-500" />
-            {/* Mobile and md tooltip - positioned to the right */}
-            <div className="lg:hidden absolute left-full ml-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-red-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
-              {errorMessage || "Error"}
-            </div>
-            {/* Desktop (lg and up) tooltip - positioned above */}
-            <div className="hidden lg:block absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-2 py-1 bg-red-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
+            {/* Tooltip - positioned to the right for all screen sizes */}
+            <div className="absolute left-full ml-2 top-1/2 transform -translate-y-1/2 px-2 py-1 bg-red-600 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap z-50">
               {errorMessage || "Error"}
             </div>
           </div>
