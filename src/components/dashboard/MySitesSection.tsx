@@ -84,7 +84,7 @@ const MySitesSection = () => {
         return (
           <div className="group relative">
             <Clock className="w-5 h-5 text-yellow-500" />
-            <div className="md:absolute md:bottom-full md:left-1/2 md:transform md:-translate-x-1/2 md:mb-2 md:px-2 md:py-1 md:bg-gray-800 md:text-white md:text-xs md:rounded md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-200 md:whitespace-nowrap absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+            <div className="md:absolute md:bottom-full md:left-1/2 md:transform md:-translate-x-1/2 md:mb-2 md:px-2 md:py-1 md:bg-yellow-500 md:text-white md:text-xs md:rounded md:opacity-0 md:group-hover:opacity-100 md:transition-opacity md:duration-200 md:whitespace-nowrap absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-2 py-1 bg-yellow-500 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
               Pending Publish
             </div>
           </div>
