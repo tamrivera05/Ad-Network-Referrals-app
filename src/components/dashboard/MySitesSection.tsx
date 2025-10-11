@@ -121,8 +121,8 @@ const MySitesSection = () => {
               {getStatusIcon(site.status)}
             </div>
             
-            <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300 max-h-[320px] flex flex-col">
-              <CardHeader className="pb-3 flex-shrink-0">
+            <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
+              <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
                   <CardTitle className="text-lg font-semibold text-gray-900 line-clamp-2">
                     {site.name}
@@ -141,9 +141,9 @@ const MySitesSection = () => {
                 </CardDescription>
               </CardHeader>
               
-              <CardContent className="space-y-4 flex-1 overflow-hidden flex flex-col">
+              <CardContent className="space-y-4">
                 {/* URL Display */}
-                <div className="space-y-2 flex-shrink-0">
+                <div className="space-y-2">
                   <div className="flex items-center space-x-2 text-sm text-gray-600">
                     <Globe className="w-4 h-4" />
                     <span className="truncate" title={site.url}>
@@ -160,18 +160,18 @@ const MySitesSection = () => {
 
                 {/* Error Message */}
                 {site.status === "error" && site.errorMessage && (
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-3 flex-shrink-0">
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-3">
                     <p className="text-sm text-red-700">{site.errorMessage}</p>
                   </div>
                 )}
 
                 {/* Publish Date */}
-                <div className="text-sm text-gray-500 flex-shrink-0">
+                <div className="text-sm text-gray-500">
                   Published: {formatDate(site.publishDate)}
                 </div>
 
                 {/* Copy URL Button - always part of card content */}
-                <div className="flex justify-end mt-auto flex-shrink-0">
+                <div className="flex justify-end">
                   {site.status === "live" ? (
                     <Button
                       variant="outline"
