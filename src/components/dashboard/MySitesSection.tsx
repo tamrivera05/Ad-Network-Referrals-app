@@ -268,7 +268,7 @@ const MySitesSection = () => {
 
       {/* Edit Offer Link Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
-        <DialogContent className="sm:max-w-md rounded-2xl mx-4 my-4 max-h-[90vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-md rounded-2xl mx-auto max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit Offer Link</DialogTitle>
             <DialogDescription>
