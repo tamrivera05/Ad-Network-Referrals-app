@@ -12,6 +12,7 @@ import AccountPending from "./pages/AccountPending";
 import Dashboard from "./pages/Dashboard";
 import TemplateDetail from "./pages/TemplateDetail";
 import PublishTemplate from "./pages/PublishTemplate";
+import EditSite from "./pages/EditSite";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/template/:id" element={<TemplateDetail />} />
           <Route path="/publish-template" element={<PublishTemplate />} />
+          <Route path="/edit-site/:id" element={<EditSite />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
