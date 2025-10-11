@@ -290,7 +290,7 @@ const MySitesSection = () => {
             </div>
           </div>
           
-          <DialogFooter className="gap-3">
+          <DialogFooter className="gap-3 sm:gap-2">
             <Button
               variant="outline"
               onClick={() => setEditDialogOpen(false)}
