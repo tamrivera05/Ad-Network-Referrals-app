@@ -121,7 +121,7 @@ const MySitesSection = () => {
               {getStatusIcon(site.status)}
             </div>
             
-            <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300 relative">
+            <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
               <CardHeader className="pb-3">
                 <div className="flex items-start justify-between">
                   <CardTitle className="text-lg font-semibold text-gray-900 line-clamp-2">
@@ -169,19 +169,21 @@ const MySitesSection = () => {
                 <div className="text-sm text-gray-500">
                   Published: {formatDate(site.publishDate)}
                 </div>
-              </CardContent>
 
-              {/* Copy URL Button - positioned at bottom right of card for all sites */}
-              <div className="absolute bottom-4 right-4">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleCopyUrl(site.url)}
-                  className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
-                >
-                  <Copy className="w-4 h-4" />
-                </Button>
-              </div>
+                {/* Copy URL Button - positioned at bottom right */}
+                {site.status === "live" && (
+                  <div className="absolute bottom-4 right-4">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handleCopyUrl(site.url)}
+                      className="bg-white hover:bg-gray-50 border-gray-200 hover:border-gray-300"
+                    >
+                      <Copy className="w-4 h-4" />
+                    </Button>
+                  </div>
+                )}
+              </CardContent>
             </Card>
           </div>
         ))}
