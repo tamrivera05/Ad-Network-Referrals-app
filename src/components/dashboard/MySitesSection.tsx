@@ -7,8 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { ExternalLink, Edit, Eye, EyeOff, Globe, AlertCircle, Clock, CheckCircle, XCircle, MoreHorizontal } from "lucide-react";
+import { ExternalLink, Eye, Globe, AlertCircle, Clock, CheckCircle, XCircle, Settings } from "lucide-react";
 import { showSuccess, showError } from "@/utils/toast";
 
 interface Site {
@@ -73,8 +72,14 @@ const MySitesSection = () => {
   ]);
 
   const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [unpublishDialogOpen, setUnpublishDialogOpen] = useState(false);
   const [selectedSite, setSelectedSite] = useState<Site | null>(null);
-  const [newOfferLink, setNewOfferLink] = useState("");
+  const [editFormData, setEditFormData] = useState({
+    name: "",
+    url: "",
+    offerLink: ""
+  });
+  const [unpublishConfirmName, setUnpublishConfirmName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const getStatusBadge = (status: Site["status"]) => {
@@ -118,13 +123,17 @@ const MySitesSection = () => {
     window.open(url, "_blank");
   };
 
-  const handleEditOfferLink = (site: Site) => {
+  const handleEditSite = (site: Site) => {
     setSelectedSite(site);
-    setNewOfferLink(site.offerLink);
+    setEditFormData({
+      name: site.name,
+      url: site.url,
+      offerLink: site.offerLink
+    });
     setEditDialogOpen(true);
   };
 
-  const handleSaveOfferLink = async () => {
+  const handleSaveChanges = async () => {
     if (!selectedSite) return;
 
     setIsLoading(true);
@@ -134,30 +143,44 @@ const MySitesSection = () => {
     
     setSites(prev => prev.map(site => 
       site.id === selectedSite.id 
-        ? { ...site, offerLink: newOfferLink }
+        ? { ...site, ...editFormData }
         : site
     ));
     
-    showSuccess("Offer link updated successfully");
+    showSuccess("Site updated successfully");
     setEditDialogOpen(false);
     setSelectedSite(null);
-    setNewOfferLink("");
+    setEditFormData({ name: "", url: "", offerLink: "" });
     setIsLoading(false);
   };
 
-  const handleUnpublish = async (siteId: string) => {
+  const handleUnpublishClick = () => {
+    setEditDialogOpen(false);
+    setUnpublishDialogOpen(true);
+    setUnpublishConfirmName("");
+  };
+
+  const handleUnpublishConfirm = async () => {
+    if (!selectedSite || unpublishConfirmName !== selectedSite.name) {
+      showError("Website name doesn't match. Please try again.");
+      return;
+    }
+
     setIsLoading(true);
     
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
     setSites(prev => prev.map(site => 
-      site.id === siteId 
+      site.id === selectedSite.id 
         ? { ...site, status: "pending" as const }
         : site
     ));
     
     showSuccess("Site unpublished successfully");
+    setUnpublishDialogOpen(false);
+    setSelectedSite(null);
+    setUnpublishConfirmName("");
     setIsLoading(false);
   };
 
@@ -191,29 +214,14 @@ const MySitesSection = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   {getStatusBadge(site.status)}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8 hover:bg-gray-100"
-                      >
-                        <MoreHorizontal className="h-4 w-4" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      {site.status === "live" && (
-                        <DropdownMenuItem
-                          onClick={() => handleUnpublish(site.id)}
-                          className="text-red-600 focus:text-red-600"
-                          disabled={isLoading}
-                        >
-                          <EyeOff className="w-4 h-4 mr-2" />
-                          Unpublish
-                        </DropdownMenuItem>
-                      )}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-8 w-8 hover:bg-gray-100"
+                    onClick={() => handleEditSite(site)}
+                  >
+                    <Settings className="h-4 w-4" />
+                  </Button>
                 </div>
               </div>
               <CardDescription className="text-sm">
@@ -263,41 +271,111 @@ const MySitesSection = () => {
                     View Live
                   </Button>
                 )}
-                
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handleEditOfferLink(site)}
-                  className="w-full justify-center"
-                >
-                  <Edit className="w-4 h-4 mr-2" />
-                  Edit Offer Link
-                </Button>
               </div>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Edit Offer Link Dialog */}
+      {/* Edit Site Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
         <DialogContent className="sm:max-w-md rounded-2xl mx-auto max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Edit Offer Link</DialogTitle>
+            <DialogTitle>Edit Site</DialogTitle>
             <DialogDescription>
-              Update the offer link for {selectedSite?.name}
+              Update the details for {selectedSite?.name}
             </DialogDescription>
           </DialogHeader>
           
           <div className="space-y-4 py-4">
             <div className="space-y-2">
+              <Label htmlFor="site-name">Website Name</Label>
+              <Input
+                id="site-name"
+                type="text"
+                value={editFormData.name}
+                onChange={(e) => setEditFormData(prev => ({ ...prev, name: e.target.value }))}
+                className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+              />
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="domain-name">Domain Name</Label>
+              <Input
+                id="domain-name"
+                type="text"
+                value={editFormData.url}
+                onChange={(e) => setEditFormData(prev => ({ ...prev, url: e.target.value }))}
+                placeholder="yourdomain.com"
+                className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+              />
+            </div>
+            
+            <div className="space-y-2">
               <Label htmlFor="offer-link">Offer Link</Label>
               <Input
                 id="offer-link"
                 type="url"
-                value={newOfferLink}
-                onChange={(e) => setNewOfferLink(e.target.value)}
+                value={editFormData.offerLink}
+                onChange={(e) => setEditFormData(prev => ({ ...prev, offerLink: e.target.value }))}
                 placeholder="https://ogads.com/offers/..."
+                className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+              />
+            </div>
+          </div>
+          
+          <DialogFooter className="gap-3 sm:gap-2">
+            {selectedSite?.status === "live" && (
+              <Button
+                variant="outline"
+                onClick={handleUnpublishClick}
+                className="text-red-600 border-red-200 hover:bg-red-50"
+                disabled={isLoading}
+              >
+                Unpublish
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              onClick={() => setEditDialogOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleSaveChanges}
+              className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+              disabled={isLoading || !editFormData.name.trim() || !editFormData.url.trim() || !editFormData.offerLink.trim()}
+            >
+              {isLoading ? "Saving..." : "Save Changes"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Unpublish Confirmation Dialog */}
+      <Dialog open={unpublishDialogOpen} onOpenChange={setUnpublishDialogOpen}>
+        <DialogContent className="sm:max-w-md rounded-2xl mx-auto max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Confirm Unpublish</DialogTitle>
+            <DialogDescription>
+              This action will unpublish your site. To confirm, please type the website name exactly as shown below.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
+              <p className="text-sm font-medium text-gray-900">Website Name:</p>
+              <p className="text-sm text-gray-700 font-mono">{selectedSite?.name}</p>
+            </div>
+            
+            <div className="space-y-2">
+              <Label htmlFor="confirm-name">Type website name to confirm</Label>
+              <Input
+                id="confirm-name"
+                type="text"
+                value={unpublishConfirmName}
+                onChange={(e) => setUnpublishConfirmName(e.target.value)}
+                placeholder="Enter website name"
                 className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
               />
             </div>
@@ -306,16 +384,16 @@ const MySitesSection = () => {
           <DialogFooter className="gap-3 sm:gap-2">
             <Button
               variant="outline"
-              onClick={() => setEditDialogOpen(false)}
+              onClick={() => setUnpublishDialogOpen(false)}
             >
               Cancel
             </Button>
             <Button
-              onClick={handleSaveOfferLink}
-              className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-              disabled={isLoading || !newOfferLink.trim()}
+              onClick={handleUnpublishConfirm}
+              className="bg-red-600 hover:bg-red-700 text-white"
+              disabled={isLoading || unpublishConfirmName !== selectedSite?.name}
             >
-              {isLoading ? "Saving..." : "Save Changes"}
+              {isLoading ? "Unpublishing..." : "Unpublish"}
             </Button>
           </DialogFooter>
         </DialogContent>
