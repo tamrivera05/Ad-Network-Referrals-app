@@ -234,6 +234,9 @@ const EditSite = () => {
                   className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
                   placeholder="Enter website name"
                 />
+                <p className="text-sm text-gray-500">
+                  This is for your reference only and won't be visible on your live website.
+                </p>
               </div>
               
               <div className="space-y-2">
