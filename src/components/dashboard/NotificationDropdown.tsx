@@ -19,6 +19,7 @@ interface Notification {
 
 const NotificationDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   
   // Mock notification data
@@ -75,6 +76,20 @@ const NotificationDropdown = () => {
 
   const unreadCount = notifications.filter(n => !n.read).length;
 
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
+  }, []);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -82,11 +97,14 @@ const NotificationDropdown = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  }, [isOpen]);
 
   const handleMarkAsRead = (id: string) => {
     setNotifications(prev => 
@@ -139,13 +157,15 @@ const NotificationDropdown = () => {
       {isOpen && (
         <>
           {/* Mobile backdrop */}
-          <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsOpen(false)} />
+          {isMobile && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsOpen(false)} />
+          )}
           
           {/* Dropdown container */}
-          <div className={`absolute z-50 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden ${
-            window.innerWidth < 768 
-              ? 'fixed inset-4 inset-y-4 inset-x-4 max-h-[calc(100vh-2rem)]' 
-              : 'right-0 mt-2 w-96 max-h-96'
+          <div className={`z-50 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden ${
+            isMobile 
+              ? 'fixed inset-4 md:inset-auto md:right-0 md:mt-2 md:w-96 md:max-h-96' 
+              : 'absolute right-0 mt-2 w-96 max-h-96'
           }`}>
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
@@ -164,7 +184,7 @@ const NotificationDropdown = () => {
 
             {/* Notifications List */}
             <div className={`overflow-y-auto ${
-              window.innerWidth < 768 ? 'max-h-[calc(100vh-8rem)]' : 'max-h-80'
+              isMobile ? 'max-h-[calc(100vh-8rem)]' : 'max-h-80'
             }`}>
               {notifications.length === 0 ? (
                 <div className="p-8 text-center">
