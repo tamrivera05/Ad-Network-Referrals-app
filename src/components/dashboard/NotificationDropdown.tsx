@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Bell, Check, X, ExternalLink } from "lucide-react";
+import { Bell, Check, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 
 interface Notification {
   id: string;
@@ -103,10 +102,6 @@ const NotificationDropdown = () => {
     );
   };
 
-  const handleDeleteNotification = (id: string) => {
-    setNotifications(prev => prev.filter(notification => notification.id !== id));
-  };
-
   const getNotificationIcon = (type: Notification["type"]) => {
     switch (type) {
       case "success":
@@ -117,21 +112,6 @@ const NotificationDropdown = () => {
         return <div className="w-2 h-2 bg-red-500 rounded-full"></div>;
       default:
         return <div className="w-2 h-2 bg-blue-500 rounded-full"></div>;
-    }
-  };
-
-  const getNotificationBgColor = (type: Notification["type"], read: boolean) => {
-    if (read) return "bg-white";
-    
-    switch (type) {
-      case "success":
-        return "bg-green-50";
-      case "warning":
-        return "bg-yellow-50";
-      case "error":
-        return "bg-red-50";
-      default:
-        return "bg-blue-50";
     }
   };
 
@@ -181,7 +161,7 @@ const NotificationDropdown = () => {
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className={`p-4 transition-colors duration-200 ${getNotificationBgColor(notification.type, notification.read)}`}
+                    className="p-4 transition-colors duration-200"
                   >
                     <div className="flex items-start space-x-3">
                       {/* Status indicator */}
@@ -204,25 +184,16 @@ const NotificationDropdown = () => {
                             </p>
                           </div>
                           
-                          {/* Actions */}
-                          <div className="flex items-center space-x-1 ml-2">
-                            {!notification.read && (
-                              <button
-                                onClick={() => handleMarkAsRead(notification.id)}
-                                className="p-1 hover:bg-gray-200 rounded transition-colors"
-                                title="Mark as read"
-                              >
-                                <Check className="w-4 h-4 text-gray-500" />
-                              </button>
-                            )}
+                          {/* Mark as read action */}
+                          {!notification.read && (
                             <button
-                              onClick={() => handleDeleteNotification(notification.id)}
+                              onClick={() => handleMarkAsRead(notification.id)}
                               className="p-1 hover:bg-gray-200 rounded transition-colors"
-                              title="Delete"
+                              title="Mark as read"
                             >
-                              <X className="w-4 h-4 text-gray-500" />
+                              <Check className="w-4 h-4 text-gray-500" />
                             </button>
-                          </div>
+                          )}
                         </div>
                         
                         {/* Action button */}
