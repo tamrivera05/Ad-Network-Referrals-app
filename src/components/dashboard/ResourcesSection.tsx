@@ -3,14 +3,17 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ExternalLink, Globe, Link, BookOpen, Video, FileText } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const ResourcesSection = () => {
+  const navigate = useNavigate();
+
   const dnsResources = [
     {
       title: "Cloudflare DNS Setup",
       description: "Complete guide to setting up DNS records in Cloudflare for your domains",
       type: "guide",
-      url: "https://help.cloudflare.com/hc/en-us/articles/360019093151-Managing-DNS-records-in-Cloudflare",
+      url: "/dns-guide",
       difficulty: "Beginner",
       duration: "10 min read"
     },
@@ -18,7 +21,7 @@ const ResourcesSection = () => {
       title: "GoDaddy DNS Configuration",
       description: "Step-by-step tutorial for configuring DNS settings in GoDaddy",
       type: "guide",
-      url: "https://www.godaddy.com/help/manage-dns-records-680",
+      url: "/dns-guide",
       difficulty: "Beginner",
       duration: "8 min read"
     },
@@ -26,7 +29,7 @@ const ResourcesSection = () => {
       title: "Namecheap DNS Management",
       description: "How to manage DNS records and point your domain to our servers",
       type: "guide",
-      url: "https://www.namecheap.com/support/knowledgebase/article.aspx/319/2237/how-to-manage-dns-records/",
+      url: "/dns-guide",
       difficulty: "Beginner",
       duration: "12 min read"
     },
@@ -45,7 +48,7 @@ const ResourcesSection = () => {
       title: "Getting Started with OGads Smartlinks",
       description: "Complete walkthrough on how to create and configure your first smartlink",
       type: "video",
-      url: "https://ogads.com/help/smartlink",
+      url: "/smartlink-guide",
       difficulty: "Beginner",
       duration: "15 min video"
     },
@@ -53,7 +56,7 @@ const ResourcesSection = () => {
       title: "OGads Smartlink Best Practices",
       description: "Optimize your smartlinks for maximum conversions and earnings",
       type: "guide",
-      url: "https://ogads.com/help/smartlink-best-practices",
+      url: "/smartlink-guide",
       difficulty: "Intermediate",
       duration: "20 min read"
     },
@@ -61,7 +64,7 @@ const ResourcesSection = () => {
       title: "Smartlink Analytics Dashboard",
       description: "How to track and analyze your smartlink performance",
       type: "guide",
-      url: "https://ogads.com/help/analytics",
+      url: "/smartlink-guide",
       difficulty: "Intermediate",
       duration: "15 min read"
     },
@@ -69,7 +72,7 @@ const ResourcesSection = () => {
       title: "Troubleshooting Smartlink Issues",
       description: "Common problems and solutions for OGads smartlink setup",
       type: "article",
-      url: "https://ogads.com/help/troubleshooting",
+      url: "/smartlink-guide",
       difficulty: "Advanced",
       duration: "10 min read"
     }
@@ -101,8 +104,16 @@ const ResourcesSection = () => {
     }
   };
 
+  const handleResourceClick = (url: string) => {
+    if (url.startsWith('/')) {
+      navigate(url);
+    } else {
+      window.open(url, '_blank');
+    }
+  };
+
   const ResourceCard = ({ resource, category }: { resource: any, category: string }) => (
-    <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300 group">
+    <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300 group cursor-pointer">
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -128,11 +139,17 @@ const ResourcesSection = () => {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => window.open(resource.url, '_blank')}
+            onClick={() => handleResourceClick(resource.url)}
             className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB] hover:text-[#FF8d21] group-hover:scale-105 transition-all duration-200"
           >
-            <ExternalLink className="w-3 h-3 mr-1" />
-            View
+            {resource.url.startsWith('/') ? (
+              "View Guide"
+            ) : (
+              <>
+                <ExternalLink className="w-3 h-3 mr-1" />
+                View
+              </>
+            )}
           </Button>
         </div>
       </CardContent>

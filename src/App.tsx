@@ -13,6 +13,8 @@ import Dashboard from "./pages/Dashboard";
 import TemplateDetail from "./pages/TemplateDetail";
 import PublishTemplate from "./pages/PublishTemplate";
 import EditSite from "./pages/EditSite";
+import DnsGuide from "./pages/DnsGuide";
+import SmartlinkGuide from "./pages/SmartlinkGuide";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +36,8 @@ const App = () => (
           <Route path="/template/:id" element={<TemplateDetail />} />
           <Route path="/publish-template" element={<PublishTemplate />} />
           <Route path="/edit-site/:id" element={<EditSite />} />
+          <Route path="/dns-guide" element={<DnsGuide />} />
+          <Route path="/smartlink-guide" element={<SmartlinkGuide />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
