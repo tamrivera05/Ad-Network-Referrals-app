@@ -1,7 +1,7 @@
 "use client";
 
 import Sidebar from "@/components/dashboard/Sidebar";
-import SmartlinkGuide from "@/components/dashboard/documentation/SmartlinkGuide";
+import SmartlinkGuideContent from "@/components/dashboard/documentation/SmartlinkGuide";
 
 const SmartlinkGuide = () => {
   return (
@@ -11,7 +11,7 @@ const SmartlinkGuide = () => {
       
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
-        <SmartlinkGuide />
+        <SmartlinkGuideContent />
       </div>
     </div>
   );
