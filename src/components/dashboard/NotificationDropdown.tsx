@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import { Bell, Check, ExternalLink } from "lucide-react";
+import { Bell, Check, X, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface Notification {
@@ -102,6 +102,10 @@ const NotificationDropdown = () => {
     );
   };
 
+  const handleDeleteNotification = (id: string) => {
+    setNotifications(prev => prev.filter(notification => notification.id !== id));
+  };
+
   const getNotificationIcon = (type: Notification["type"]) => {
     switch (type) {
       case "success":
@@ -184,8 +188,9 @@ const NotificationDropdown = () => {
                             </p>
                           </div>
                           
-                          {/* Mark as read action */}
-                          {!notification.read && (
+                          {/* Actions */}
+                          <div className="flex items-center space-x-1 ml-2">
+                            {/* Mark as read button - always visible */}
                             <button
                               onClick={() => handleMarkAsRead(notification.id)}
                               className="p-1 hover:bg-gray-200 rounded transition-colors"
@@ -193,7 +198,15 @@ const NotificationDropdown = () => {
                             >
                               <Check className="w-4 h-4 text-gray-500" />
                             </button>
-                          )}
+                            {/* Delete button */}
+                            <button
+                              onClick={() => handleDeleteNotification(notification.id)}
+                              className="p-1 hover:bg-gray-200 rounded transition-colors"
+                              title="Delete"
+                            >
+                              <X className="w-4 h-4 text-gray-500" />
+                            </button>
+                          </div>
                         </div>
                         
                         {/* Action button */}
