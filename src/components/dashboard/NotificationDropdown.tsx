@@ -188,27 +188,36 @@ const NotificationDropdown = () => {
           {/* Dropdown container */}
           <div className={`z-50 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden ${
             isMobile 
-              ? 'fixed inset-4 md:inset-auto md:right-0 md:mt-2 md:w-96 md:max-h-96' 
+              ? 'fixed top-4 left-4 right-4 bottom-4 md:inset-auto md:right-0 md:mt-2 md:w-96 md:max-h-96' 
               : 'absolute right-0 mt-2 w-96 max-h-96'
           }`}>
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
               <h3 className="font-semibold text-gray-900">Notifications</h3>
-              {unreadCount > 0 && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleMarkAllAsRead}
-                  className="text-[#FF7B00] hover:text-[#FF8d21] hover:bg-[#FFF5EB] flex-shrink-0"
+              <div className="flex items-center space-x-2">
+                {unreadCount > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleMarkAllAsRead}
+                    className="text-[#FF7B00] hover:text-[#FF8d21] hover:bg-[#FFF5EB] flex-shrink-0"
+                  >
+                    Mark all as read
+                  </Button>
+                )}
+                {/* Mobile close button */}
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
                 >
-                  Mark all as read
-                </Button>
-              )}
+                  <X className="w-5 h-5 text-gray-600 hover:text-gray-900" />
+                </button>
+              </div>
             </div>
 
             {/* Notifications List */}
             <div className={`overflow-y-auto ${
-              isMobile ? 'max-h-[calc(100vh-8rem)]' : 'max-h-80'
+              isMobile ? 'h-[calc(100%-5rem)]' : 'max-h-80'
             }`}>
               {notifications.length === 0 ? (
                 <div className="p-8 text-center">
