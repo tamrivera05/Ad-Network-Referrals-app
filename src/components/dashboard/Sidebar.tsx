@@ -18,6 +18,11 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
   const getActiveTab = () => {
     if (propActiveTab) return propActiveTab;
     
+    // Check if we're on guide pages
+    if (location.pathname === "/dns-guide" || location.pathname === "/smartlink-guide") {
+      return "resources";
+    }
+    
     // Extract tab from URL for dashboard pages
     if (location.pathname === "/dashboard") {
       const params = new URLSearchParams(location.search);
