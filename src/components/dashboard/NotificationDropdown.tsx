@@ -165,7 +165,9 @@ const NotificationDropdown = () => {
                 {notifications.map((notification) => (
                   <div
                     key={notification.id}
-                    className="p-4 transition-colors duration-200"
+                    className={`p-4 transition-colors duration-200 ${
+                      !notification.read ? 'bg-gray-50' : 'bg-white'
+                    }`}
                   >
                     <div className="flex items-start space-x-3">
                       {/* Status indicator */}
@@ -190,21 +192,23 @@ const NotificationDropdown = () => {
                           
                           {/* Actions */}
                           <div className="flex items-center space-x-1 ml-2">
-                            {/* Mark as read button - always visible */}
-                            <button
-                              onClick={() => handleMarkAsRead(notification.id)}
-                              className="p-1 hover:bg-gray-200 rounded transition-colors"
-                              title="Mark as read"
-                            >
-                              <Check className="w-4 h-4 text-gray-500" />
-                            </button>
-                            {/* Delete button */}
+                            {/* Mark as read button - only visible for unread notifications */}
+                            {!notification.read && (
+                              <button
+                                onClick={() => handleMarkAsRead(notification.id)}
+                                className="p-1 hover:bg-gray-200 rounded transition-all duration-200 hover:scale-110"
+                                title="Mark as read"
+                              >
+                                <Check className="w-4 h-4 text-gray-500 hover:text-gray-700" />
+                              </button>
+                            )}
+                            {/* Delete button - always visible */}
                             <button
                               onClick={() => handleDeleteNotification(notification.id)}
-                              className="p-1 hover:bg-gray-200 rounded transition-colors"
+                              className="p-1 hover:bg-red-100 rounded transition-all duration-200 hover:scale-110"
                               title="Delete"
                             >
-                              <X className="w-4 h-4 text-gray-500" />
+                              <X className="w-4 h-4 text-gray-500 hover:text-red-600" />
                             </button>
                           </div>
                         </div>
