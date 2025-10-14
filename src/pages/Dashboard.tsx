@@ -8,6 +8,7 @@ import TemplatesSection from "../components/dashboard/TemplatesSection";
 import Overview from "../components/dashboard/Overview";
 import ProfileSection from "../components/dashboard/ProfileSection";
 import MySitesSection from "../components/dashboard/MySitesSection";
+import ResourcesSection from "../components/dashboard/ResourcesSection";
 
 const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("home");
@@ -28,6 +29,8 @@ const Dashboard = () => {
         return "Templates";
       case "sites":
         return "My Sites";
+      case "resources":
+        return "Resources";
       case "profile":
         return "Account";
       default:
@@ -43,6 +46,8 @@ const Dashboard = () => {
         return <TemplatesSection />;
       case "sites":
         return <MySitesSection />;
+      case "resources":
+        return <ResourcesSection />;
       case "profile":
         return <ProfileSection />;
       default:

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Layout, User, Globe, Menu, X } from "lucide-react";
+import { Home, Layout, User, Globe, Menu, X, BookOpen } from "lucide-react";
 
 interface SidebarProps {
   activeTab?: string;
@@ -53,6 +53,7 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
     { icon: Home, label: "Home", id: "home" },
     { icon: Layout, label: "Templates", id: "templates" },
     { icon: Globe, label: "My Sites", id: "sites" },
+    { icon: BookOpen, label: "Resources", id: "resources" },
     { icon: User, label: "Account", id: "profile" },
   ];
 
