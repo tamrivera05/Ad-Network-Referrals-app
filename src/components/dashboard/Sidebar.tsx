@@ -11,6 +11,7 @@ interface SidebarProps {
 
 const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: SidebarProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [activeNotificationTab, setActiveNotificationTab] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -49,6 +50,10 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
     }
   };
 
+  const handleNotificationClick = () => {
+    setActiveNotificationTab(!activeNotificationTab);
+  };
+
   const menuItems = [
     { icon: Home, label: "Home", id: "home" },
     { icon: Layout, label: "Templates", id: "templates" },
@@ -57,7 +62,7 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
   ];
 
   const getTabStyles = (itemId: string) => {
-    const isActive = activeTab === itemId;
+    const isActive = activeTab === itemId || (itemId === "notifications" && activeNotificationTab);
     
     return {
       icon: isActive ? "text-[#FF7B00]" : "text-gray-500 group-hover:text-[#FF7B00]",
@@ -187,17 +192,25 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
           )}
         </div>
         
-        {/* Notification Icon - Top area */}
-        <div className="flex justify-center mb-6 px-3">
-          <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors group">
-            <Bell className="w-5 h-5 text-gray-600 group-hover:text-[#FF7B00] transition-colors duration-200" />
-            {/* Notification badge */}
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-          </button>
-        </div>
-        
         {/* Navigation Icons - Vertically Centered */}
         <div className="flex-1 flex flex-col items-center justify-center space-y-2 px-3">
+          {/* Notification Icon - Styled like other navigation items */}
+          <button
+            onClick={handleNotificationClick}
+            className={`w-full flex items-center ${isExpanded ? 'justify-start px-4' : 'justify-center'} py-3 rounded-lg transition-all duration-200 group ${getTabStyles("notifications").background}`}
+          >
+            <div className="relative">
+              <Bell className={`w-6 h-6 ${getTabStyles("notifications").icon} flex-shrink-0 transition-colors duration-200`} />
+              {/* Notification badge */}
+              <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+            </div>
+            {isExpanded && (
+              <span className={`ml-4 whitespace-nowrap font-semibold ${getTabStyles("notifications").label} transition-colors duration-200`}>
+                Notifications
+              </span>
+            )}
+          </button>
+          
           {menuItems.map((item, index) => {
             const Icon = item.icon;
             const styles = getTabStyles(item.id);
