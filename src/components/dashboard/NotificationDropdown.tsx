@@ -137,120 +137,132 @@ const NotificationDropdown = () => {
 
       {/* Dropdown */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 overflow-hidden">
-          {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-gray-200">
-            <h3 className="font-semibold text-gray-900">Notifications</h3>
-            {unreadCount > 0 && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={handleMarkAllAsRead}
-                className="text-[#FF7B00] hover:text-[#FF8d21] hover:bg-[#FFF5EB]"
-              >
-                Mark all as read
-              </Button>
-            )}
-          </div>
+        <>
+          {/* Mobile backdrop */}
+          <div className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40" onClick={() => setIsOpen(false)} />
+          
+          {/* Dropdown container */}
+          <div className={`absolute z-50 bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden ${
+            window.innerWidth < 768 
+              ? 'fixed inset-4 inset-y-4 inset-x-4 max-h-[calc(100vh-2rem)]' 
+              : 'right-0 mt-2 w-96 max-h-96'
+          }`}>
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200">
+              <h3 className="font-semibold text-gray-900">Notifications</h3>
+              {unreadCount > 0 && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleMarkAllAsRead}
+                  className="text-[#FF7B00] hover:text-[#FF8d21] hover:bg-[#FFF5EB] flex-shrink-0"
+                >
+                  Mark all as read
+                </Button>
+              )}
+            </div>
 
-          {/* Notifications List */}
-          <div className="overflow-y-auto max-h-80">
-            {notifications.length === 0 ? (
-              <div className="p-8 text-center">
-                <Bell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
-                <p className="text-gray-500">No notifications yet</p>
-              </div>
-            ) : (
-              <div className="divide-y divide-gray-100">
-                {notifications.map((notification) => (
-                  <div
-                    key={notification.id}
-                    className={`p-4 transition-colors duration-200 ${
-                      !notification.read ? 'bg-gray-50' : 'bg-white'
-                    }`}
-                  >
-                    <div className="flex items-start space-x-3">
-                      {/* Status indicator */}
-                      <div className="flex-shrink-0 mt-1">
-                        {getNotificationIcon(notification.type)}
-                      </div>
-                      
-                      {/* Content */}
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <p className={`text-sm font-medium ${notification.read ? 'text-gray-700' : 'text-gray-900'}`}>
-                              {notification.title}
-                            </p>
-                            <p className={`text-sm mt-1 ${notification.read ? 'text-gray-500' : 'text-gray-600'}`}>
-                              {notification.message}
-                            </p>
-                            <p className="text-xs text-gray-400 mt-2">
-                              {notification.time}
-                            </p>
-                          </div>
-                          
-                          {/* Actions */}
-                          <div className="flex items-center space-x-1 ml-2">
-                            {/* Mark as read button - only visible for unread notifications */}
-                            {!notification.read && (
-                              <button
-                                onClick={() => handleMarkAsRead(notification.id)}
-                                className="p-1 hover:bg-gray-200 rounded transition-all duration-200 hover:scale-110"
-                                title="Mark as read"
-                              >
-                                <Check className="w-4 h-4 text-gray-500 hover:text-gray-700" />
-                              </button>
-                            )}
-                            {/* Delete button - always visible */}
-                            <button
-                              onClick={() => handleDeleteNotification(notification.id)}
-                              className="p-1 hover:bg-red-100 rounded transition-all duration-200 hover:scale-110"
-                              title="Delete"
-                            >
-                              <X className="w-4 h-4 text-gray-500 hover:text-red-600" />
-                            </button>
-                          </div>
+            {/* Notifications List */}
+            <div className={`overflow-y-auto ${
+              window.innerWidth < 768 ? 'max-h-[calc(100vh-8rem)]' : 'max-h-80'
+            }`}>
+              {notifications.length === 0 ? (
+                <div className="p-8 text-center">
+                  <Bell className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                  <p className="text-gray-500">No notifications yet</p>
+                </div>
+              ) : (
+                <div className="divide-y divide-gray-100">
+                  {notifications.map((notification) => (
+                    <div
+                      key={notification.id}
+                      className={`p-4 transition-colors duration-200 ${
+                        !notification.read ? 'bg-gray-50' : 'bg-white'
+                      }`}
+                    >
+                      <div className="flex items-start space-x-3">
+                        {/* Status indicator */}
+                        <div className="flex-shrink-0 mt-1">
+                          {getNotificationIcon(notification.type)}
                         </div>
                         
-                        {/* Action button */}
-                        {notification.action && (
-                          <div className="mt-3">
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => {
-                                // Handle navigation to action URL
-                                console.log("Navigate to:", notification.action?.url);
-                              }}
-                              className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB] hover:text-[#FF8d21]"
-                            >
-                              {notification.action.label}
-                              <ExternalLink className="w-3 h-3 ml-1" />
-                            </Button>
+                        {/* Content */}
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <p className={`text-sm font-medium break-words ${notification.read ? 'text-gray-700' : 'text-gray-900'}`}>
+                                {notification.title}
+                              </p>
+                              <p className={`text-sm mt-1 break-words ${notification.read ? 'text-gray-500' : 'text-gray-600'}`}>
+                                {notification.message}
+                              </p>
+                              <p className="text-xs text-gray-400 mt-2">
+                                {notification.time}
+                              </p>
+                            </div>
+                            
+                            {/* Actions */}
+                            <div className="flex items-center space-x-1 ml-2 flex-shrink-0">
+                              {/* Mark as read button - only visible for unread notifications */}
+                              {!notification.read && (
+                                <button
+                                  onClick={() => handleMarkAsRead(notification.id)}
+                                  className="p-1 hover:bg-gray-200 rounded transition-all duration-200 hover:scale-110"
+                                  title="Mark as read"
+                                >
+                                  <Check className="w-4 h-4 text-gray-500 hover:text-gray-700" />
+                                </button>
+                              )}
+                              {/* Delete button - always visible */}
+                              <button
+                                onClick={() => handleDeleteNotification(notification.id)}
+                                className="p-1 hover:bg-red-100 rounded transition-all duration-200 hover:scale-110"
+                                title="Delete"
+                              >
+                                <X className="w-4 h-4 text-gray-500 hover:text-red-600" />
+                              </button>
+                            </div>
                           </div>
-                        )}
+                          
+                          {/* Action button */}
+                          {notification.action && (
+                            <div className="mt-3">
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => {
+                                  // Handle navigation to action URL
+                                  console.log("Navigate to:", notification.action?.url);
+                                }}
+                                className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB] hover:text-[#FF8d21] w-full sm:w-auto"
+                              >
+                                {notification.action.label}
+                                <ExternalLink className="w-3 h-3 ml-1" />
+                              </Button>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Footer */}
+            {notifications.length > 0 && (
+              <div className="p-3 border-t border-gray-200 bg-gray-50">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                >
+                  View all notifications
+                </Button>
               </div>
             )}
           </div>
-
-          {/* Footer */}
-          {notifications.length > 0 && (
-            <div className="p-3 border-t border-gray-200 bg-gray-50">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="w-full text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-              >
-                View all notifications
-              </Button>
-            </div>
-          )}
-        </div>
+        </>
       )}
     </div>
   );
