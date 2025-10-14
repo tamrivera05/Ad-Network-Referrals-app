@@ -113,7 +113,10 @@ const ResourcesSection = () => {
   };
 
   const ResourceCard = ({ resource, category }: { resource: any, category: string }) => (
-    <Card className="border-gray-200 hover:shadow-lg transition-shadow duration-300 group cursor-pointer">
+    <Card 
+      className="border-gray-200 hover:shadow-lg transition-shadow duration-300 group cursor-pointer"
+      onClick={() => handleResourceClick(resource.url)}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between">
           <div className="flex-1">
@@ -123,6 +126,9 @@ const ResourcesSection = () => {
               <span className={`text-xs px-2 py-1 rounded-full font-medium ${getDifficultyColor(resource.difficulty)}`}>
                 {resource.difficulty}
               </span>
+              {!resource.url.startsWith('/') && (
+                <ExternalLink className="w-3 h-3 text-gray-400" />
+              )}
             </div>
             <CardTitle className="text-lg font-semibold text-gray-900 group-hover:text-[#FF7B00] transition-colors line-clamp-2">
               {resource.title}
@@ -134,23 +140,8 @@ const ResourcesSection = () => {
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-0">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center">
           <span className="text-xs text-gray-500">{resource.duration}</span>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handleResourceClick(resource.url)}
-            className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB] hover:text-[#FF8d21] group-hover:scale-105 transition-all duration-200"
-          >
-            {resource.url.startsWith('/') ? (
-              "View Guide"
-            ) : (
-              <>
-                <ExternalLink className="w-3 h-3 mr-1" />
-                View
-              </>
-            )}
-          </Button>
         </div>
       </CardContent>
     </Card>
