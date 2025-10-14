@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Home, Layout, User, Globe, Menu, X } from "lucide-react";
+import { Home, Layout, User, Globe, Menu, X, Bell } from "lucide-react";
 
 interface SidebarProps {
   activeTab?: string;
@@ -112,7 +112,7 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
         <div className={`absolute inset-0 bg-white transition-transform duration-300 transform ${
           isExpanded ? 'translate-y-0' : '-translate-y-full'
         }`}>
-          {/* Header with Logo and Close button */}
+          {/* Header with Logo, Notifications, and Close button */}
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
             <div className="flex items-center">
               <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center">
@@ -123,13 +123,23 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
               </span>
             </div>
             
-            {/* Close button */}
-            <button
-              onClick={toggleSidebar}
-              className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-[#FFF5EB] hover:border-[#FFA652] transition-all duration-200"
-            >
-              <X className="w-5 h-5 text-gray-700 hover:text-[#FF7B00]" />
-            </button>
+            {/* Notifications and Close button */}
+            <div className="flex items-center space-x-2">
+              {/* Notification Icon */}
+              <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors">
+                <Bell className="w-5 h-5 text-gray-600 hover:text-[#FF7B00]" />
+                {/* Notification badge */}
+                <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+              </button>
+              
+              {/* Close button */}
+              <button
+                onClick={toggleSidebar}
+                className="w-10 h-10 bg-white border border-gray-200 rounded-lg flex items-center justify-center shadow-sm hover:bg-[#FFF5EB] hover:border-[#FFA652] transition-all duration-200"
+              >
+                <X className="w-5 h-5 text-gray-700 hover:text-[#FF7B00]" />
+              </button>
+            </div>
           </div>
           
           {/* Navigation Items - Top aligned with mobile-appropriate sizing */}
@@ -165,7 +175,7 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
 
       {/* Desktop Sidebar - Original design for md and larger screens */}
       <div className={`hidden md:flex ${isExpanded ? 'w-64' : 'w-16'} bg-[#FFFFFF] border-r border-gray-200 flex flex-col py-6 transition-all duration-300 ease-in-out`}>
-        {/* Logo and App Name */}
+        {/* Logo, App Name, and Notifications */}
         <div className="flex items-center justify-center mb-8 px-4">
           <div className="w-10 h-10 bg-[#FF7B00] rounded-lg flex items-center justify-center flex-shrink-0">
             <span className="text-white font-bold text-lg">G</span>
@@ -175,6 +185,15 @@ const Sidebar = ({ activeTab: propActiveTab, setActiveTab: propSetActiveTab }: S
               GridTemplates
             </span>
           )}
+        </div>
+        
+        {/* Notification Icon - Top area */}
+        <div className="flex justify-center mb-6 px-3">
+          <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors group">
+            <Bell className="w-5 h-5 text-gray-600 group-hover:text-[#FF7B00] transition-colors duration-200" />
+            {/* Notification badge */}
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
+          </button>
         </div>
         
         {/* Navigation Icons - Vertically Centered */}
