@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
-import { Bell } from "lucide-react";
 import Sidebar from "../components/dashboard/Sidebar";
+import NotificationDropdown from "../components/dashboard/NotificationDropdown";
 import TemplatesSection from "../components/dashboard/TemplatesSection";
 import Overview from "../components/dashboard/Overview";
 import ProfileSection from "../components/dashboard/ProfileSection";
@@ -75,13 +75,9 @@ const Dashboard = () => {
             <div className="flex justify-between items-center mb-2">
               <h1 className="text-lg font-semibold text-gray-900">{getPageTitle()}</h1>
               
-              {/* Notification Icon */}
+              {/* Notification Dropdown */}
               <div className="flex items-center space-x-4">
-                <button className="relative p-2 hover:bg-gray-100 rounded-lg transition-colors group">
-                  <Bell className="w-5 h-5 text-gray-600 group-hover:text-[#FF7B00] transition-colors duration-200" />
-                  {/* Notification badge */}
-                  <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                </button>
+                <NotificationDropdown />
               </div>
             </div>
           </div>
