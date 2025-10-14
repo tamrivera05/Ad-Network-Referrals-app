@@ -90,6 +90,30 @@ const NotificationDropdown = () => {
     };
   }, []);
 
+  // Prevent body scroll when dropdown is open on mobile
+  useEffect(() => {
+    if (isOpen && isMobile) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      
+      // Prevent body scroll
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
+      document.body.style.overflow = 'hidden';
+      
+      return () => {
+        // Restore body scroll
+        const scrollY = document.body.style.top;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      };
+    }
+  }, [isOpen, isMobile]);
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -268,19 +292,6 @@ const NotificationDropdown = () => {
                 </div>
               )}
             </div>
-
-            {/* Footer */}
-            {notifications.length > 0 && (
-              <div className="p-3 border-t border-gray-200 bg-gray-50">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full text-gray-600 hover:text-gray-900 hover:bg-gray-100"
-                >
-                  View all notifications
-                </Button>
-              </div>
-            )}
           </div>
         </>
       )}
