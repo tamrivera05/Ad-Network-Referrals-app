@@ -170,7 +170,7 @@ const ResourcesSection = () => {
           <Globe className="w-6 h-6 text-[#FF7B00]" />
           <h3 className="text-xl font-bold text-gray-900">DNS Setup Guides</h3>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-4">
           {dnsResources.map((resource, index) => (
             <ResourceCard key={`dns-${index}`} resource={resource} category="dns" />
           ))}
@@ -183,7 +183,7 @@ const ResourcesSection = () => {
           <Link className="w-6 h-6 text-[#FF7B00]" />
           <h3 className="text-xl font-bold text-gray-900">OGads Smartlink Guides</h3>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="space-y-4">
           {smartlinkResources.map((resource, index) => (
             <ResourceCard key={`smartlink-${index}`} resource={resource} category="smartlink" />
           ))}
