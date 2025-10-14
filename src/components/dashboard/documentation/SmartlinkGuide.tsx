@@ -237,14 +237,14 @@ const SmartlinkGuide = () => {
             {/* Section Info */}
             <Card className="border-gray-200">
               <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div>
+                <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0">
+                  <div className="flex-1">
                     <CardTitle className="text-xl text-gray-900">{section.title}</CardTitle>
                     <CardDescription className="text-gray-600 mt-1">
                       {section.description}
                     </CardDescription>
                   </div>
-                  <div className="flex items-center space-x-2 text-sm">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 text-sm">
                     <span className={`px-2 py-1 rounded-full font-medium ${
                       section.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
                       section.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
