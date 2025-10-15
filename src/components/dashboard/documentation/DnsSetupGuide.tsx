@@ -172,14 +172,16 @@ const DnsSetupGuide = () => {
                       {provider.description}
                     </CardDescription>
                   </div>
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 text-sm">
-                    <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                      {provider.difficulty}
-                    </span>
-                    <span className="flex items-center text-gray-500">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {provider.duration}
-                    </span>
+                  <div className="flex flex-row md:flex-col items-start space-y-2 md:space-y-4">
+                    <div className="flex flex-row items-center space-x-2 text-sm">
+                      <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                        {provider.difficulty}
+                      </span>
+                      <span className="flex items-center text-gray-500">
+                        <Clock className="w-4 h-4 mr-1" />
+                        {provider.duration}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </CardHeader>
