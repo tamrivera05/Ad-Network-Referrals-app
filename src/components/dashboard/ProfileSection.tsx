@@ -19,10 +19,11 @@ const ProfileSection = () => {
   
   // Simulate checking if user completed onboarding
   // In a real app, this would come from user data/API
-  const hasCompletedOnboarding = false; // Change to false to test editable form
+  const hasCompletedOnboarding = false; // Change to true to test locked form
   
-  // OGads username state
+  // OGads username state - this tracks if the user has set up their username
   const [ogadsUsername, setOgadsUsername] = useState(hasCompletedOnboarding ? "johndoe123" : "");
+  const [hasSetOgadsUsername, setHasSetOgadsUsername] = useState(hasCompletedOnboarding);
   const [isEditingOgads, setIsEditingOgads] = useState(false);
   const [tempOgadsUsername, setTempOgadsUsername] = useState(ogadsUsername);
   
@@ -88,7 +89,9 @@ const ProfileSection = () => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
+    // Update the username and mark as set
     setOgadsUsername(tempOgadsUsername);
+    setHasSetOgadsUsername(true);
     setIsEditingOgads(false);
     setIsLoading(false);
   };
@@ -114,15 +117,15 @@ const ProfileSection = () => {
             <span>OGads Account Information</span>
           </CardTitle>
           <CardDescription>
-            {hasCompletedOnboarding 
+            {hasSetOgadsUsername 
               ? "Your OGads username is connected to your account"
               : "Connect your OGads account to start earning with our templates"
             }
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {hasCompletedOnboarding ? (
-            // Locked state - user completed onboarding
+          {hasSetOgadsUsername ? (
+            // Locked state - user has set up OGads username (either from onboarding or profile settings)
             <div className="space-y-4">
               <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                 <div className="flex items-center space-x-3">
@@ -143,7 +146,7 @@ const ProfileSection = () => {
               <Alert className="bg-blue-50 border-blue-200">
                 <AlertCircle className="h-4 w-4 text-blue-600" />
                 <AlertDescription className="text-blue-700">
-                  Your OGads account is connected. This username was set during onboarding and cannot be changed for security reasons. 
+                  Your OGads account is connected. This username cannot be changed for security reasons. 
                   If you need to update it, please contact support.
                 </AlertDescription>
               </Alert>
