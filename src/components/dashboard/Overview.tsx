@@ -84,31 +84,29 @@ const Overview = () => {
                 <span className="text-sm font-medium">Action Required</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex items-center justify-center h-full">
-              <div className="text-center space-y-4">
-                <div>
-                  <h3 className="font-semibold text-yellow-900 mb-1">Set Up OGads Account</h3>
-                  <p className="text-xs text-yellow-700 leading-relaxed">
-                    Connect your OGads username to start earning with our templates and unlock all features.
-                  </p>
-                </div>
+            <CardContent className="flex flex-col justify-between h-full">
+              <div>
+                <h3 className="font-semibold text-yellow-900 mb-1">Set Up OGads Account</h3>
+                <p className="text-xs text-yellow-700 leading-relaxed">
+                  Connect your OGads username to start earning with our templates and unlock all features.
+                </p>
+              </div>
+              
+              <div className="space-y-2 mt-4">
+                <button
+                  onClick={() => navigate("/dashboard?tab=profile")}
+                  className="w-full bg-yellow-600 hover:bg-yellow-700 text-white text-xs font-medium py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                >
+                  Set Up Now
+                </button>
                 
-                <div className="space-y-2">
-                  <button
-                    onClick={() => navigate("/dashboard?tab=profile")}
-                    className="w-full bg-yellow-600 hover:bg-yellow-700 text-white text-xs font-medium py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
-                  >
-                    Set Up Now
-                  </button>
-                  
-                  <button
-                    onClick={() => window.open('https://ogads.com/help/smartlink', '_blank')}
-                    className="w-full bg-white hover:bg-yellow-100 text-yellow-700 text-xs font-medium py-2 px-3 rounded-lg border border-yellow-300 transition-colors duration-200 flex items-center justify-center"
-                  >
-                    <ExternalLink className="w-3 h-3 mr-1" />
-                    Learn More
-                  </button>
-                </div>
+                <button
+                  onClick={() => window.open('https://ogads.com/help/smartlink', '_blank')}
+                  className="w-full bg-white hover:bg-yellow-100 text-yellow-700 text-xs font-medium py-2 px-3 rounded-lg border border-yellow-300 transition-colors duration-200 flex items-center justify-center"
+                >
+                  <ExternalLink className="w-3 h-3 mr-1" />
+                  Learn More
+                </button>
               </div>
             </CardContent>
           </Card>
