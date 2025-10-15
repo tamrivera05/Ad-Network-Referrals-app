@@ -1,15 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ChevronLeft, ExternalLink, CheckCircle, AlertCircle, Play, BookOpen, BarChart } from "lucide-react";
+import { ChevronLeft, ExternalLink, CheckCircle, AlertCircle } from "lucide-react";
 
 const SmartlinkGuide = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("getting-started");
+  const location = useLocation();
+  
+  // Get the section from URL query parameter
+  const queryParams = new URLSearchParams(location.search);
+  const sectionParam = queryParams.get('section') || 'getting-started';
 
   const handleBack = () => {
     navigate("/dashboard?tab=resources");
@@ -174,22 +177,23 @@ const SmartlinkGuide = () => {
     }
   };
 
-  const currentSection = guideSections[activeTab as keyof typeof guideSections];
+  const currentSection = guideSections[sectionParam as keyof typeof guideSections];
 
-  const getTabIcon = (tab: string) => {
-    switch (tab) {
-      case "getting-started":
-        return <Play className="w-4 h-4" />;
-      case "best-practices":
-        return <BookOpen className="w-4 h-4" />;
-      case "analytics":
-        return <BarChart className="w-4 h-4" />;
-      case "troubleshooting":
-        return <AlertCircle className="w-4 h-4" />;
-      default:
-        return <BookOpen className="w-4 h-4" />;
-    }
-  };
+  if (!currentSection) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
+        <div className="text-center py-20">
+          <h1 className="text-2xl font-bold text-gray-900">Smartlink Guide Section Not Found</h1>
+          <button 
+            onClick={handleBack}
+            className="text-[#FF7B00] hover:underline mt-4 inline-block"
+          >
+            Back to Resources
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
@@ -211,121 +215,97 @@ const SmartlinkGuide = () => {
         </p>
       </div>
 
-      {/* Section Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4">
-          <TabsTrigger value="getting-started" className="flex items-center space-x-2">
-            {getTabIcon("getting-started")}
-            <span className="hidden sm:inline">Getting Started</span>
-          </TabsTrigger>
-          <TabsTrigger value="best-practices" className="flex items-center space-x-2">
-            {getTabIcon("best-practices")}
-            <span className="hidden sm:inline">Best Practices</span>
-          </TabsTrigger>
-          <TabsTrigger value="analytics" className="flex items-center space-x-2">
-            {getTabIcon("analytics")}
-            <span className="hidden sm:inline">Analytics</span>
-          </TabsTrigger>
-          <TabsTrigger value="troubleshooting" className="flex items-center space-x-2">
-            {getTabIcon("troubleshooting")}
-            <span className="hidden sm:inline">Troubleshooting</span>
-          </TabsTrigger>
-        </TabsList>
-
-        {Object.entries(guideSections).map(([key, section]) => (
-          <TabsContent key={key} value={key} className="space-y-6">
-            {/* Section Info */}
-            <Card className="border-gray-200">
-              <CardHeader>
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0">
-                  <div className="flex-1">
-                    <CardTitle className="text-xl text-gray-900">{section.title}</CardTitle>
-                    <CardDescription className="text-gray-600 mt-1">
-                      {section.description}
-                    </CardDescription>
-                  </div>
-                  <div className="flex flex-row md:flex-col items-start space-y-2 md:space-y-4">
-                    <div className="flex flex-row items-center space-x-2 text-sm">
-                      <span className={`px-2 py-1 rounded-full font-medium ${
-                        section.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
-                        section.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
-                        'bg-red-100 text-red-800'
-                      }`}>
-                        {section.difficulty}
-                      </span>
-                      <span className="text-gray-500">{section.duration}</span>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-
-            {/* Content Sections */}
-            <div className="space-y-6">
-              {section.content.map((content, index) => (
-                <Card key={index} className="border-gray-200">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-[#FF7B00] text-white rounded-full flex items-center justify-center font-semibold">
-                        {index + 1}
-                      </div>
-                      <span className="text-lg">{content.title}</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-gray-700">{content.content}</p>
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <img 
-                        src={content.image} 
-                        alt={content.title}
-                        className="w-full h-48 object-cover rounded-lg"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+      {/* Section Info */}
+      <Card className="border-gray-200">
+        <CardHeader>
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0">
+            <div className="flex-1">
+              <CardTitle className="text-xl text-gray-900">{currentSection.title}</CardTitle>
+              <CardDescription className="text-gray-600 mt-1">
+                {currentSection.description}
+              </CardDescription>
             </div>
-
-            {/* Tips Section */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-gray-900">Key Tips</h2>
-              <div className="grid gap-4">
-                {section.tips.map((tip, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 bg-[#FFF5EB] rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-[#FF7B00] flex-shrink-0 mt-0.5" />
-                    <p className="text-gray-700">{tip}</p>
-                  </div>
-                ))}
+            <div className="flex flex-row md:flex-col items-start space-y-2 md:space-y-4">
+              <div className="flex flex-row items-center space-x-2 text-sm">
+                <span className={`px-2 py-1 rounded-full font-medium ${
+                  currentSection.difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
+                  currentSection.difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {currentSection.difficulty}
+                </span>
+                <span className="text-gray-500">{currentSection.duration}</span>
               </div>
             </div>
+          </div>
+        </CardHeader>
+      </Card>
 
-            {/* External Resources */}
-            <Card className="border-gray-200">
-              <CardHeader>
-                <CardTitle>External Resources</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button 
-                  variant="outline"
-                  onClick={() => window.open('https://ogads.com/help/smartlink', '_blank')}
-                  className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB] w-full sm:w-auto"
-                >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  OGads Official Smartlink Guide
-                </Button>
-                <Button 
-                  variant="outline"
-                  onClick={() => window.open('https://ogads.com/support', '_blank')}
-                  className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB] w-full sm:w-auto"
-                >
-                  <ExternalLink className="w-4 h-4 mr-2" />
-                  Contact OGads Support
-                </Button>
-              </CardContent>
-            </Card>
-          </TabsContent>
+      {/* Content Sections */}
+      <div className="space-y-6 mt-6">
+        <h2 className="text-2xl font-bold text-gray-900">Step-by-Step Instructions</h2>
+        
+        {currentSection.content.map((content, index) => (
+          <Card key={index} className="border-gray-200">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-[#FF7B00] text-white rounded-full flex items-center justify-center font-semibold">
+                  {index + 1}
+                </div>
+                <span className="text-lg">{content.title}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-gray-700">{content.content}</p>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <img 
+                  src={content.image} 
+                  alt={content.title}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+              </div>
+            </CardContent>
+          </Card>
         ))}
-      </Tabs>
+      </div>
+
+      {/* Tips Section */}
+      <div className="space-y-4 mt-6">
+        <h2 className="text-2xl font-bold text-gray-900">Key Tips</h2>
+        <div className="grid gap-4">
+          {currentSection.tips.map((tip, index) => (
+            <div key={index} className="flex items-start space-x-3 p-4 bg-[#FFF5EB] rounded-lg">
+              <CheckCircle className="w-5 h-5 text-[#FF7B00] flex-shrink-0 mt-0.5" />
+              <p className="text-gray-700">{tip}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* External Resources */}
+      <Card className="border-gray-200 mt-6">
+        <CardHeader>
+          <CardTitle>External Resources</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <Button 
+            variant="outline"
+            onClick={() => window.open('https://ogads.com/help/smartlink', '_blank')}
+            className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB] w-full sm:w-auto"
+          >
+            <ExternalLink className="w-4 h-4 mr-2" />
+            OGads Official Smartlink Guide
+          </Button>
+          <Button 
+            variant="outline"
+            onClick={() => window.open('https://ogads.com/support', '_blank')}
+            className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB] w-full sm:w-auto"
+          >
+            <ExternalLink className="w-4 h-4 mr-2" />
+            Contact OGads Support
+          </Button>
+        </CardContent>
+      </Card>
     </div>
   );
 };

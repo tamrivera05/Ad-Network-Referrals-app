@@ -1,16 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ChevronLeft, ExternalLink, CheckCircle, AlertCircle, Clock } from "lucide-react";
 
 const DnsSetupGuide = () => {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("cloudflare");
-
+  const location = useLocation();
+  
+  // Get the provider from URL query parameter
+  const queryParams = new URLSearchParams(location.search);
+  const providerParam = queryParams.get('provider') || 'cloudflare';
+  
   const handleBack = () => {
     navigate("/dashboard?tab=resources");
   };
@@ -130,7 +133,23 @@ const DnsSetupGuide = () => {
     }
   };
 
-  const currentProvider = dnsProviders[activeTab as keyof typeof dnsProviders];
+  const currentProvider = dnsProviders[providerParam as keyof typeof dnsProviders];
+
+  if (!currentProvider) {
+    return (
+      <div className="max-w-4xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
+        <div className="text-center py-20">
+          <h1 className="text-2xl font-bold text-gray-900">DNS Provider Not Found</h1>
+          <button 
+            onClick={handleBack}
+            className="text-[#FF7B00] hover:underline mt-4 inline-block"
+          >
+            Back to Resources
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-4xl mx-auto px-6 py-6 md:py-6 pt-24 md:pt-6">
@@ -152,121 +171,108 @@ const DnsSetupGuide = () => {
         </p>
       </div>
 
-      {/* Provider Tabs */}
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="cloudflare">Cloudflare</TabsTrigger>
-          <TabsTrigger value="godaddy">GoDaddy</TabsTrigger>
-          <TabsTrigger value="namecheap">Namecheap</TabsTrigger>
-        </TabsList>
-
-        {Object.entries(dnsProviders).map(([key, provider]) => (
-          <TabsContent key={key} value={key} className="space-y-6">
-            {/* Provider Info */}
-            <Card className="border-gray-200">
-              <CardHeader>
-                <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0">
-                  <div className="flex-1">
-                    <CardTitle className="text-xl text-gray-900">{provider.title}</CardTitle>
-                    <CardDescription className="text-gray-600 mt-1">
-                      {provider.description}
-                    </CardDescription>
-                  </div>
-                  <div className="flex flex-row md:flex-col items-start space-y-2 md:space-y-4">
-                    <div className="flex flex-row items-center space-x-2 text-sm">
-                      <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full">
-                        {provider.difficulty}
-                      </span>
-                      <span className="flex items-center text-gray-500">
-                        <Clock className="w-4 h-4 mr-1" />
-                        {provider.duration}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </CardHeader>
-            </Card>
-
-            {/* Step-by-Step Guide */}
-            <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-gray-900">Step-by-Step Instructions</h2>
-              
-              {provider.steps.map((step, index) => (
-                <Card key={index} className="border-gray-200">
-                  <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
-                      <div className="w-8 h-8 bg-[#FF7B00] text-white rounded-full flex items-center justify-center font-semibold">
-                        {index + 1}
-                      </div>
-                      <span className="text-lg">{step.title}</span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-gray-700">{step.content}</p>
-                    <div className="bg-gray-50 rounded-lg p-4">
-                      <img 
-                        src={step.image} 
-                        alt={step.title}
-                        className="w-full h-48 object-cover rounded-lg"
-                      />
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
+      {/* Provider Info */}
+      <Card className="border-gray-200">
+        <CardHeader>
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between space-y-4 md:space-y-0">
+            <div className="flex-1">
+              <CardTitle className="text-xl text-gray-900">{currentProvider.title}</CardTitle>
+              <CardDescription className="text-gray-600 mt-1">
+                {currentProvider.description}
+              </CardDescription>
             </div>
-
-            {/* Tips Section */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold text-gray-900">Tips & Best Practices</h2>
-              <div className="grid gap-4">
-                {provider.tips.map((tip, index) => (
-                  <div key={index} className="flex items-start space-x-3 p-4 bg-[#FFF5EB] rounded-lg">
-                    <CheckCircle className="w-5 h-5 text-[#FF7B00] flex-shrink-0 mt-0.5" />
-                    <p className="text-gray-700">{tip}</p>
-                  </div>
-                ))}
+            <div className="flex flex-row md:flex-col items-start space-y-2 md:space-y-4">
+              <div className="flex flex-row items-center space-x-2 text-sm">
+                <span className="bg-green-100 text-green-800 px-2 py-1 rounded-full">
+                  {currentProvider.difficulty}
+                </span>
+                <span className="flex items-center text-gray-500">
+                  <Clock className="w-4 h-4 mr-1" />
+                  {currentProvider.duration}
+                </span>
               </div>
             </div>
+          </div>
+        </CardHeader>
+      </Card>
 
-            {/* Troubleshooting */}
-            <Card className="border-gray-200">
-              <CardHeader>
-                <CardTitle className="flex items-center space-x-2">
-                  <AlertCircle className="w-5 h-5 text-yellow-500" />
-                  <span>Troubleshooting</span>
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-3">
-                  <div>
-                    <h4 className="font-semibold text-gray-900">DNS not propagating?</h4>
-                    <p className="text-gray-600">DNS changes can take anywhere from 5 minutes to 48 hours to fully propagate worldwide.</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Site not loading?</h4>
-                    <p className="text-gray-600">Check if your A record is pointing to the correct IP address and verify your server is running.</p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">SSL certificate issues?</h4>
-                    <p className="text-gray-600">Ensure SSL is properly configured and your domain is fully propagated before enabling HTTPS.</p>
-                  </div>
+      {/* Step-by-Step Guide */}
+      <div className="space-y-6 mt-6">
+        <h2 className="text-2xl font-bold text-gray-900">Step-by-Step Instructions</h2>
+        
+        {currentProvider.steps.map((step, index) => (
+          <Card key={index} className="border-gray-200">
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <div className="w-8 h-8 bg-[#FF7B00] text-white rounded-full flex items-center justify-center font-semibold">
+                  {index + 1}
                 </div>
-                
-                <div className="pt-4">
-                  <Button 
-                    variant="outline"
-                    onClick={() => window.open('https://www.whatsmydns.net/', '_blank')}
-                    className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB]"
-                  >
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Check DNS Propagation
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                <span className="text-lg">{step.title}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <p className="text-gray-700">{step.content}</p>
+              <div className="bg-gray-50 rounded-lg p-4">
+                <img 
+                  src={step.image} 
+                  alt={step.title}
+                  className="w-full h-48 object-cover rounded-lg"
+                />
+              </div>
+            </CardContent>
+          </Card>
         ))}
-      </Tabs>
+      </div>
+
+      {/* Tips Section */}
+      <div className="space-y-4 mt-6">
+        <h2 className="text-2xl font-bold text-gray-900">Tips & Best Practices</h2>
+        <div className="grid gap-4">
+          {currentProvider.tips.map((tip, index) => (
+            <div key={index} className="flex items-start space-x-3 p-4 bg-[#FFF5EB] rounded-lg">
+              <CheckCircle className="w-5 h-5 text-[#FF7B00] flex-shrink-0 mt-0.5" />
+              <p className="text-gray-700">{tip}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Troubleshooting */}
+      <Card className="border-gray-200 mt-6">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <AlertCircle className="w-5 h-5 text-yellow-500" />
+            <span>Troubleshooting</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-3">
+            <div>
+              <h4 className="font-semibold text-gray-900">DNS not propagating?</h4>
+              <p className="text-gray-600">DNS changes can take anywhere from 5 minutes to 48 hours to fully propagate worldwide.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-900">Site not loading?</h4>
+              <p className="text-gray-600">Check if your A record is pointing to the correct IP address and verify your server is running.</p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-900">SSL certificate issues?</h4>
+              <p className="text-gray-600">Ensure SSL is properly configured and your domain is fully propagated before enabling HTTPS.</p>
+            </div>
+          </div>
+          
+          <div className="pt-4">
+            <Button 
+              variant="outline"
+              onClick={() => window.open('https://www.whatsmydns.net/', '_blank')}
+              className="text-[#FF7B00] border-[#FF7B00] hover:bg-[#FFF5EB]"
+            >
+              <ExternalLink className="w-4 h-4 mr-2" />
+              Check DNS Propagation
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

@@ -13,7 +13,7 @@ const ResourcesSection = () => {
       title: "Cloudflare DNS Setup",
       description: "Complete guide to setting up DNS records in Cloudflare for your domains",
       type: "guide",
-      url: "/dns-guide",
+      url: "/dns-guide?provider=cloudflare",
       difficulty: "Beginner",
       duration: "10 min read"
     },
@@ -21,7 +21,7 @@ const ResourcesSection = () => {
       title: "GoDaddy DNS Configuration",
       description: "Step-by-step tutorial for configuring DNS settings in GoDaddy",
       type: "guide",
-      url: "/dns-guide",
+      url: "/dns-guide?provider=godaddy",
       difficulty: "Beginner",
       duration: "8 min read"
     },
@@ -29,7 +29,7 @@ const ResourcesSection = () => {
       title: "Namecheap DNS Management",
       description: "How to manage DNS records and point your domain to our servers",
       type: "guide",
-      url: "/dns-guide",
+      url: "/dns-guide?provider=namecheap",
       difficulty: "Beginner",
       duration: "12 min read"
     },
@@ -48,7 +48,7 @@ const ResourcesSection = () => {
       title: "Getting Started with OGads Smartlinks",
       description: "Complete walkthrough on how to create and configure your first smartlink",
       type: "video",
-      url: "/smartlink-guide",
+      url: "/smartlink-guide?section=getting-started",
       difficulty: "Beginner",
       duration: "15 min video"
     },
@@ -56,7 +56,7 @@ const ResourcesSection = () => {
       title: "OGads Smartlink Best Practices",
       description: "Optimize your smartlinks for maximum conversions and earnings",
       type: "guide",
-      url: "/smartlink-guide",
+      url: "/smartlink-guide?section=best-practices",
       difficulty: "Intermediate",
       duration: "20 min read"
     },
@@ -64,7 +64,7 @@ const ResourcesSection = () => {
       title: "Smartlink Analytics Dashboard",
       description: "How to track and analyze your smartlink performance",
       type: "guide",
-      url: "/smartlink-guide",
+      url: "/smartlink-guide?section=analytics",
       difficulty: "Intermediate",
       duration: "15 min read"
     },
@@ -72,7 +72,7 @@ const ResourcesSection = () => {
       title: "Troubleshooting Smartlink Issues",
       description: "Common problems and solutions for OGads smartlink setup",
       type: "article",
-      url: "/smartlink-guide",
+      url: "/smartlink-guide?section=troubleshooting",
       difficulty: "Advanced",
       duration: "10 min read"
     }
