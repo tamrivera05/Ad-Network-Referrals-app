@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp, Users, DollarSign, Activity, AlertCircle, ExternalLink } from "lucide-react";
+import { TrendingUp, Users, DollarSign, Activity, AlertCircle, ExternalLink, CheckCircle, Play, Globe, Link } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUserData } from "@/hooks/use-user-data";
 
@@ -45,6 +45,39 @@ const Overview = () => {
   ];
 
   const showOgadsReminder = !userData.hasSetOgadsUsername;
+
+  const beginnerSteps = [
+    {
+      id: 1,
+      title: "Set Up OGads Account",
+      description: "Connect your OGads username to start earning with our templates",
+      icon: Link,
+      status: userData.hasSetOgadsUsername ? "completed" : "pending",
+      action: () => navigate("/dashboard?tab=profile"),
+      actionText: userData.hasSetOgadsUsername ? "View Account" : "Set Up Now",
+      bgColor: userData.hasSetOgadsUsername ? "bg-green-50 border-green-200" : "bg-yellow-50 border-yellow-200"
+    },
+    {
+      id: 2,
+      title: "Choose Your First Template",
+      description: "Browse through our collection of high-converting templates",
+      icon: Play,
+      status: "pending",
+      action: () => navigate("/dashboard?tab=templates"),
+      actionText: "Browse Templates",
+      bgColor: "bg-blue-50 border-blue-200"
+    },
+    {
+      id: 3,
+      title: "Publish Your First Site",
+      description: "Connect your domain and OGads smartlink to go live",
+      icon: Globe,
+      status: "pending",
+      action: () => navigate("/dashboard?tab=templates"),
+      actionText: "Start Publishing",
+      bgColor: "bg-purple-50 border-purple-200"
+    }
+  ];
 
   return (
     <div className="space-y-6">
@@ -106,6 +139,50 @@ const Overview = () => {
                   <p className="text-xs text-green-600 mt-1">
                     {stat.change} from last month
                   </p>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Beginner Steps Section */}
+      <div className="space-y-4">
+        <h2 className="text-2xl font-bold text-gray-900">Getting Started</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {beginnerSteps.map((step) => {
+            const Icon = step.icon;
+            const isCompleted = step.status === "completed";
+            const statusColor = isCompleted ? "text-green-600" : "text-blue-600";
+            const buttonColor = isCompleted 
+              ? "bg-green-600 hover:bg-green-700 text-white" 
+              : "bg-blue-600 hover:bg-blue-700 text-white";
+            
+            return (
+              <Card key={step.id} className={`${step.bgColor} hover:shadow-lg transition-all duration-300`}>
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <div className={`p-2 rounded-lg bg-white ${statusColor}`}>
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    {isCompleted && (
+                      <CheckCircle className="w-5 h-5 text-green-600" />
+                    )}
+                  </div>
+                  <CardTitle className="text-lg font-semibold text-gray-900">
+                    {step.title}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    {step.description}
+                  </p>
+                  <button
+                    onClick={step.action}
+                    className={`w-full ${buttonColor} font-medium py-2 px-4 rounded-lg transition-colors duration-200`}
+                  >
+                    {step.actionText}
+                  </button>
                 </CardContent>
               </Card>
             );
