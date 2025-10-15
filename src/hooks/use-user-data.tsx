@@ -8,7 +8,7 @@ interface UserData {
 
 export const useUserData = () => {
   const [userData, setUserData] = useState<UserData>({
-    hasCompletedOnboarding: false,
+    hasCompletedOnboarding: true,
     hasSetOgadsUsername: false,
     ogadsUsername: ""
   });
