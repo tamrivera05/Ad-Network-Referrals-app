@@ -48,70 +48,66 @@ const Overview = () => {
 
   return (
     <div className="space-y-6">
-      {/* Stats Grid with OGads Reminder - 2x2 layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* 4 Stats Cards in 2x2 grid */}
-        <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
-              <Card key={index} className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
-                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium text-gray-600">
-                    {stat.title}
-                  </CardTitle>
-                  <div className={`p-2 rounded-lg ${stat.bgColor}`}>
-                    <Icon className={`h-4 w-4 ${stat.color.replace('bg-', 'text-')}`} />
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
-                  <p className="text-xs text-green-600 mt-1">
-                    {stat.change} from last month
-                  </p>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* OGads Reminder Card - same size as Quick Actions */}
-        {showOgadsReminder && (
-          <div className="lg:col-span-1">
-            <Card className="border-yellow-200 bg-yellow-50 hover:shadow-lg transition-all duration-300 h-full">
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center space-x-2 text-yellow-800">
-                  <AlertCircle className="w-5 h-5" />
-                  <span className="text-sm font-medium">Action Required</span>
+      {/* Stats Grid with OGads Reminder */}
+      <div className={`${showOgadsReminder ? 'grid grid-cols-1 lg:grid-cols-3 gap-6' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'}`}>
+        {/* 4 Stats Cards */}
+        {stats.map((stat, index) => {
+          const Icon = stat.icon;
+          return (
+            <Card key={index} className="border-gray-200 hover:shadow-lg transition-shadow duration-300">
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium text-gray-600">
+                  {stat.title}
                 </CardTitle>
+                <div className={`p-2 rounded-lg ${stat.bgColor}`}>
+                  <Icon className={`h-4 w-4 ${stat.color.replace('bg-', 'text-')}`} />
+                </div>
               </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <h3 className="font-semibold text-yellow-900 mb-1">Set Up OGads Account</h3>
-                  <p className="text-xs text-yellow-700 leading-relaxed">
-                    Connect your OGads username to start earning with our templates and unlock all features.
-                  </p>
-                </div>
-                
-                <div className="space-y-2">
-                  <button
-                    onClick={() => navigate("/dashboard?tab=profile")}
-                    className="w-full bg-yellow-600 hover:bg-yellow-700 text-white text-xs font-medium py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
-                  >
-                    Set Up Now
-                  </button>
-                  
-                  <button
-                    onClick={() => window.open('https://ogads.com/help/smartlink', '_blank')}
-                    className="w-full bg-white hover:bg-yellow-100 text-yellow-700 text-xs font-medium py-2 px-3 rounded-lg border border-yellow-300 transition-colors duration-200 flex items-center justify-center"
-                  >
-                    <ExternalLink className="w-3 h-3 mr-1" />
-                    Learn More
-                  </button>
-                </div>
+              <CardContent>
+                <div className="text-2xl font-bold text-gray-900">{stat.value}</div>
+                <p className="text-xs text-green-600 mt-1">
+                  {stat.change} from last month
+                </p>
               </CardContent>
             </Card>
-          </div>
+          );
+        })}
+
+        {/* OGads Reminder Card - only shown when OGads username not set */}
+        {showOgadsReminder && (
+          <Card className="border-yellow-200 bg-yellow-50 hover:shadow-lg transition-all duration-300">
+            <CardHeader className="pb-3">
+              <CardTitle className="flex items-center space-x-2 text-yellow-800">
+                <AlertCircle className="w-5 h-5" />
+                <span className="text-sm font-medium">Action Required</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="flex flex-col justify-between h-full">
+              <div>
+                <h3 className="font-semibold text-yellow-900 mb-1">Set Up OGads Account</h3>
+                <p className="text-xs text-yellow-700 leading-relaxed">
+                  Connect your OGads username to start earning with our templates and unlock all features.
+                </p>
+              </div>
+              
+              <div className="space-y-2 mt-4">
+                <button
+                  onClick={() => navigate("/dashboard?tab=profile")}
+                  className="w-full bg-yellow-600 hover:bg-yellow-700 text-white text-xs font-medium py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
+                >
+                  Set Up Now
+                </button>
+                
+                <button
+                  onClick={() => window.open('https://ogads.com/help/smartlink', '_blank')}
+                  className="w-full bg-white hover:bg-yellow-100 text-yellow-700 text-xs font-medium py-2 px-3 rounded-lg border border-yellow-300 transition-colors duration-200 flex items-center justify-center"
+                >
+                  <ExternalLink className="w-3 h-3 mr-1" />
+                  Learn More
+                </button>
+              </div>
+            </CardContent>
+          </Card>
         )}
       </div>
 
