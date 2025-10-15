@@ -48,10 +48,10 @@ const Overview = () => {
 
   return (
     <div className="space-y-6">
-      {/* Stats Grid with OGads Reminder */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* 4 Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6 lg:col-span-4">
+      {/* Stats Grid with OGads Reminder - 2x2 layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* 4 Stats Cards in 2x2 grid */}
+        <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
           {stats.map((stat, index) => {
             const Icon = stat.icon;
             return (
@@ -75,10 +75,10 @@ const Overview = () => {
           })}
         </div>
 
-        {/* OGads Reminder Card */}
+        {/* OGads Reminder Card - same size as Quick Actions */}
         {showOgadsReminder && (
           <div className="lg:col-span-1">
-            <Card className="border-yellow-200 bg-yellow-50 hover:shadow-lg transition-all duration-300">
+            <Card className="border-yellow-200 bg-yellow-50 hover:shadow-lg transition-all duration-300 h-full">
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center space-x-2 text-yellow-800">
                   <AlertCircle className="w-5 h-5" />
@@ -115,7 +115,7 @@ const Overview = () => {
         )}
       </div>
 
-      {/* Recent Activity */}
+      {/* Recent Activity and Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="border-gray-200">
           <CardHeader>
