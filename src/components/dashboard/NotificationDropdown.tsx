@@ -148,6 +148,10 @@ const NotificationDropdown = () => {
     setNotifications(prev => prev.filter(notification => notification.id !== id));
   };
 
+  const handleCloseDropdown = () => {
+    setIsOpen(false);
+  };
+
   const getNotificationIcon = (type: Notification["type"]) => {
     switch (type) {
       case "success":
@@ -194,16 +198,29 @@ const NotificationDropdown = () => {
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b border-gray-200">
               <h3 className="font-semibold text-gray-900">Notifications</h3>
-              {unreadCount > 0 && (
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleMarkAllAsRead}
-                  className="text-[#FF7B00] hover:text-[#FF8d21] hover:bg-[#FFF5EB] flex-shrink-0"
-                >
-                  Mark all as read
-                </Button>
-              )}
+              <div className="flex items-center space-x-2">
+                {unreadCount > 0 && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleMarkAllAsRead}
+                    className="text-[#FF7B00] hover:text-[#FF8d21] hover:bg-[#FFF5EB] flex-shrink-0"
+                  >
+                    Mark all as read
+                  </Button>
+                )}
+                {/* Mobile close button */}
+                {isMobile && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleCloseDropdown}
+                    className="text-gray-600 hover:text-gray-800 hover:bg-gray-100 flex-shrink-0"
+                  >
+                    <X className="w-4 h-4" />
+                  </Button>
+                )}
+              </div>
             </div>
 
             {/* Notifications List */}
