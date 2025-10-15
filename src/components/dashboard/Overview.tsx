@@ -77,14 +77,14 @@ const Overview = () => {
 
         {/* OGads Reminder Card - only shown when OGads username not set */}
         {showOgadsReminder && (
-          <Card className="border-yellow-200 bg-yellow-50 hover:shadow-lg transition-all duration-300">
+          <Card className="border-yellow-200 bg-yellow-50 hover:shadow-lg transition-all duration-300 flex flex-col justify-center">
             <CardHeader className="pb-3">
-              <CardTitle className="flex items-center space-x-2 text-yellow-800">
+              <CardTitle className="flex items-center justify-center space-x-2 text-yellow-800">
                 <AlertCircle className="w-5 h-5" />
                 <span className="text-sm font-medium">Action Required</span>
               </CardTitle>
             </CardHeader>
-            <CardContent className="flex flex-col justify-between h-full">
+            <CardContent className="flex flex-col items-center justify-center text-center">
               <div>
                 <h3 className="font-semibold text-yellow-900 mb-1">Set Up OGads Account</h3>
                 <p className="text-xs text-yellow-700 leading-relaxed">
@@ -92,7 +92,7 @@ const Overview = () => {
                 </p>
               </div>
               
-              <div className="space-y-2 mt-4">
+              <div className="space-y-2 mt-6 w-full">
                 <button
                   onClick={() => navigate("/dashboard?tab=profile")}
                   className="w-full bg-yellow-600 hover:bg-yellow-700 text-white text-xs font-medium py-2 px-3 rounded-lg transition-colors duration-200 flex items-center justify-center"
