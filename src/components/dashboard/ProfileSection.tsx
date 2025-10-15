@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
-import { User, Lock, LogOut, Eye, EyeOff, AlertCircle, Edit2 } from "lucide-react";
+import { User, Lock, LogOut, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUserData } from "@/hooks/use-user-data";
 
@@ -125,87 +125,34 @@ const ProfileSection = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           {userData.hasSetOgadsUsername ? (
-            // Connected state - now editable for testing
+            // Locked state - user has set up OGads username (either from onboarding or profile settings)
             <div className="space-y-4">
-              {isEditingOgads ? (
-                // Edit mode
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="ogads-username" className="text-gray-700">OGads Username</Label>
-                    <Input
-                      id="ogads-username"
-                      type="text"
-                      placeholder="Enter your OGads username"
-                      value={tempOgadsUsername}
-                      onChange={(e) => setTempOgadsUsername(e.target.value)}
-                      className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
-                    />
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-[#FF7B00] rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold">OG</span>
                   </div>
-                  
-                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                    <p className="text-sm text-yellow-700">
-                      <strong>Important:</strong> Make sure you enter the correct OGads username. This will be used to connect your smartlinks and track your earnings.
-                    </p>
-                  </div>
-                  
-                  <div className="flex space-x-3">
-                    <Button
-                      variant="outline"
-                      onClick={handleCancelEdit}
-                      disabled={isSavingOgads}
-                      className="flex-1"
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      onClick={handleSaveOgadsUsername}
-                      className="flex-1 bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                      disabled={isSavingOgads}
-                    >
-                      {isSavingOgads ? "Saving..." : "Save Username"}
-                    </Button>
+                  <div>
+                    <p className="text-sm text-gray-600">OGads Username</p>
+                    <p className="font-semibold text-gray-900">{userData.ogadsUsername}</p>
                   </div>
                 </div>
-              ) : (
-                // Display mode with edit button
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-[#FF7B00] rounded-full flex items-center justify-center">
-                        <span className="text-white font-bold">OG</span>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-600">OGads Username</p>
-                        <p className="font-semibold text-gray-900">{userData.ogadsUsername}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      <span className="text-sm text-green-600 font-medium">Connected</span>
-                    </div>
-                  </div>
-                  
-                  <Button
-                    variant="outline"
-                    onClick={() => setIsEditingOgads(true)}
-                    className="w-full"
-                  >
-                    <Edit2 className="w-4 h-4 mr-2" />
-                    Edit Username
-                  </Button>
-                  
-                  <Alert className="bg-blue-50 border-blue-200">
-                    <AlertCircle className="h-4 w-4 text-blue-600" />
-                    <AlertDescription className="text-blue-700">
-                      Your OGads account is connected. You can edit your username here for testing purposes. 
-                      In production, this may be restricted for security reasons.
-                    </AlertDescription>
-                  </Alert>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-sm text-green-600 font-medium">Connected</span>
                 </div>
-              )}
+              </div>
+              
+              <Alert className="bg-blue-50 border-blue-200">
+                <AlertCircle className="h-4 w-4 text-blue-600" />
+                <AlertDescription className="text-blue-700">
+                  Your OGads account is connected. This username cannot be changed for security reasons. 
+                  If you need to update it, please contact support.
+                </AlertDescription>
+              </Alert>
             </div>
           ) : isEditingOgads ? (
-            // Edit mode for new users
+            // Edit mode
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="ogads-username" className="text-gray-700">OGads Username</Label>
