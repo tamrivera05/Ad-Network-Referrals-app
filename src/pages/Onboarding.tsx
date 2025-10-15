@@ -28,8 +28,20 @@ const Onboarding = () => {
     
     console.log("Onboarding completed with:", { selectedNetwork, ogadsUsername });
     
-    // Redirect to account pending page after delay
-    navigate("/account-pending");
+    // Redirect directly to dashboard after onboarding completion
+    navigate("/dashboard?tab=templates");
+  };
+
+  const handleSkipStep3 = async () => {
+    setIsLoading(true);
+    
+    // Simulate API call and processing time
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    console.log("Onboarding completed with:", { selectedNetwork, ogadsUsername: "" });
+    
+    // Redirect directly to dashboard after skipping
+    navigate("/dashboard?tab=templates");
   };
 
   const progressPercentage = (step / 3) * 100;
@@ -63,7 +75,7 @@ const Onboarding = () => {
                 {step === 3 && (
                   <>
                     <h2 className="text-[20px] md:text-[25px] font-bold text-[#FF7B00] mb-4">Account Information</h2>
-                    <p className="text-xl font-semibold text-gray-700 mb-6">Provide your OGads username to get started</p>
+                    <p className="text-xl font-semibold text-gray-700 mb-6">Provide your OGads username to get started (optional)</p>
                   </>
                 )}
               </div>
@@ -140,7 +152,7 @@ const Onboarding = () => {
                   <div className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="ogads-username" className="text-gray-700">
-                        OGads Username
+                        OGads Username (Optional)
                       </Label>
                       <Input
                         id="ogads-username"
@@ -148,8 +160,13 @@ const Onboarding = () => {
                         value={ogadsUsername}
                         onChange={(e) => setOgadsUsername(e.target.value)}
                         className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
-                        required
                       />
+                    </div>
+                    
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                      <p className="text-sm text-blue-700">
+                        <strong>Note:</strong> You can skip this step and add your OGads username later in your Account settings.
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -188,23 +205,33 @@ const Onboarding = () => {
                 )}
                 
                 {step === 3 && (
-                  <Button
-                    onClick={handleSubmit}
-                    disabled={!ogadsUsername || isLoading}
-                    className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                  >
-                    {isLoading ? (
-                      <div className="flex items-center space-x-2">
-                        <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        <span>Completing...</span>
-                      </div>
-                    ) : (
-                      "Complete Onboarding"
-                    )}
-                  </Button>
+                  <div className="flex space-x-3">
+                    <Button
+                      variant="outline"
+                      onClick={handleSkipStep3}
+                      disabled={isLoading}
+                      className="border-gray-300 text-gray-700 hover:bg-gray-100"
+                    >
+                      {isLoading ? "Completing..." : "Skip for Now"}
+                    </Button>
+                    <Button
+                      onClick={handleSubmit}
+                      disabled={isLoading}
+                      className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                    >
+                      {isLoading ? (
+                        <div className="flex items-center space-x-2">
+                          <svg className="animate-spin h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                          </svg>
+                          <span>Complete Onboarding</span>
+                        </div>
+                      ) : (
+                        "Complete Onboarding"
+                      )}
+                    </Button>
+                  </div>
                 )}
               </div>
               
