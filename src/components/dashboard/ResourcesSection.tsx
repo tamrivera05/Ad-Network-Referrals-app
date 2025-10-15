@@ -149,11 +149,8 @@ const ResourcesSection = () => {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Resources</h2>
-        <p className="text-gray-600">Learn how to set up your domains and configure OGads smartlinks with our comprehensive guides and tutorials.</p>
-      </div>
+      {/* Page Description Only */}
+      <p className="text-gray-600">Learn how to set up your domains and configure OGads smartlinks with our comprehensive guides and tutorials.</p>
 
       {/* DNS Setup Resources */}
       <div className="space-y-6">

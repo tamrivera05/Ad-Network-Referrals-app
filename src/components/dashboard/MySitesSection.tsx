@@ -130,11 +130,8 @@ const MySitesSection = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">My Sites</h2>
-        <p className="text-gray-600">Manage your published landing pages and monitor their status</p>
-      </div>
+      {/* Page Description Only */}
+      <p className="text-gray-600">Manage your published landing pages and monitor their status</p>
 
       {/* Sites Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
