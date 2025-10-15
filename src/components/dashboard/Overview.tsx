@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { TrendingUp, Users, DollarSign, Activity, AlertCircle, ExternalLink, CheckCircle, Play, Globe, Link } from "lucide-react";
+import { TrendingUp, Users, DollarSign, Activity, AlertCircle, ExternalLink, CheckCircle, Play, Globe, Link, ArrowRight } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useUserData } from "@/hooks/use-user-data";
 
@@ -50,32 +50,44 @@ const Overview = () => {
     {
       id: 1,
       title: "Set Up OGads Account",
-      description: "Connect your OGads username to start earning with our templates",
+      steps: [
+        "Go to Profile settings",
+        "Enter your OGads username",
+        "Save to connect your account"
+      ],
       icon: Link,
       status: userData.hasSetOgadsUsername ? "completed" : "pending",
       action: () => navigate("/dashboard?tab=profile"),
       actionText: userData.hasSetOgadsUsername ? "View Account" : "Set Up Now",
-      bgColor: userData.hasSetOgadsUsername ? "bg-green-50 border-green-200" : "bg-yellow-50 border-yellow-200"
+      bgColor: userData.hasSetOgadsUsername ? "bg-green-50 border-green-200" : "bg-[#FFF5EB] border-[#FFA652]"
     },
     {
       id: 2,
       title: "Choose Your First Template",
-      description: "Browse through our collection of high-converting templates",
+      steps: [
+        "Browse Templates section",
+        "Select a template that fits your niche",
+        "Click to view details and use it"
+      ],
       icon: Play,
       status: "pending",
       action: () => navigate("/dashboard?tab=templates"),
       actionText: "Browse Templates",
-      bgColor: "bg-blue-50 border-blue-200"
+      bgColor: "bg-[#FFF5EB] border-[#FFA652]"
     },
     {
       id: 3,
       title: "Publish Your First Site",
-      description: "Connect your domain and OGads smartlink to go live",
+      steps: [
+        "Choose your domain name",
+        "Enter your OGads smartlink",
+        "Click publish to go live"
+      ],
       icon: Globe,
       status: "pending",
       action: () => navigate("/dashboard?tab=templates"),
       actionText: "Start Publishing",
-      bgColor: "bg-purple-50 border-purple-200"
+      bgColor: "bg-[#FFF5EB] border-[#FFA652]"
     }
   ];
 
@@ -153,10 +165,8 @@ const Overview = () => {
           {beginnerSteps.map((step) => {
             const Icon = step.icon;
             const isCompleted = step.status === "completed";
-            const statusColor = isCompleted ? "text-green-600" : "text-blue-600";
-            const buttonColor = isCompleted 
-              ? "bg-green-600 hover:bg-green-700 text-white" 
-              : "bg-blue-600 hover:bg-blue-700 text-white";
+            const statusColor = isCompleted ? "text-green-600" : "text-[#FF7B00]";
+            const buttonColor = "bg-[#FF7B00] hover:bg-[#FF8d21] text-white";
             
             return (
               <Card key={step.id} className={`${step.bgColor} hover:shadow-lg transition-all duration-300`}>
@@ -174,14 +184,22 @@ const Overview = () => {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-600">
-                    {step.description}
-                  </p>
+                  <div className="space-y-2">
+                    {step.steps.map((stepText, index) => (
+                      <div key={index} className="flex items-start space-x-2">
+                        <div className={`w-5 h-5 rounded-full ${isCompleted ? 'bg-green-500' : 'bg-[#FFA652]'} flex items-center justify-center flex-shrink-0 mt-0.5`}>
+                          <span className="text-white text-xs font-bold">{index + 1}</span>
+                        </div>
+                        <p className="text-sm text-gray-700">{stepText}</p>
+                      </div>
+                    ))}
+                  </div>
                   <button
                     onClick={step.action}
-                    className={`w-full ${buttonColor} font-medium py-2 px-4 rounded-lg transition-colors duration-200`}
+                    className={`w-full ${buttonColor} font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center`}
                   >
                     {step.actionText}
+                    <ArrowRight className="w-4 h-4 ml-2" />
                   </button>
                 </CardContent>
               </Card>
