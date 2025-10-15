@@ -12,7 +12,12 @@ import { useNavigate } from "react-router-dom";
 
 const ProfileSection = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
+  
+  // Separate loading states for each action
+  const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
+  const [isUpdatingPassword, setIsUpdatingPassword] = useState(false);
+  const [isSavingOgads, setIsSavingOgads] = useState(false);
+  
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -42,13 +47,13 @@ const ProfileSection = () => {
 
   const handleProfileUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsUpdatingProfile(true);
     
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
     
     console.log("Profile updated:", profileData);
-    setIsLoading(false);
+    setIsUpdatingProfile(false);
   };
 
   const handlePasswordUpdate = async (e: React.FormEvent) => {
@@ -64,7 +69,7 @@ const ProfileSection = () => {
       return;
     }
     
-    setIsLoading(true);
+    setIsUpdatingPassword(true);
     
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1500));
@@ -75,7 +80,7 @@ const ProfileSection = () => {
       newPassword: "",
       confirmPassword: ""
     });
-    setIsLoading(false);
+    setIsUpdatingPassword(false);
   };
 
   const handleSaveOgadsUsername = async () => {
@@ -84,7 +89,7 @@ const ProfileSection = () => {
       return;
     }
     
-    setIsLoading(true);
+    setIsSavingOgads(true);
     
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -93,7 +98,7 @@ const ProfileSection = () => {
     setOgadsUsername(tempOgadsUsername);
     setHasSetOgadsUsername(true);
     setIsEditingOgads(false);
-    setIsLoading(false);
+    setIsSavingOgads(false);
   };
 
   const handleCancelEdit = () => {
@@ -176,7 +181,7 @@ const ProfileSection = () => {
                 <Button
                   variant="outline"
                   onClick={handleCancelEdit}
-                  disabled={isLoading}
+                  disabled={isSavingOgads}
                   className="flex-1"
                 >
                   Cancel
@@ -184,9 +189,9 @@ const ProfileSection = () => {
                 <Button
                   onClick={handleSaveOgadsUsername}
                   className="flex-1 bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                  disabled={isLoading}
+                  disabled={isSavingOgads}
                 >
-                  {isLoading ? "Saving..." : "Save Username"}
+                  {isSavingOgads ? "Saving..." : "Save Username"}
                 </Button>
               </div>
             </div>
@@ -206,6 +211,7 @@ const ProfileSection = () => {
               <Button
                 onClick={() => setIsEditingOgads(true)}
                 className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                disabled={isSavingOgads}
               >
                 Add OGads Username
               </Button>
@@ -254,9 +260,9 @@ const ProfileSection = () => {
             <Button 
               type="submit" 
               className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-              disabled={isLoading}
+              disabled={isUpdatingProfile}
             >
-              {isLoading ? "Updating..." : "Update Profile"}
+              {isUpdatingProfile ? "Updating..." : "Update Profile"}
             </Button>
           </form>
         </CardContent>
@@ -340,9 +346,9 @@ const ProfileSection = () => {
             <Button 
               type="submit" 
               className="bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-              disabled={isLoading}
+              disabled={isUpdatingPassword}
             >
-              {isLoading ? "Updating..." : "Update Password"}
+              {isUpdatingPassword ? "Updating..." : "Update Password"}
             </Button>
           </form>
         </CardContent>
