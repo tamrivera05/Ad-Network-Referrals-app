@@ -5,8 +5,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
-import { User, Lock, LogOut, Eye, EyeOff } from "lucide-react";
+import { User, Lock, LogOut, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const ProfileSection = () => {
@@ -15,6 +16,15 @@ const ProfileSection = () => {
   const [showCurrentPassword, setShowCurrentPassword] = useState(false);
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+  // Simulate checking if user completed onboarding
+  // In a real app, this would come from user data/API
+  const hasCompletedOnboarding = true; // Change to false to test editable form
+  
+  // OGads username state
+  const [ogadsUsername, setOgadsUsername] = useState(hasCompletedOnboarding ? "johndoe123" : "");
+  const [isEditingOgads, setIsEditingOgads] = useState(false);
+  const [tempOgadsUsername, setTempOgadsUsername] = useState(ogadsUsername);
   
   // Profile info state
   const [profileData, setProfileData] = useState({
@@ -67,6 +77,27 @@ const ProfileSection = () => {
     setIsLoading(false);
   };
 
+  const handleSaveOgadsUsername = async () => {
+    if (!tempOgadsUsername.trim()) {
+      alert("Please enter your OGads username");
+      return;
+    }
+    
+    setIsLoading(true);
+    
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    setOgadsUsername(tempOgadsUsername);
+    setIsEditingOgads(false);
+    setIsLoading(false);
+  };
+
+  const handleCancelEdit = () => {
+    setTempOgadsUsername(ogadsUsername);
+    setIsEditingOgads(false);
+  };
+
   const handleLogout = () => {
     // Simulate logout
     console.log("Logging out...");
@@ -75,6 +106,111 @@ const ProfileSection = () => {
 
   return (
     <div className="space-y-6">
+      {/* OGads Username Section */}
+      <Card className="border-gray-200">
+        <CardHeader>
+          <CardTitle className="flex items-center space-x-2">
+            <AlertCircle className="w-5 h-5 text-[#FF7B00]" />
+            <span>OGads Account Information</span>
+          </CardTitle>
+          <CardDescription>
+            {hasCompletedOnboarding 
+              ? "Your OGads username is connected to your account"
+              : "Connect your OGads account to start earning with our templates"
+            }
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {hasCompletedOnboarding ? (
+            // Locked state - user completed onboarding
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-[#FF7B00] rounded-full flex items-center justify-center">
+                    <span className="text-white font-bold">OG</span>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">OGads Username</p>
+                    <p className="font-semibold text-gray-900">{ogadsUsername}</p>
+                  </div>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-sm text-green-600 font-medium">Connected</span>
+                </div>
+              </div>
+              
+              <Alert className="bg-blue-50 border-blue-200">
+                <AlertCircle className="h-4 w-4 text-blue-600" />
+                <AlertDescription className="text-blue-700">
+                  Your OGads account is connected. This username was set during onboarding and cannot be changed for security reasons. 
+                  If you need to update it, please contact support.
+                </AlertDescription>
+              </Alert>
+            </div>
+          ) : isEditingOgads ? (
+            // Edit mode
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="ogads-username" className="text-gray-700">OGads Username</Label>
+                <Input
+                  id="ogads-username"
+                  type="text"
+                  placeholder="Enter your OGads username"
+                  value={tempOgadsUsername}
+                  onChange={(e) => setTempOgadsUsername(e.target.value)}
+                  className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+                />
+              </div>
+              
+              <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+                <p className="text-sm text-yellow-700">
+                  <strong>Important:</strong> Make sure you enter the correct OGads username. This will be used to connect your smartlinks and track your earnings.
+                </p>
+              </div>
+              
+              <div className="flex space-x-3">
+                <Button
+                  variant="outline"
+                  onClick={handleCancelEdit}
+                  disabled={isLoading}
+                  className="flex-1"
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleSaveOgadsUsername}
+                  className="flex-1 bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Saving..." : "Save Username"}
+                </Button>
+              </div>
+            </div>
+          ) : (
+            // Show form to add OGads username
+            <div className="space-y-4">
+              <div className="flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="flex items-center space-x-3">
+                  <AlertCircle className="w-5 h-5 text-yellow-600" />
+                  <div>
+                    <p className="font-medium text-yellow-800">OGads Account Not Connected</p>
+                    <p className="text-sm text-yellow-700">Connect your OGads account to access all features</p>
+                  </div>
+                </div>
+              </div>
+              
+              <Button
+                onClick={() => setIsEditingOgads(true)}
+                className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+              >
+                Add OGads Username
+              </Button>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Profile Information */}
       <Card className="border-gray-200">
         <CardHeader>
