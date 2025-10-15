@@ -19,7 +19,7 @@ const ProfileSection = () => {
   
   // Simulate checking if user completed onboarding
   // In a real app, this would come from user data/API
-  const hasCompletedOnboarding = true; // Change to false to test editable form
+  const hasCompletedOnboarding = false; // Change to false to test editable form
   
   // OGads username state
   const [ogadsUsername, setOgadsUsername] = useState(hasCompletedOnboarding ? "johndoe123" : "");
