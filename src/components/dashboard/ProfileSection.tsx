@@ -9,9 +9,11 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
 import { User, Lock, LogOut, Eye, EyeOff, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useUserData } from "@/hooks/use-user-data";
 
 const ProfileSection = () => {
   const navigate = useNavigate();
+  const { userData, setOgadsUsername } = useUserData();
   
   // Separate loading states for each action
   const [isUpdatingProfile, setIsUpdatingProfile] = useState(false);
@@ -22,15 +24,9 @@ const ProfileSection = () => {
   const [showNewPassword, setShowNewPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   
-  // Simulate checking if user completed onboarding
-  // In a real app, this would come from user data/API
-  const hasCompletedOnboarding = false; // Change to true to test locked form
-  
-  // OGads username state - this tracks if the user has set up their username
-  const [ogadsUsername, setOgadsUsername] = useState(hasCompletedOnboarding ? "johndoe123" : "");
-  const [hasSetOgadsUsername, setHasSetOgadsUsername] = useState(hasCompletedOnboarding);
+  // OGads username state
   const [isEditingOgads, setIsEditingOgads] = useState(false);
-  const [tempOgadsUsername, setTempOgadsUsername] = useState(ogadsUsername);
+  const [tempOgadsUsername, setTempOgadsUsername] = useState(userData.ogadsUsername);
   
   // Profile info state
   const [profileData, setProfileData] = useState({
@@ -94,15 +90,14 @@ const ProfileSection = () => {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Update the username and mark as set
+    // Update the username using the hook
     setOgadsUsername(tempOgadsUsername);
-    setHasSetOgadsUsername(true);
     setIsEditingOgads(false);
     setIsSavingOgads(false);
   };
 
   const handleCancelEdit = () => {
-    setTempOgadsUsername(ogadsUsername);
+    setTempOgadsUsername(userData.ogadsUsername);
     setIsEditingOgads(false);
   };
 
@@ -122,14 +117,14 @@ const ProfileSection = () => {
             <span>OGads Account Information</span>
           </CardTitle>
           <CardDescription>
-            {hasSetOgadsUsername 
+            {userData.hasSetOgadsUsername 
               ? "Your OGads username is connected to your account"
               : "Connect your OGads account to start earning with our templates"
             }
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          {hasSetOgadsUsername ? (
+          {userData.hasSetOgadsUsername ? (
             // Locked state - user has set up OGads username (either from onboarding or profile settings)
             <div className="space-y-4">
               <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
@@ -139,7 +134,7 @@ const ProfileSection = () => {
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">OGads Username</p>
-                    <p className="font-semibold text-gray-900">{ogadsUsername}</p>
+                    <p className="font-semibold text-gray-900">{userData.ogadsUsername}</p>
                   </div>
                 </div>
                 <div className="flex items-center space-x-2">

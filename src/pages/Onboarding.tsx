@@ -7,13 +7,15 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
+import { useUserData } from "@/hooks/use-user-data";
 
 const Onboarding = () => {
   const [step, setStep] = useState(1);
   const [selectedNetwork, setSelectedNetwork] = useState<string>("");
-  const [ogadsUsername, setOgadsUsername] = useState<string>("");
+  const [ogadsUsername, setOgadsUsernameState] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { setOgadsUsername, completeOnboarding } = useUserData();
 
   const handleNetworkSelect = (networkId: string) => {
     setSelectedNetwork(networkId);
@@ -26,6 +28,14 @@ const Onboarding = () => {
     // Simulate API call and processing time
     await new Promise(resolve => setTimeout(resolve, 2000));
     
+    // Save OGads username if provided
+    if (ogadsUsername.trim()) {
+      setOgadsUsername(ogadsUsername);
+    }
+    
+    // Mark onboarding as complete
+    completeOnboarding();
+    
     console.log("Onboarding completed with:", { selectedNetwork, ogadsUsername });
     
     // Redirect directly to dashboard after onboarding completion
@@ -37,6 +47,9 @@ const Onboarding = () => {
     
     // Simulate API call and processing time
     await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Mark onboarding as complete (without OGads username)
+    completeOnboarding();
     
     console.log("Onboarding completed with:", { selectedNetwork, ogadsUsername: "" });
     
@@ -158,7 +171,7 @@ const Onboarding = () => {
                         id="ogads-username"
                         placeholder="Your OGads username"
                         value={ogadsUsername}
-                        onChange={(e) => setOgadsUsername(e.target.value)}
+                        onChange={(e) => setOgadsUsernameState(e.target.value)}
                         className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00] py-6 rounded-xl"
                       />
                     </div>
