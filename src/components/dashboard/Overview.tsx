@@ -161,7 +161,7 @@ const Overview = () => {
       {/* Beginner Steps Section */}
       <div className="space-y-4">
         <h2 className="text-2xl font-bold text-gray-900">Getting Started</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {beginnerSteps.map((step) => {
             const Icon = step.icon;
             const isCompleted = step.status === "completed";
@@ -169,8 +169,8 @@ const Overview = () => {
             const buttonColor = "bg-[#FF7B00] hover:bg-[#FF8d21] text-white";
             
             return (
-              <Card key={step.id} className={`${step.bgColor} hover:shadow-lg transition-all duration-300`}>
-                <CardHeader className="pb-3">
+              <Card key={step.id} className={`${step.bgColor} hover:shadow-lg transition-all duration-300 h-full flex flex-col`}>
+                <CardHeader className="pb-3 flex-shrink-0">
                   <div className="flex items-center justify-between">
                     <div className={`p-2 rounded-lg bg-white ${statusColor}`}>
                       <Icon className="h-5 w-5" />
@@ -179,24 +179,24 @@ const Overview = () => {
                       <CheckCircle className="w-5 h-5 text-green-600" />
                     )}
                   </div>
-                  <CardTitle className="text-lg font-semibold text-gray-900">
+                  <CardTitle className="text-lg font-semibold text-gray-900 line-clamp-2">
                     {step.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
+                <CardContent className="space-y-4 flex-1 flex flex-col">
+                  <div className="space-y-2 flex-1">
                     {step.steps.map((stepText, index) => (
                       <div key={index} className="flex items-start space-x-2">
                         <div className={`w-5 h-5 rounded-full ${isCompleted ? 'bg-green-500' : 'bg-[#FFA652]'} flex items-center justify-center flex-shrink-0 mt-0.5`}>
                           <span className="text-white text-xs font-bold">{index + 1}</span>
                         </div>
-                        <p className="text-sm text-gray-700">{stepText}</p>
+                        <p className="text-sm text-gray-700 break-words">{stepText}</p>
                       </div>
                     ))}
                   </div>
                   <button
                     onClick={step.action}
-                    className={`w-full ${buttonColor} font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center`}
+                    className={`w-full ${buttonColor} font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center flex-shrink-0`}
                   >
                     {step.actionText}
                     <ArrowRight className="w-4 h-4 ml-2" />
