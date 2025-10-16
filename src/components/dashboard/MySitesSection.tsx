@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ExternalLink, Globe, AlertCircle, Clock, CheckCircle, XCircle, Settings, Copy } from "lucide-react";
+import { ExternalLink, Globe, AlertCircle, Clock, CheckCircle, XCircle, Settings, Copy, Link as LinkIcon } from "lucide-react";
 import { showSuccess, showError } from "@/utils/toast";
+import { useUserData } from "@/hooks/use-user-data";
 
 interface Site {
   id: string;
@@ -20,6 +21,7 @@ interface Site {
 
 const MySitesSection = () => {
   const navigate = useNavigate();
+  const { userData } = useUserData();
   const [sites, setSites] = useState<Site[]>([
     {
       id: "1",
@@ -128,8 +130,53 @@ const MySitesSection = () => {
     });
   };
 
+  // Check if there are any pending sites
+  const hasPendingSites = sites.some(site => site.status === "pending");
+
   return (
     <div className="space-y-6">
+      {/* Conditional Banners */}
+      {hasPendingSites && (
+        <>
+          {/* Banner for users who haven't set up OGads username */}
+          {!userData.hasSetOgadsUsername && (
+            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+              <div className="flex items-start space-x-3">
+                <LinkIcon className="w-5 h-5 text-yellow-600 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-yellow-800 mb-1">Verify Your OGads Username</h3>
+                  <p className="text-yellow-700 text-sm mb-3">
+                    To publish your websites, you need to set up your OGads username in your profile settings. This connects your smartlinks and enables earnings tracking.
+                  </p>
+                  <Button
+                    onClick={() => navigate("/dashboard?tab=profile")}
+                    className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                    size="sm"
+                  >
+                    Set Up OGads Username
+                  </Button>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Banner for users who have set up OGads username but account isn't approved */}
+          {userData.hasSetOgadsUsername && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+              <div className="flex items-start space-x-3">
+                <Clock className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-blue-800 mb-1">Account Approval Pending</h3>
+                  <p className="text-blue-700 text-sm">
+                    Your websites will be published after your account is approved. This is a one-time verification process that typically takes 24-72 hours.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+
       {/* Page Description Only */}
       <p className="text-gray-600">Manage your published landing pages and monitor their status</p>
 
