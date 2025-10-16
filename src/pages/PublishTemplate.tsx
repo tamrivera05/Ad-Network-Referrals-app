@@ -25,7 +25,7 @@ const PublishTemplate = () => {
   const [template, setTemplate] = useState<TemplateData | null>(null);
   const [isPublishing, setIsPublishing] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
-  const [userAccountStatus, setUserAccountStatus] = useState<"approved" | "pending">("approved");
+  const [userAccountStatus, setUserAccountStatus] = useState<"approved" | "pending">("pending");
   
   // Form data
   const [smartlink, setSmartlink] = useState("");
