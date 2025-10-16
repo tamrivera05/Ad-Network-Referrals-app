@@ -15,7 +15,8 @@ import PublishTemplate from "./pages/PublishTemplate";
 import EditSite from "./pages/EditSite";
 import DnsGuide from "./pages/DnsGuide";
 import SmartlinkGuide from "./pages/SmartlinkGuide";
-import NotFound from "./pages/NotFound";
+import NotFound from "./pages/404";
+import ServerError from "./pages/500";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,8 @@ const App = () => (
           <Route path="/edit-site/:id" element={<EditSite />} />
           <Route path="/dns-guide" element={<DnsGuide />} />
           <Route path="/smartlink-guide" element={<SmartlinkGuide />} />
+          <Route path="/404" element={<NotFound />} />
+          <Route path="/500" element={<ServerError />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
