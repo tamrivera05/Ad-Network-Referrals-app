@@ -8,7 +8,6 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import Onboarding from "./pages/Onboarding";
 import ConfirmationSent from "./pages/ConfirmationSent";
-import AccountPending from "./pages/AccountPending";
 import Dashboard from "./pages/Dashboard";
 import TemplateDetail from "./pages/TemplateDetail";
 import PublishTemplate from "./pages/PublishTemplate";
@@ -32,7 +31,6 @@ const App = () => (
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/confirmation-sent" element={<ConfirmationSent />} />
-          <Route path="/account-pending" element={<AccountPending />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/template/:id" element={<TemplateDetail />} />
           <Route path="/publish-template" element={<PublishTemplate />} />
