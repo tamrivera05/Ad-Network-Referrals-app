@@ -39,15 +39,6 @@ const ServerError = () => {
                 We're sorry, but something unexpected happened on our end. 
                 Our team has been notified and is working to fix this issue.
               </p>
-
-              {/* Error Status Alert */}
-              <Alert className="bg-red-50 border-red-200 max-w-2xl mx-auto mt-8">
-                <AlertTriangle className="h-4 w-4 text-red-600" />
-                <AlertDescription className="text-red-700">
-                  <strong>Error ID:</strong> ERR-{Date.now().toString(36).toUpperCase()}<br />
-                  This error has been automatically logged for our technical team.
-                </AlertDescription>
-              </Alert>
             </div>
           </div>
         </div>
