@@ -7,8 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { CheckCircle, ExternalLink, Globe, Link, AlertCircle, ArrowLeft, Loader2 } from "lucide-react";
+import { CheckCircle, ExternalLink, Globe, Link, AlertCircle, ArrowLeft, Loader2, UserPlus } from "lucide-react";
 import { showSuccess, showError } from "@/utils/toast";
+import { useUserData } from "@/hooks/use-user-data";
 import Sidebar from "@/components/dashboard/Sidebar";
 
 interface TemplateData {
@@ -25,7 +26,7 @@ const PublishTemplate = () => {
   const [template, setTemplate] = useState<TemplateData | null>(null);
   const [isPublishing, setIsPublishing] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
-  const [userAccountStatus, setUserAccountStatus] = useState<"approved" | "pending">("pending");
+  const { userData } = useUserData();
   
   // Form data
   const [smartlink, setSmartlink] = useState("");
@@ -69,6 +70,10 @@ const PublishTemplate = () => {
 
   const handleFinish = () => {
     navigate("/dashboard?tab=sites");
+  };
+
+  const handleSetupOgads = () => {
+    navigate("/dashboard?tab=profile");
   };
 
   if (!template) {
@@ -139,205 +144,246 @@ const PublishTemplate = () => {
             </CardContent>
           </Card>
 
-          {/* Publish Form */}
-          {!isPublished ? (
+          {/* OGads Username Verification Card - Only shown if user hasn't set up OGads username */}
+          {!userData.hasSetOgadsUsername && !isPublished && (
+            <Card className="mb-6 border-yellow-200 bg-yellow-50">
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                      <UserPlus className="w-6 h-6 text-yellow-600" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-semibold text-yellow-900 mb-2">
+                      Set Up Your OGads Username
+                    </h3>
+                    <p className="text-yellow-700 mb-4">
+                      Before you can publish templates, you need to set up your OGads username in your profile settings. This connects your smartlinks and enables earnings tracking.
+                    </p>
+                    <div className="flex space-x-3">
+                      <Button
+                        onClick={handleSetupOgads}
+                        className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                      >
+                        Set Up OGads Username
+                      </Button>
+                      <Button
+                        variant="outline"
+                        onClick={handleBack}
+                        className="border-yellow-300 text-yellow-700 hover:bg-yellow-100"
+                      >
+                        Back to Templates
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Publish Form - Only shown if user has set up OGads username or after publishing */}
+          {(userData.hasSetOgadsUsername || isPublished) && (
             <div className="space-y-6">
-              {/* OGads Smartlink Section */}
-              <Card className="border-gray-200">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Link className="w-5 h-5 text-[#FF7B00]" />
-                    <span>Enter Your OGads Smartlink</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Provide the smartlink you received from OGads to connect your offers
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="smartlink" className="text-gray-700">OGads Smartlink</Label>
-                    <Input
-                      id="smartlink"
-                      type="url"
-                      placeholder="https://ogads.com/smartlink/..."
-                      value={smartlink}
-                      onChange={(e) => setSmartlink(e.target.value)}
-                      className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
-                      disabled={isPublishing}
-                      required
-                    />
-                  </div>
-                  
-                  <Alert className="bg-blue-50 border-blue-200">
-                    <ExternalLink className="h-4 w-4 text-blue-600" />
-                    <AlertDescription className="text-blue-700">
-                      <span className="font-medium">Need help getting your smartlink?</span>
-                      <a 
-                        href="https://ogads.com/help/smartlink" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="ml-1 text-blue-600 hover:underline"
-                      >
-                        Learn how to get your OGads smartlink →
-                      </a>
-                    </AlertDescription>
-                  </Alert>
-                </CardContent>
-              </Card>
+              {!isPublished ? (
+                <>
+                  {/* OGads Smartlink Section */}
+                  <Card className="border-gray-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center space-x-2">
+                        <Link className="w-5 h-5 text-[#FF7B00]" />
+                        <span>Enter Your OGads Smartlink</span>
+                      </CardTitle>
+                      <CardDescription>
+                        Provide the smartlink you received from OGads to connect your offers
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="smartlink" className="text-gray-700">OGads Smartlink</Label>
+                        <Input
+                          id="smartlink"
+                          type="url"
+                          placeholder="https://ogads.com/smartlink/..."
+                          value={smartlink}
+                          onChange={(e) => setSmartlink(e.target.value)}
+                          className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+                          disabled={isPublishing}
+                          required
+                        />
+                      </div>
+                      
+                      <Alert className="bg-blue-50 border-blue-200">
+                        <ExternalLink className="h-4 w-4 text-blue-600" />
+                        <AlertDescription className="text-blue-700">
+                          <span className="font-medium">Need help getting your smartlink?</span>
+                          <a 
+                            href="https://ogads.com/help/smartlink" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="ml-1 text-blue-600 hover:underline"
+                          >
+                            Learn how to get your OGads smartlink →
+                          </a>
+                        </AlertDescription>
+                      </Alert>
+                    </CardContent>
+                  </Card>
 
-              {/* Domain Name Section */}
-              <Card className="border-gray-200">
-                <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
-                    <Globe className="w-5 h-5 text-[#FF7B00]" />
-                    <span>Enter Your Domain Name</span>
-                  </CardTitle>
-                  <CardDescription>
-                    Provide your custom domain where the site will be published
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="domain" className="text-gray-700">Domain Name</Label>
-                    <Input
-                      id="domain"
-                      type="text"
-                      placeholder="yourdomain.com"
-                      value={domainName}
-                      onChange={(e) => setDomainName(e.target.value)}
-                      className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
-                      disabled={isPublishing}
-                      required
-                    />
-                  </div>
-                  
-                  <Alert className="bg-green-50 border-green-200">
-                    <ExternalLink className="h-4 w-4 text-green-600" />
-                    <AlertDescription className="text-green-700">
-                      <span className="font-medium">Need help with DNS setup?</span>
-                      <a 
-                        href="https://help.cloudflare.com/dns-setup/" 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="block mt-1 text-green-600 hover:underline"
-                      >
-                        Learn how to set up DNS with Cloudflare, GoDaddy, and more →
-                      </a>
-                    </AlertDescription>
-                  </Alert>
-                </CardContent>
-              </Card>
+                  {/* Domain Name Section */}
+                  <Card className="border-gray-200">
+                    <CardHeader>
+                      <CardTitle className="flex items-center space-x-2">
+                        <Globe className="w-5 h-5 text-[#FF7B00]" />
+                        <span>Enter Your Domain Name</span>
+                      </CardTitle>
+                      <CardDescription>
+                        Provide your custom domain where the site will be published
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="domain" className="text-gray-700">Domain Name</Label>
+                        <Input
+                          id="domain"
+                          type="text"
+                          placeholder="yourdomain.com"
+                          value={domainName}
+                          onChange={(e) => setDomainName(e.target.value)}
+                          className="border-gray-300 focus:border-[#FF7B00] focus:ring-[#FF7B00]"
+                          disabled={isPublishing}
+                          required
+                        />
+                      </div>
+                      
+                      <Alert className="bg-green-50 border-green-200">
+                        <ExternalLink className="h-4 w-4 text-green-600" />
+                        <AlertDescription className="text-green-700">
+                          <span className="font-medium">Need help with DNS setup?</span>
+                          <a 
+                            href="https://help.cloudflare.com/dns-setup/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="block mt-1 text-green-600 hover:underline"
+                          >
+                            Learn how to set up DNS with Cloudflare, GoDaddy, and more →
+                          </a>
+                        </AlertDescription>
+                      </Alert>
+                    </CardContent>
+                  </Card>
 
-              {/* Action Buttons */}
-              <div className="flex space-x-4">
-                <Button 
-                  variant="outline" 
-                  onClick={handleBack}
-                  className="flex-1"
-                  disabled={isPublishing}
-                >
-                  Back
-                </Button>
-                <Button 
-                  onClick={handlePublish}
-                  className="flex-1 bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                  disabled={isPublishing}
-                >
-                  {isPublishing ? (
-                    <>
-                      <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                      Publishing...
-                    </>
-                  ) : (
-                    "Publish Site"
-                  )}
-                </Button>
-              </div>
-            </div>
-          ) : (
-            /* Success State */
-            <div>
-              {userAccountStatus === "approved" ? (
-                <Card className="border-gray-200">
-                  <CardContent className="space-y-6 py-8">
-                    <div className="text-center">
-                      <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                        <CheckCircle className="w-8 h-8 text-green-600" />
-                      </div>
-                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Site Published Successfully!</h2>
-                      <p className="text-gray-600 mb-6">
-                        Your site is now live at <span className="font-semibold text-[#FF7B00]">https://{domainName}</span>
-                      </p>
-                    </div>
-                    
-                    <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Template:</span>
-                        <span className="font-medium text-gray-900">{template.title}</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Domain:</span>
-                        <span className="font-medium text-gray-900">{domainName}</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Smartlink:</span>
-                        <span className="font-medium text-gray-900 truncate max-w-xs">{smartlink}</span>
-                      </div>
-                    </div>
-                    
+                  {/* Action Buttons */}
+                  <div className="flex space-x-4">
                     <Button 
-                      onClick={handleFinish}
-                      className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                      variant="outline" 
+                      onClick={handleBack}
+                      className="flex-1"
+                      disabled={isPublishing}
                     >
-                      View My Sites
+                      Back
                     </Button>
-                  </CardContent>
-                </Card>
+                    <Button 
+                      onClick={handlePublish}
+                      className="flex-1 bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                      disabled={isPublishing}
+                    >
+                      {isPublishing ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Publishing...
+                        </>
+                      ) : (
+                        "Publish Site"
+                      )}
+                    </Button>
+                  </div>
+                </>
               ) : (
-                <Card className="border-gray-200">
-                  <CardContent className="space-y-6 py-8">
-                    <div className="text-center">
-                      <div className="mx-auto w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-4">
-                        <AlertCircle className="w-8 h-8 text-yellow-600" />
+                /* Success State */
+                <div>
+                  <Card className="border-gray-200">
+                    <CardContent className="space-y-6 py-8">
+                      <div className="text-center">
+                        <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                          <CheckCircle className="w-8 h-8 text-green-600" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Site Published Successfully!</h2>
+                        <p className="text-gray-600 mb-6">
+                          Your site is now live at <span className="font-semibold text-[#FF7B00]">https://{domainName}</span>
+                        </p>
                       </div>
-                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Under Review</h2>
-                      <p className="text-gray-600 mb-6">
-                        Your site has been submitted and is pending approval
-                      </p>
-                    </div>
-                    
-                    <Alert className="bg-yellow-50 border-yellow-200">
-                      <AlertCircle className="h-4 w-4 text-yellow-600" />
-                      <AlertDescription className="text-yellow-700">
-                        <span className="font-medium">Important:</span> Your account is currently under review. 
-                        Your site will be approved within <span className="font-bold">24-72 hours</span>. 
-                        This is a one-time verification process. Once approved, your future sites will be published automatically without requiring approval.
-                      </AlertDescription>
-                    </Alert>
-                    
-                    <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Template:</span>
-                        <span className="font-medium text-gray-900">{template.title}</span>
+                      
+                      <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Template:</span>
+                          <span className="font-medium text-gray-900">{template.title}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Domain:</span>
+                          <span className="font-medium text-gray-900">{domainName}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Smartlink:</span>
+                          <span className="font-medium text-gray-900 truncate max-w-xs">{smartlink}</span>
+                        </div>
                       </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Domain:</span>
-                        <span className="font-medium text-gray-900">{domainName}</span>
+                      
+                      <Button 
+                        onClick={handleFinish}
+                        className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                      >
+                        View My Sites
+                      </Button>
+                    </CardContent>
+                  </Card>
+
+                  {/* Account Pending Card - Only shown if user has OGads username but account isn't approved */}
+                  <Card className="border-blue-200 bg-blue-50">
+                    <CardContent className="space-y-6 py-8">
+                      <div className="text-center">
+                        <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
+                          <AlertCircle className="w-8 h-8 text-blue-600" />
+                        </div>
+                        <h2 className="text-2xl font-bold text-gray-900 mb-2">Account Under Review</h2>
+                        <p className="text-gray-600 mb-6">
+                          Your site has been submitted and is pending approval
+                        </p>
                       </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-600">Status:</span>
-                        <span className="font-medium text-yellow-600">Pending Approval</span>
+                      
+                      <Alert className="bg-blue-100 border-blue-300">
+                        <AlertCircle className="h-4 w-4 text-blue-600" />
+                        <AlertDescription className="text-blue-700">
+                          <span className="font-medium">Important:</span> Your account is currently under review. 
+                          Your site will be approved within <span className="font-bold">24-72 hours</span>. 
+                          This is a one-time verification process. Once approved, your future sites will be published automatically without requiring approval.
+                        </AlertDescription>
+                      </Alert>
+                      
+                      <div className="bg-gray-50 rounded-lg p-4 space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Template:</span>
+                          <span className="font-medium text-gray-900">{template.title}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Domain:</span>
+                          <span className="font-medium text-gray-900">{domainName}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Status:</span>
+                          <span className="font-medium text-blue-600">Pending Approval</span>
+                        </div>
                       </div>
-                    </div>
-                    
-                    <Button 
-                      onClick={handleFinish}
-                      className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
-                    >
-                      View My Sites
-                    </Button>
-                  </CardContent>
-                </Card>
+                      
+                      <Button 
+                        onClick={handleFinish}
+                        className="w-full bg-[#FF7B00] hover:bg-[#FF8d21] text-white"
+                      >
+                        View My Sites
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </div>
               )}
             </div>
           )}
